@@ -1,12 +1,13 @@
 import React from 'react';
+
 import GlobalStyles from './styles/GlobalStyles';
-import Title from './components/Title';
+import KanbanPage from './pages/KanbanPage';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Title>Title1</Title>
+      <KanbanPage />
     </>
   );
 }
