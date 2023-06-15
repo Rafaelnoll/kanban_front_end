@@ -16,6 +16,10 @@ const GlobalStyles = createGlobalStyle`
         background-color: ${theme.color.primary};
       `}
     }
+
+    textarea:focus, input:focus {
+      outline: none;
+    }
 `;
 
 export default GlobalStyles;
