@@ -20,5 +20,8 @@
         "react"
     ],
     "rules": {
-    }
+    },
+    "ignorePatterns": [
+      "webpack.config.*"
+    ]
 }
