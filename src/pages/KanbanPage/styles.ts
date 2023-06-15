@@ -26,4 +26,13 @@ export const MainContent = styled.main`
   `}
 `;
 
+export const TopContent = styled.main`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ${theme.spacing.medium};
+  `}
+`;
+
 export const Image = styled.img``;
