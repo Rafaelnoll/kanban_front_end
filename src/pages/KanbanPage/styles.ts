@@ -20,4 +20,10 @@ export const Header = styled.header`
   align-items: center;
 `;
 
+export const MainContent = styled.main`
+  ${({ theme }) => css`
+    margin-top: ${theme.spacing.big};
+  `}
+`;
+
 export const Image = styled.img``;
