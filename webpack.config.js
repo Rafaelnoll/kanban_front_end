@@ -18,6 +18,9 @@ module.exports = {
             }
         ],
     },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js']
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'public', 'index.html')
