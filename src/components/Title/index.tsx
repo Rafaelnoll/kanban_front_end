@@ -1,7 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export default styled.h1`
-  color: #403937;
-  font-weight: bold;
-  font-size: 2rem;
+  ${({ theme }) => css`
+    color: ${theme.color.text}
+    font-weight: bold;
+    font-size: ${theme.size.large};
+  `}
 `;
