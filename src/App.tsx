@@ -1,11 +1,12 @@
 import React from 'react';
 import GlobalStyles from './styles/GlobalStyles';
+import Title from './components/Title';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <h1>Hello word!</h1>
+      <Title>Title1</Title>
     </>
   );
 }
