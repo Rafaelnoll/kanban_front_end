@@ -3,7 +3,9 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   ${({ theme }) => css`
     background-color: ${theme.color.background};
-    margin: ${theme.spacing.large};
+    padding: ${theme.spacing.large};
+    margin-top: 3px;
+    border-top-left-radius: 32px;
   `}
 `;
 
