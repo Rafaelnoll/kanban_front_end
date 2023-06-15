@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
       font-family: 'Inter', sans-serif;
     }
 
-    body {
+    html > body {
       ${({ theme }) => css`
         background-color: ${theme.color.primary};
       `}
