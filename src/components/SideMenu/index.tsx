@@ -17,9 +17,8 @@ function SideMenu() {
           {routes.map((route) => (
             <Button
               key={route.name}
-              asLink
+              link={route.path}
               transparent="true"
-              href={route.path}
               text={route.name}
               icon={route.icon}
             />

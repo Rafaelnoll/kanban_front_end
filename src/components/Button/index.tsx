@@ -6,19 +6,17 @@ interface ButtonProps {
   text: string;
   icon?: FunctionComponent<React.SVGAttributes<SVGElement>> | null;
   transparent?: 'false' | 'true';
-  asLink?: boolean;
-  href?: string;
+  link?: string;
 }
 
 function Button({
   text,
   icon: Icon = null,
   transparent = 'false',
-  asLink = false,
-  href = '',
+  link = '',
 }: ButtonProps) {
   return (
-    <S.Button as={asLink ? 'a' : ''} href={href} transparent={transparent}>
+    <S.Button as={link ? 'a' : ''} href={link} transparent={transparent}>
       {Icon && <Icon />}
       <S.Text>{text}</S.Text>
     </S.Button>
