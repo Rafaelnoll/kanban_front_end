@@ -39,5 +39,3 @@ export const TopContent = styled.main`
     gap: ${theme.spacing.medium};
   `}
 `;
-
-export const Image = styled.img``;

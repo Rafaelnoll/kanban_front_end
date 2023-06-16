@@ -18,7 +18,7 @@ function Input({ placeholder }: InputProp) {
 
   return (
     <S.Container onClick={handleClickOnInput}>
-      <S.Icon src={SearchIcon as unknown as string} />
+      <SearchIcon />
       <S.Input placeholder={placeholder} ref={inputRef} />
     </S.Container>
   );

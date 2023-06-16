@@ -19,7 +19,7 @@ function KanbanPage() {
         <S.Header>
           <S.TitleContainer>
             <Title>Meu Kanban</Title>
-            <S.Image src={PenIcon as unknown as string} />
+            <PenIcon />
           </S.TitleContainer>
 
           <ProfilePhoto />
@@ -27,7 +27,7 @@ function KanbanPage() {
 
         <S.MainContent>
           <S.TopContent>
-            <Button text="Filtrar" icon={FilterIcon as unknown as string} />
+            <Button text="Filtrar" icon={FilterIcon} />
             <Input placeholder="Busque por cards, assuntos ou responsáveis..." />
           </S.TopContent>
           <TasksSection />

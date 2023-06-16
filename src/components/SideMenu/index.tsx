@@ -11,7 +11,7 @@ function SideMenu() {
   return (
     <S.Container>
       <S.Content>
-        <S.LogoImage src={Logo as unknown as string} />
+        <Logo />
 
         <S.ButtonsContainer>
           {routes.map((route) => (
@@ -21,7 +21,7 @@ function SideMenu() {
               transparent="true"
               href={route.path}
               text={route.name}
-              icon={route.icon ? route.icon : ''}
+              icon={route.icon}
             />
           ))}
         </S.ButtonsContainer>

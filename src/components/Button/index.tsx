@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import * as S from './styles';
 
 interface ButtonProps {
   text: string;
-  icon?: string;
+  icon?: FunctionComponent<React.SVGAttributes<SVGElement>> | null;
   transparent?: 'false' | 'true';
   asLink?: boolean;
   href?: string;
@@ -12,14 +12,14 @@ interface ButtonProps {
 
 function Button({
   text,
-  icon = '',
+  icon: Icon = null,
   transparent = 'false',
   asLink = false,
   href = '',
 }: ButtonProps) {
   return (
     <S.Button as={asLink ? 'a' : ''} href={href} transparent={transparent}>
-      {icon && <S.Icon src={icon} />}
+      {Icon && <Icon />}
       <S.Text>{text}</S.Text>
     </S.Button>
   );

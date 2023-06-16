@@ -18,7 +18,10 @@ export const MenuLink = styled.a`
     padding: ${theme.spacing.medium};
 
     flex: 1;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: ${theme.spacing.small};
 
     &:hover {
       background-color: ${theme.color.secondary};
@@ -27,6 +30,8 @@ export const MenuLink = styled.a`
     transition: background-color 0.5s;
   `}
 `;
+
+export const Icon = styled.img``;
 
 export const ButtonsContainer = styled.div`
   border-top-left-radius: 32px;
