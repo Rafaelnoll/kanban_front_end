@@ -27,7 +27,7 @@ function KanbanPage() {
 
         <S.MainContent>
           <S.TopContent>
-            <Button text="Filtrar" icon={FilterIcon} />
+            <Button responsive="true" text="Filtrar" icon={FilterIcon} />
             <Input placeholder="Busque por cards, assuntos ou responsáveis..." />
           </S.TopContent>
           <TasksSection />

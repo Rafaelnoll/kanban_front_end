@@ -10,6 +10,7 @@ export const Container = styled.div`
     @media ${theme.media.mobile} {
       border-radius: 0;
       margin-top: 0;
+      padding: ${theme.spacing.big};
     }
   `}
 `;
