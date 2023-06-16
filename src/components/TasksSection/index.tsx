@@ -17,6 +17,14 @@ function TasksSection() {
         euismod."
             category="Programação"
           />
+          <Task
+            title="#Bora codar um kanban"
+            description="        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
+        tempor mauris. Quisque ullamcorper aliquet ex, in mattis mauris ornare
+        in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
+        euismod."
+            category="Programação"
+          />
         </S.TasksList>
       </S.TasksContainer>
 
@@ -28,6 +36,14 @@ function TasksSection() {
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
         tempor mauris."
             category="Estudo"
+          />
+          <Task
+            title="#Bora codar um kanban"
+            description="        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
+        tempor mauris. Quisque ullamcorper aliquet ex, in mattis mauris ornare
+        in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
+        euismod."
+            category="Programação"
           />
         </S.TasksList>
       </S.TasksContainer>
@@ -41,6 +57,14 @@ function TasksSection() {
         in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
         euismod."
             category="Saúde"
+          />
+          <Task
+            title="#Bora codar um kanban"
+            description="        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
+        tempor mauris. Quisque ullamcorper aliquet ex, in mattis mauris ornare
+        in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
+        euismod."
+            category="Programação"
           />
         </S.TasksList>
       </S.TasksContainer>

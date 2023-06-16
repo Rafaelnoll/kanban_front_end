@@ -11,6 +11,10 @@ export const Container = styled.div`
     flex-direction: column;
     gap: ${theme.spacing.medium};
     max-width: 400px;
+
+    @media ${theme.media.tablet} {
+      flex: 1;
+    }
   `}
 `;
 

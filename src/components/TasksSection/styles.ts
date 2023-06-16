@@ -6,6 +6,10 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: ${theme.spacing.large};
+
+    @media ${theme.media.tablet} {
+      grid-template-columns: 1fr;
+    }
   `}
 `;
 
@@ -25,5 +29,10 @@ export const TasksList = styled.div`
     flex-direction: column;
     gap: ${theme.spacing.medium};
     margin-top: ${theme.spacing.medium};
+
+    @media ${theme.media.tablet} {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   `}
 `;
