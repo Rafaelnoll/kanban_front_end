@@ -20,6 +20,10 @@ const GlobalStyles = createGlobalStyle`
     textarea:focus, input:focus {
       outline: none;
     }
+
+    a {
+      text-decoration: none;
+    }
 `;
 
 export default GlobalStyles;
