@@ -24,5 +24,6 @@ export default {
   media: {
     tablet: '(max-width: 1150px)',
     mobile: '(max-width: 750px)',
+    not_mobile: '(min-width: 750px)',
   },
 };
