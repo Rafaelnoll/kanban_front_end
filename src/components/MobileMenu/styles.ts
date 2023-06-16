@@ -27,6 +27,10 @@ export const MenuLink = styled.a`
       background-color: ${theme.color.secondary};
     }
 
+    & svg {
+      color: ${theme.color.primary};
+    }
+
     transition: background-color 0.5s;
   `}
 `;
