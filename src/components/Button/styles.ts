@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface ButtonProps {
-  transparent?: boolean;
+  transparent?: 'false' | 'true';
 }
 
 export const Text = styled.span``;
@@ -9,7 +9,9 @@ export const Text = styled.span``;
 export const Button = styled.button<ButtonProps>`
   ${({ theme, transparent, as }) => css`
     color: ${theme.color.white};
-    background-color: ${transparent ? 'transparent' : theme.color.primary};
+    background-color: ${transparent === 'true'
+      ? 'transparent'
+      : theme.color.primary};
     padding: ${theme.spacing.medium} ${as ? 0 : theme.spacing.big};
     border: none;
     border-radius: 5px;

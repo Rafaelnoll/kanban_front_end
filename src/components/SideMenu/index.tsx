@@ -15,8 +15,8 @@ function SideMenu() {
         <S.ButtonsContainer>
           <Button
             asLink
+            transparent="true"
             href="#"
-            transparent
             text="Boards"
             icon={BoardsIcon as unknown as string}
           />

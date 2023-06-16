@@ -5,7 +5,7 @@ import * as S from './styles';
 interface ButtonProps {
   text: string;
   icon?: string;
-  transparent?: boolean;
+  transparent?: 'false' | 'true';
   asLink?: boolean;
   href?: string;
 }
@@ -13,7 +13,7 @@ interface ButtonProps {
 function Button({
   text,
   icon = '',
-  transparent = false,
+  transparent = 'false',
   asLink = false,
   href = '',
 }: ButtonProps) {
