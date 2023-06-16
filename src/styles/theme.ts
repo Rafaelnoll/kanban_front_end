@@ -22,7 +22,7 @@ export default {
     large: '3rem',
   },
   media: {
-    tablet: '(max-width: 1000px)',
+    tablet: '(max-width: 1150px)',
     mobile: '(max-width: 750px)',
   },
 };
