@@ -21,4 +21,8 @@ export default {
     big: '2rem',
     large: '3rem',
   },
+  media: {
+    tablet: '(max-width: 1000px)',
+    mobile: '(max-width: 750px)',
+  },
 };
