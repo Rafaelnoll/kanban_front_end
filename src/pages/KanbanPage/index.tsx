@@ -8,6 +8,7 @@ import Title from '../../components/Title';
 import ProfilePhoto from '../../components/ProfilePhoto';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import TasksSection from '../../components/TasksSection';
 
 function KanbanPage() {
   return (
@@ -26,6 +27,7 @@ function KanbanPage() {
           <Button text="Filtrar" icon={FilterIcon as unknown as string} />
           <Input placeholder="Busque por cards, assuntos ou responsáveis..." />
         </S.TopContent>
+        <TasksSection />
       </S.MainContent>
     </S.Container>
   );
