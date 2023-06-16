@@ -1,9 +1,13 @@
 import styled, { css } from 'styled-components';
 
-export const Button = styled.button`
-  ${({ theme }) => css`
+interface ButtonProps {
+  transparent?: boolean;
+}
+
+export const Button = styled.button<ButtonProps>`
+  ${({ theme, transparent }) => css`
     color: ${theme.color.white};
-    background-color: ${theme.color.primary};
+    background-color: ${transparent ? 'transparent' : theme.color.primary};
     padding: ${theme.spacing.medium} ${theme.spacing.big};
     border: none;
     border-radius: 5px;
