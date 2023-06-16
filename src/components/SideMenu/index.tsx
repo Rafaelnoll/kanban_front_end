@@ -1,8 +1,9 @@
 import React from 'react';
 
+import routes from '../../routes';
 import * as S from './styles';
+
 import Logo from '../../assets/logo.svg';
-import BoardsIcon from '../../assets/board-icon.svg';
 
 import Button from '../Button';
 
@@ -13,13 +14,16 @@ function SideMenu() {
         <S.LogoImage src={Logo as unknown as string} />
 
         <S.ButtonsContainer>
-          <Button
-            asLink
-            transparent="true"
-            href="#"
-            text="Boards"
-            icon={BoardsIcon as unknown as string}
-          />
+          {routes.map((route) => (
+            <Button
+              key={route.name}
+              asLink
+              transparent="true"
+              href={route.path}
+              text={route.name}
+              icon={route.icon ? route.icon : ''}
+            />
+          ))}
         </S.ButtonsContainer>
       </S.Content>
     </S.Container>
