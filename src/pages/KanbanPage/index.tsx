@@ -9,27 +9,31 @@ import ProfilePhoto from '../../components/ProfilePhoto';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import TasksSection from '../../components/TasksSection';
+import MobileMenu from '../../components/MobileMenu';
 
 function KanbanPage() {
   return (
-    <S.Container>
-      <S.Header>
-        <S.TitleContainer>
-          <Title>Meu Kanban</Title>
-          <S.Image src={PenIcon as unknown as string} />
-        </S.TitleContainer>
+    <>
+      <MobileMenu />
+      <S.Container>
+        <S.Header>
+          <S.TitleContainer>
+            <Title>Meu Kanban</Title>
+            <S.Image src={PenIcon as unknown as string} />
+          </S.TitleContainer>
 
-        <ProfilePhoto />
-      </S.Header>
+          <ProfilePhoto />
+        </S.Header>
 
-      <S.MainContent>
-        <S.TopContent>
-          <Button text="Filtrar" icon={FilterIcon as unknown as string} />
-          <Input placeholder="Busque por cards, assuntos ou responsáveis..." />
-        </S.TopContent>
-        <TasksSection />
-      </S.MainContent>
-    </S.Container>
+        <S.MainContent>
+          <S.TopContent>
+            <Button text="Filtrar" icon={FilterIcon as unknown as string} />
+            <Input placeholder="Busque por cards, assuntos ou responsáveis..." />
+          </S.TopContent>
+          <TasksSection />
+        </S.MainContent>
+      </S.Container>
+    </>
   );
 }
 

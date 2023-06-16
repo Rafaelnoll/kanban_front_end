@@ -4,6 +4,10 @@ export const Container = styled.div`
   ${({ theme }) => css`
     background-color: ${theme.color.primary};
     height: 100vh;
+
+    @media ${theme.media.mobile} {
+      height: auto;
+    }
   `}
 `;
 
@@ -21,5 +25,9 @@ export const ButtonsContainer = styled.div`
     flex-direction: column;
     gap: ${theme.spacing.small};
     margin-top: ${theme.spacing.large};
+
+    @media ${theme.media.mobile} {
+      display: none;
+    }
   `}
 `;

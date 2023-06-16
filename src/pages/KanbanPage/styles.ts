@@ -6,6 +6,11 @@ export const Container = styled.div`
     padding: ${theme.spacing.large};
     margin-top: 3px;
     border-top-left-radius: 32px;
+
+    @media ${theme.media.mobile} {
+      border-radius: 0;
+      margin-top: 0;
+    }
   `}
 `;
 

@@ -1,6 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: 200px 1fr;
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: 200px 1fr;
+
+    @media ${theme.media.mobile} {
+      grid-template-columns: 1fr;
+    }
+  `}
 `;
