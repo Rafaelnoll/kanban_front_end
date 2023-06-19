@@ -49,7 +49,6 @@ export const ModalHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: ${theme.spacing.big};
 
     svg {
       color: ${theme.color.text};
@@ -58,11 +57,12 @@ export const ModalHeader = styled.header`
   `}
 `;
 
-export const ModalBody = styled.header`
+export const ModalBody = styled.main`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.small};
+    margin: ${theme.spacing.medium} 0;
   `}
 `;
 
