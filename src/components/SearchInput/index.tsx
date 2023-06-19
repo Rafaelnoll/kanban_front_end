@@ -7,7 +7,7 @@ interface InputProp {
   placeholder?: string;
 }
 
-function Input({ placeholder }: InputProp) {
+function SearchInput({ placeholder }: InputProp) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   function handleClickOnInput() {
@@ -24,4 +24,4 @@ function Input({ placeholder }: InputProp) {
   );
 }
 
-export default Input;
+export default SearchInput;
