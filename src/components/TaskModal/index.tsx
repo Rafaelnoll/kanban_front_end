@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as S from './styles';
 import CloseIcon from '../../assets/close-circle.svg';
+import CategoryIcon from '../../assets/category-icon.svg';
+
 import Input from '../Input';
+import CategorySelector from '../CategorySelector';
+import { Category } from '../../interfaces/Category';
+import CategoryController from '../../controllers/CategoryController';
 
 interface TaskModalProps {
   title: string;
@@ -11,6 +16,17 @@ interface TaskModalProps {
 }
 
 function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    async function loadCategories() {
+      const categories = await CategoryController.index();
+      setCategories(categories);
+    }
+
+    loadCategories();
+  }, []);
+
   return (
     <S.Container>
       <S.ModalContainer>
@@ -22,6 +38,11 @@ function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
         <S.ModalBody>
           <Input placeholder="Titulo" />
           <Input asTextarea placeholder="Descrição..." />
+          <CategorySelector
+            categories={categories}
+            icon={CategoryIcon}
+            defaultValue="Sem categoria"
+          />
         </S.ModalBody>
 
         <S.ModalFooter>
