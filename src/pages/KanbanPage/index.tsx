@@ -7,7 +7,7 @@ import FilterIcon from '../../assets/filter-icon.svg';
 import Title from '../../components/Title';
 import ProfilePhoto from '../../components/ProfilePhoto';
 import Button from '../../components/Button';
-import Input from '../../components/Input';
+import SearchInput from '../../components/SearchInput';
 import TasksSection from '../../components/TasksSection';
 import MobileMenu from '../../components/MobileMenu';
 
@@ -28,7 +28,7 @@ function KanbanPage() {
         <S.MainContent>
           <S.TopContent>
             <Button responsive="true" text="Filtrar" icon={FilterIcon} />
-            <Input placeholder="Busque por cards, assuntos ou responsáveis..." />
+            <SearchInput placeholder="Busque por cards, assuntos ou responsáveis..." />
           </S.TopContent>
           <TasksSection />
         </S.MainContent>
