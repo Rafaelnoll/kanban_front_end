@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
       `}
     }
 
-    textarea:focus, input:focus {
+    textarea:focus, input:focus, select:focus {
       outline: none;
     }
 
