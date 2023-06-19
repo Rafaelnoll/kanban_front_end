@@ -2,12 +2,17 @@ import React from 'react';
 
 import * as S from './styles';
 import Task from '../Task';
+import AddIcon from '../../assets/add-icon.svg';
 
 function TasksSection() {
   return (
     <S.Container>
       <S.TasksContainer>
-        <S.Label>A fazer</S.Label>
+        <S.TasksContainerHeader>
+          <S.Label>A fazer</S.Label>
+          <AddIcon />
+        </S.TasksContainerHeader>
+
         <S.TasksList>
           <Task
             title="#Bora codar um kanban"
@@ -29,7 +34,10 @@ function TasksSection() {
       </S.TasksContainer>
 
       <S.TasksContainer>
-        <S.Label>Fazendo</S.Label>
+        <S.TasksContainerHeader>
+          <S.Label>Fazendo</S.Label>
+          <AddIcon />
+        </S.TasksContainerHeader>
         <S.TasksList>
           <Task
             title="Estudar React"
@@ -49,7 +57,11 @@ function TasksSection() {
       </S.TasksContainer>
 
       <S.TasksContainer>
-        <S.Label>Feito</S.Label>
+        <S.TasksContainerHeader>
+          <S.Label>Feito</S.Label>
+          <AddIcon />
+        </S.TasksContainerHeader>
+
         <S.TasksList>
           <Task
             title="Escovar os dentes"
