@@ -3,6 +3,7 @@ export default {
     text: '#403937',
     text_secondary: '#756966',
     white: '#FFF',
+    light_gray: '#DFDFE6',
     background: '#FBFAFF',
     primary: '#7C3AED',
     secondary: '#E2D6FF',
