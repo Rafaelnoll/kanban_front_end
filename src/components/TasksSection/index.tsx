@@ -40,6 +40,9 @@ function TasksSection() {
   useEffect(() => {
     async function loadTasks() {
       const tasks = await TaskController.index();
+
+      if (!tasks) return;
+
       setTasks(tasks);
     }
 
