@@ -19,7 +19,13 @@ const Input = ({
   name,
 }: InputProps) => {
   if (asTextarea) {
-    return <S.Textarea placeholder={placeholder} {...register(name)} />;
+    return (
+      <S.Textarea
+        maxLength={500}
+        placeholder={placeholder}
+        {...register(name)}
+      />
+    );
   }
 
   return <S.Input placeholder={placeholder} {...register(name)} />;
