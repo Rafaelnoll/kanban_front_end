@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import api from '../../services/api';
 
 class CategoryController {
@@ -6,7 +7,7 @@ class CategoryController {
       const response = await api.get('/categories');
       return response.data;
     } catch (error) {
-      throw new Error('Failed to fetch categories');
+      toast.error('Erro ao carregar as categorias');
     }
   }
 }
