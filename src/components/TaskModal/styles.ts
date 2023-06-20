@@ -57,15 +57,6 @@ export const ModalHeader = styled.header`
   `}
 `;
 
-export const ModalBody = styled.main`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: ${theme.spacing.small};
-    margin: ${theme.spacing.medium} 0;
-  `}
-`;
-
 export const Title = styled.strong`
   ${({ theme }) => css`
     color: ${theme.color.text};
@@ -73,10 +64,20 @@ export const Title = styled.strong`
   `}
 `;
 
-export const ModalFooter = styled.footer`
+export const ModalForm = styled.form`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.small};
+    margin-top: ${theme.spacing.medium};
+  `}
+`;
+
+export const FormFooter = styled.footer`
   ${({ theme }) => css`
     display: flex;
     gap: ${theme.spacing.medium};
+    margin-top: ${theme.spacing.medium};
 
     @media ${theme.media.mobile} {
       flex-direction: column-reverse;

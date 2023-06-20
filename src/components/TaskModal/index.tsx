@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 import * as S from './styles';
 import CloseIcon from '../../assets/close-circle.svg';
@@ -15,8 +16,23 @@ interface TaskModalProps {
   onSave: () => void;
 }
 
+interface IFormInput {
+  title: string;
+  description: string;
+  category: string;
+}
+
 function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
   const [categories, setCategories] = useState<Category[]>([]);
+  const { control, handleSubmit } = useForm<IFormInput>({
+    defaultValues: {
+      title: '',
+      description: '',
+      category: '',
+    },
+  });
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
 
   useEffect(() => {
     async function loadCategories() {
@@ -35,20 +51,41 @@ function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
           <CloseIcon onClick={onCancel} />
         </S.ModalHeader>
 
-        <S.ModalBody>
-          <Input placeholder="Titulo" />
-          <Input asTextarea placeholder="Descrição..." />
-          <CategorySelector
-            categories={categories}
-            icon={CategoryIcon}
-            defaultValue="Sem categoria"
+        <S.ModalForm onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="title"
+            control={control}
+            render={({ field }) => <Input {...field} placeholder="Título" />}
           />
-        </S.ModalBody>
 
-        <S.ModalFooter>
-          <S.CancelButton onClick={onCancel}>Cancelar</S.CancelButton>
-          <S.SaveButton onClick={onSave}>Salvar</S.SaveButton>
-        </S.ModalFooter>
+          <Controller
+            name="description"
+            control={control}
+            render={({ field }) => (
+              <Input {...field} placeholder="Descrição..." asTextarea />
+            )}
+          />
+
+          <Controller
+            name="category"
+            control={control}
+            render={({ field }) => (
+              <CategorySelector
+                {...field}
+                categories={categories}
+                icon={CategoryIcon}
+                defaultValue="Sem categoria"
+              />
+            )}
+          />
+
+          <S.FormFooter>
+            <S.CancelButton onClick={onCancel}>Cancelar</S.CancelButton>
+            <S.SaveButton type="submit" onClick={onSave}>
+              Salvar
+            </S.SaveButton>
+          </S.FormFooter>
+        </S.ModalForm>
       </S.ModalContainer>
     </S.Container>
   );
