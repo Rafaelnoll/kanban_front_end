@@ -22,7 +22,7 @@ interface TaskModalProps {
 const schema = yup.object({
   title: yup.string().required('Título é obrigatório.'),
   description: yup.string().max(500, 'O máximo de caracteres é 500.'),
-  category: yup.string(),
+  category_id: yup.string(),
 });
 
 function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
@@ -35,7 +35,7 @@ function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
     defaultValues: {
       title: '',
       description: '',
-      category: '',
+      category_id: '',
     },
     resolver: yupResolver(schema),
   });
@@ -75,12 +75,12 @@ function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
 
           <CategorySelector
             register={register}
-            name="category"
+            name="category_id"
             categories={categories}
             icon={CategoryIcon}
             defaultValue="Sem categoria"
           />
-          <S.ErrorMessage>{errors.category?.message}</S.ErrorMessage>
+          <S.ErrorMessage>{errors.category_id?.message}</S.ErrorMessage>
 
           <S.FormFooter>
             <S.CancelButton onClick={onCancel}>Cancelar</S.CancelButton>

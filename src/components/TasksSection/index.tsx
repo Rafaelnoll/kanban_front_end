@@ -18,12 +18,16 @@ function TasksSection() {
     setIsTaskModalOpen(true);
   }
 
-  async function createTask({ title, description, category }: FormTasksInputs) {
+  async function createTask({
+    title,
+    description,
+    category_id,
+  }: FormTasksInputs) {
     await TaskController.store({
       title,
       description,
       status: 'DO',
-      category_id: category,
+      category_id,
     });
   }
 
