@@ -8,6 +8,7 @@ interface ButtonProps {
   transparent?: 'false' | 'true';
   responsive?: 'false' | 'true';
   link?: string;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 function Button({
@@ -16,6 +17,7 @@ function Button({
   transparent = 'false',
   link = '',
   responsive = 'false',
+  type = 'button',
 }: ButtonProps) {
   return (
     <S.Button
@@ -23,6 +25,7 @@ function Button({
       as={link ? 'a' : ''}
       href={link}
       transparent={transparent}
+      type={type}
     >
       {Icon && <Icon />}
       <S.Text>{text}</S.Text>
