@@ -1,21 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FunctionComponent } from 'react';
 
 import * as S from './styles';
 
 import { Category } from '../../interfaces/Category';
-import { Path, UseFormRegister } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 
-interface IFormInput {
-  title: string;
-  description: string;
-  category: string;
-}
 interface SelectorProps {
   icon?: FunctionComponent<React.SVGAttributes<SVGElement>>;
   defaultValue: string;
   categories: Category[];
-  name: Path<IFormInput>;
-  register: UseFormRegister<IFormInput>;
+  name: string;
+  register: UseFormRegister<any>;
 }
 
 const Selector = ({

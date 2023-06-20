@@ -1,19 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 import * as S from './styles';
-import { Path, UseFormRegister } from 'react-hook-form';
-
-interface IFormInput {
-  title: string;
-  description: string;
-  category: string;
-}
+import { UseFormRegister } from 'react-hook-form';
 
 interface InputProps {
   asTextarea?: boolean;
   placeholder?: string;
-  name: Path<IFormInput>;
-  register: UseFormRegister<IFormInput>;
+  name: string;
+  register: UseFormRegister<any>;
 }
 
 // eslint-disable-next-line react/display-name
