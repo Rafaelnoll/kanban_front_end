@@ -54,3 +54,10 @@ export const TasksList = styled.div`
     }
   `}
 `;
+
+export const NoTasksContainer = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.color.text_secondary};
+    flex: 1;
+  `}
+`;

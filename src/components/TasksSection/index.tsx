@@ -24,6 +24,21 @@ function TasksSection() {
     setIsTaskModalOpen(true);
   }
 
+  function renderTasks(tasks: TypeTask[]) {
+    return tasks.length === 0 ? (
+      <span>Sem tasks</span>
+    ) : (
+      tasks.map((task) => (
+        <Task
+          title={task.title}
+          category={task.category_name}
+          description={task.description}
+          key={task.id}
+        />
+      ))
+    );
+  }
+
   async function createTask({
     title,
     description,
@@ -66,16 +81,7 @@ function TasksSection() {
             <AddIcon onClick={handleOpenTaskModal} />
           </S.TasksContainerHeader>
 
-          <S.TasksList>
-            {tasksToDo.map((task) => (
-              <Task
-                title={task.title}
-                category={task.category_name}
-                description={task.description}
-                key={task.id}
-              />
-            ))}
-          </S.TasksList>
+          <S.TasksList>{renderTasks(tasksToDo)}</S.TasksList>
         </S.TasksContainer>
 
         <S.TasksContainer>
@@ -83,16 +89,7 @@ function TasksSection() {
             <S.Label>Fazendo</S.Label>
             <AddIcon />
           </S.TasksContainerHeader>
-          <S.TasksList>
-            {tasksDoing.map((task) => (
-              <Task
-                title={task.title}
-                category={task.category_name}
-                description={task.description}
-                key={task.id}
-              />
-            ))}
-          </S.TasksList>
+          <S.TasksList>{renderTasks(tasksDoing)}</S.TasksList>
         </S.TasksContainer>
 
         <S.TasksContainer>
@@ -101,16 +98,7 @@ function TasksSection() {
             <AddIcon />
           </S.TasksContainerHeader>
 
-          <S.TasksList>
-            {tasksDone.map((task) => (
-              <Task
-                title={task.title}
-                category={task.category_name}
-                description={task.description}
-                key={task.id}
-              />
-            ))}
-          </S.TasksList>
+          <S.TasksList>{renderTasks(tasksDone)}</S.TasksList>
         </S.TasksContainer>
       </S.Container>
     </>
