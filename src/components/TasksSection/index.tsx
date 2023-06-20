@@ -22,7 +22,7 @@ function TasksSection() {
         <TaskModal
           title="Criar Tarefa"
           onCancel={handleCancelTaskModal}
-          onSave={() => console.log('save')}
+          onSubmitEvent={(data) => console.log(data)}
         />
       )}
 

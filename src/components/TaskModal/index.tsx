@@ -13,7 +13,7 @@ import CategoryController from '../../controllers/CategoryController';
 interface TaskModalProps {
   title: string;
   onCancel: () => void;
-  onSave: () => void;
+  onSubmitEvent: (data: IFormInput) => void;
 }
 
 interface IFormInput {
@@ -22,7 +22,7 @@ interface IFormInput {
   category: string;
 }
 
-function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
+function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const { register, handleSubmit } = useForm<IFormInput>({
     defaultValues: {
@@ -32,7 +32,7 @@ function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
     },
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => onSubmitEvent(data);
 
   useEffect(() => {
     async function loadCategories() {
@@ -71,9 +71,7 @@ function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
 
           <S.FormFooter>
             <S.CancelButton onClick={onCancel}>Cancelar</S.CancelButton>
-            <S.SaveButton type="submit" onClick={onSave}>
-              Salvar
-            </S.SaveButton>
+            <S.SaveButton type="submit">Salvar</S.SaveButton>
           </S.FormFooter>
         </S.ModalForm>
       </S.ModalContainer>
