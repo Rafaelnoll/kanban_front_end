@@ -5,6 +5,7 @@ import Task from '../Task';
 import AddIcon from '../../assets/add-icon.svg';
 import TaskModal from '../TaskModal';
 import { FormTasksInputs } from '../../interfaces/FormInputs';
+import TaskController from '../../controllers/TaskController';
 
 function TasksSection() {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -17,8 +18,13 @@ function TasksSection() {
     setIsTaskModalOpen(true);
   }
 
-  function createTask(data: FormTasksInputs) {
-    console.log(data);
+  async function createTask({ title, description, category }: FormTasksInputs) {
+    await TaskController.store({
+      title,
+      description,
+      status: 'DO',
+      category_id: category,
+    });
   }
 
   return (
