@@ -57,7 +57,19 @@ export const TasksList = styled.div`
 
 export const NoTasksContainer = styled.div`
   ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: ${theme.spacing.medium};
+
+    font-size: ${theme.size.medium};
     color: ${theme.color.text_secondary};
     flex: 1;
+    padding: ${theme.spacing.big} 0;
+
+    svg {
+      color: ${theme.color.text_secondary};
+    }
   `}
 `;

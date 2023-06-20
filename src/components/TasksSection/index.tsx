@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import * as S from './styles';
 import Task from '../Task';
+
 import AddIcon from '../../assets/add-icon.svg';
+import NoTasksIcon from '../../assets/no-task.svg';
+
 import TaskModal from '../TaskModal';
 import { FormTasksInputs } from '../../interfaces/FormInputs';
 import TaskController from '../../controllers/TaskController';
@@ -26,7 +29,10 @@ function TasksSection() {
 
   function renderTasks(tasks: TypeTask[]) {
     return tasks.length === 0 ? (
-      <span>Sem tasks</span>
+      <S.NoTasksContainer>
+        <NoTasksIcon />
+        <span>Sem tarefas</span>
+      </S.NoTasksContainer>
     ) : (
       tasks.map((task) => (
         <Task
