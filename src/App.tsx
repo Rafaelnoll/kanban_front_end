@@ -1,5 +1,7 @@
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import GlobalStyles from './styles/GlobalStyles';
 import BaseTemplate from './components/BaseTemplate';
 import SideMenu from './components/SideMenu';
@@ -12,6 +14,7 @@ function App() {
       <BaseTemplate>
         <SideMenu />
         <KanbanPage />
+        <ToastContainer position="bottom-center" />
       </BaseTemplate>
     </>
   );
