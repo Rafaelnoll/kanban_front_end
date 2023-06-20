@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as S from './styles';
 import Task from '../Task';
@@ -6,9 +6,15 @@ import AddIcon from '../../assets/add-icon.svg';
 import TaskModal from '../TaskModal';
 import { FormTasksInputs } from '../../interfaces/FormInputs';
 import TaskController from '../../controllers/TaskController';
+import { Task as TypeTask } from '../../interfaces/Task';
 
 function TasksSection() {
+  const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+
+  const tasksToDo = tasks.filter((task) => task.status === 'DO');
+  const tasksDoing = tasks.filter((task) => task.status === 'DOING');
+  const tasksDone = tasks.filter((task) => task.status === 'DONE');
 
   function handleCancelTaskModal() {
     setIsTaskModalOpen(false);
@@ -31,6 +37,15 @@ function TasksSection() {
     });
   }
 
+  useEffect(() => {
+    async function loadTasks() {
+      const tasks = await TaskController.index();
+      setTasks(tasks);
+    }
+
+    loadTasks();
+  }, []);
+
   return (
     <>
       {isTaskModalOpen && (
@@ -49,22 +64,14 @@ function TasksSection() {
           </S.TasksContainerHeader>
 
           <S.TasksList>
-            <Task
-              title="#Bora codar um kanban"
-              description="        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
-        tempor mauris. Quisque ullamcorper aliquet ex, in mattis mauris ornare
-        in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
-        euismod."
-              category="Programação"
-            />
-            <Task
-              title="#Bora codar um kanban"
-              description="        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
-            tempor mauris. Quisque ullamcorper aliquet ex, in mattis mauris ornare
-            in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
-            euismod."
-              category="Programação"
-            />
+            {tasksToDo.map((task) => (
+              <Task
+                title={task.title}
+                category={task.category_name}
+                description={task.description}
+                key={task.id}
+              />
+            ))}
           </S.TasksList>
         </S.TasksContainer>
 
@@ -74,20 +81,14 @@ function TasksSection() {
             <AddIcon />
           </S.TasksContainerHeader>
           <S.TasksList>
-            <Task
-              title="Estudar React"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
-            tempor mauris."
-              category="Estudo"
-            />
-            <Task
-              title="#Bora codar um kanban"
-              description="        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
-            tempor mauris. Quisque ullamcorper aliquet ex, in mattis mauris ornare
-            in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
-            euismod."
-              category="Programação"
-            />
+            {tasksDoing.map((task) => (
+              <Task
+                title={task.title}
+                category={task.category_name}
+                description={task.description}
+                key={task.id}
+              />
+            ))}
           </S.TasksList>
         </S.TasksContainer>
 
@@ -98,21 +99,14 @@ function TasksSection() {
           </S.TasksContainerHeader>
 
           <S.TasksList>
-            <Task
-              title="Escovar os dentes"
-              description="Quisque ullamcorper aliquet ex, in mattis mauris ornare
-            in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
-        euismod."
-              category="Saúde"
-            />
-            <Task
-              title="#Bora codar um kanban"
-              description="        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
-            tempor mauris. Quisque ullamcorper aliquet ex, in mattis mauris ornare
-            in. Phasellus vehicula finibus augue, sit amet dignissim lorem cursus
-            euismod."
-              category="Programação"
-            />
+            {tasksDone.map((task) => (
+              <Task
+                title={task.title}
+                category={task.category_name}
+                description={task.description}
+                key={task.id}
+              />
+            ))}
           </S.TasksList>
         </S.TasksContainer>
       </S.Container>

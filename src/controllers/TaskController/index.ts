@@ -4,7 +4,22 @@ import { Task } from '../../interfaces/Task';
 import api from '../../services/api';
 
 class TaskController {
-  async store({ title, description = '', status = 'DO', category_id }: Task) {
+  async index() {
+    try {
+      const allTasksResponse = await api.get('/tasks');
+
+      return allTasksResponse.data;
+    } catch (error) {
+      toast.error('Erro ao carregar as tarefas');
+    }
+  }
+
+  async store({
+    title,
+    description = '',
+    status = 'DO',
+    category_id,
+  }: Omit<Task, 'id'>) {
     try {
       const createdTask = await api.post('/tasks', {
         title,
