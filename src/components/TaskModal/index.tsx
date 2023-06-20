@@ -11,17 +11,12 @@ import Input from '../Input';
 import CategorySelector from '../CategorySelector';
 import { Category } from '../../interfaces/Category';
 import CategoryController from '../../controllers/CategoryController';
+import { FormTasksInputs } from '../../interfaces/FormInputs';
 
 interface TaskModalProps {
   title: string;
   onCancel: () => void;
-  onSubmitEvent: (data: IFormInput) => void;
-}
-
-interface IFormInput {
-  title: string;
-  description: string;
-  category: string;
+  onSubmitEvent: (data: FormTasksInputs) => void;
 }
 
 const schema = yup.object({
@@ -36,7 +31,7 @@ function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<FormTasksInputs>({
     defaultValues: {
       title: '',
       description: '',
@@ -45,9 +40,9 @@ function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
     resolver: yupResolver(schema),
   });
 
-  console.log(errors);
-
-  const onSubmit: SubmitHandler<IFormInput> = (data) => onSubmitEvent(data);
+  const onSubmit: SubmitHandler<FormTasksInputs> = (data) => {
+    onSubmitEvent(data);
+  };
 
   useEffect(() => {
     async function loadCategories() {

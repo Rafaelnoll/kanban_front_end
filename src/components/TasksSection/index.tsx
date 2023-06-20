@@ -4,6 +4,7 @@ import * as S from './styles';
 import Task from '../Task';
 import AddIcon from '../../assets/add-icon.svg';
 import TaskModal from '../TaskModal';
+import { FormTasksInputs } from '../../interfaces/FormInputs';
 
 function TasksSection() {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -16,13 +17,17 @@ function TasksSection() {
     setIsTaskModalOpen(true);
   }
 
+  function createTask(data: FormTasksInputs) {
+    console.log(data);
+  }
+
   return (
     <>
       {isTaskModalOpen && (
         <TaskModal
           title="Criar Tarefa"
           onCancel={handleCancelTaskModal}
-          onSubmitEvent={(data) => console.log(data)}
+          onSubmitEvent={createTask}
         />
       )}
 
