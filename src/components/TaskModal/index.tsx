@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import * as S from './styles';
 import CloseIcon from '../../assets/close-circle.svg';
@@ -24,7 +24,7 @@ interface IFormInput {
 
 function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
   const [categories, setCategories] = useState<Category[]>([]);
-  const { control, handleSubmit } = useForm<IFormInput>({
+  const { register, handleSubmit } = useForm<IFormInput>({
     defaultValues: {
       title: '',
       description: '',
@@ -52,31 +52,21 @@ function TaskModal({ title, onCancel, onSave }: TaskModalProps) {
         </S.ModalHeader>
 
         <S.ModalForm onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => <Input {...field} placeholder="Título" />}
-          />
+          <Input register={register} name="title" placeholder="Título" />
 
-          <Controller
+          <Input
+            register={register}
             name="description"
-            control={control}
-            render={({ field }) => (
-              <Input {...field} placeholder="Descrição..." asTextarea />
-            )}
+            placeholder="Descrição..."
+            asTextarea
           />
 
-          <Controller
+          <CategorySelector
+            register={register}
             name="category"
-            control={control}
-            render={({ field }) => (
-              <CategorySelector
-                {...field}
-                categories={categories}
-                icon={CategoryIcon}
-                defaultValue="Sem categoria"
-              />
-            )}
+            categories={categories}
+            icon={CategoryIcon}
+            defaultValue="Sem categoria"
           />
 
           <S.FormFooter>
