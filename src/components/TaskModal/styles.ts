@@ -85,6 +85,13 @@ export const FormFooter = styled.footer`
   `}
 `;
 
+export const ErrorMessage = styled.span`
+  ${({ theme }) => css`
+    color: ${theme.color.text_error};
+    font-size: ${theme.size.small};
+  `}
+`;
+
 export const CancelButton = styled(ButtonTemplate)`
   ${({ theme }) => css`
     background-color: ${theme.color.light_gray};

@@ -2,6 +2,7 @@ export default {
   color: {
     text: '#403937',
     text_secondary: '#756966',
+    text_error: '#ff3333',
     white: '#FFF',
     light_gray: '#DFDFE6',
     background: '#FBFAFF',
