@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
 import * as S from './styles';
-import { Task as ITask } from '../../interfaces/Task';
-
-type TaskStatus = ITask['status'];
+import { TaskStatus } from '../../interfaces/Task';
 
 interface CheckBoxesProps {
   name: string;

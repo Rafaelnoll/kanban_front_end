@@ -6,3 +6,5 @@ export interface Task {
   category_id?: string | null;
   category_name?: string;
 }
+
+export type TaskStatus = Task['status'];
