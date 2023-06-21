@@ -12,20 +12,29 @@ import CategorySelector from '../CategorySelector';
 import { Category } from '../../interfaces/Category';
 import CategoryController from '../../controllers/CategoryController';
 import { FormTasksInputs } from '../../interfaces/FormInputs';
+import StatusCheckBoxes from '../StatusCheckBoxes';
+import { TaskStatus } from '../../interfaces/Task';
 
 interface TaskModalProps {
   title: string;
   onCancel: () => void;
   onSubmitEvent: (data: FormTasksInputs) => void;
+  initialStatusOfTask: TaskStatus;
 }
 
 const schema = yup.object({
   title: yup.string().required('Título é obrigatório.'),
   description: yup.string().max(500, 'O máximo de caracteres é 500.'),
   category_id: yup.string(),
+  status: yup.string().required('Status é obrigatório.'),
 });
 
-function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
+function TaskModal({
+  title,
+  onCancel,
+  onSubmitEvent,
+  initialStatusOfTask,
+}: TaskModalProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const {
     register,
@@ -36,6 +45,7 @@ function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
       title: '',
       description: '',
       category_id: '',
+      status: initialStatusOfTask,
     },
     resolver: yupResolver(schema),
   });
@@ -72,6 +82,13 @@ function TaskModal({ title, onCancel, onSubmitEvent }: TaskModalProps) {
             asTextarea
           />
           <S.ErrorMessage>{errors.description?.message}</S.ErrorMessage>
+
+          <StatusCheckBoxes
+            defaultStatus={initialStatusOfTask}
+            name="status"
+            register={register}
+          />
+          <S.ErrorMessage>{errors.status?.message}</S.ErrorMessage>
 
           <CategorySelector
             register={register}
