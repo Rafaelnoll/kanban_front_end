@@ -13,6 +13,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   ${({ theme }) => css`
+    position: fixed;
     margin: ${theme.spacing.large};
   `}
 `;
