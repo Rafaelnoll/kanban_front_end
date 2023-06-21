@@ -8,6 +8,8 @@ export default {
     background: '#FBFAFF',
     primary: '#7C3AED',
     secondary: '#E2D6FF',
+    orange: '#F9AE1D',
+    red: '#E0162E',
   },
   size: {
     xsmall: '0.7rem',
