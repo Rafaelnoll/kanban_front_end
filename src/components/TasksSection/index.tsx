@@ -9,9 +9,10 @@ import NoTasksIcon from '../../assets/no-task.svg';
 import TaskModal from '../TaskModal';
 import { FormTasksInputs } from '../../interfaces/FormInputs';
 import TaskController from '../../controllers/TaskController';
-import { Task as TypeTask } from '../../interfaces/Task';
+import { TaskStatus, Task as TypeTask } from '../../interfaces/Task';
 
 function TasksSection() {
+  const [statusSelected, setStatusSelected] = useState<TaskStatus>('DO');
   const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
@@ -23,7 +24,8 @@ function TasksSection() {
     setIsTaskModalOpen(false);
   }
 
-  function handleOpenTaskModal() {
+  function handleOpenTaskModal(status: TaskStatus) {
+    setStatusSelected(status);
     setIsTaskModalOpen(true);
   }
 
@@ -48,12 +50,13 @@ function TasksSection() {
   async function createTask({
     title,
     description,
+    status,
     category_id,
   }: FormTasksInputs) {
     await TaskController.store({
       title,
       description,
-      status: 'DO',
+      status,
       category_id,
     });
   }
@@ -77,6 +80,7 @@ function TasksSection() {
           title="Criar Tarefa"
           onCancel={handleCancelTaskModal}
           onSubmitEvent={createTask}
+          initialStatusOfTask={statusSelected}
         />
       )}
 
@@ -84,7 +88,7 @@ function TasksSection() {
         <S.TasksContainer>
           <S.TasksContainerHeader>
             <S.Label>A fazer</S.Label>
-            <AddIcon onClick={handleOpenTaskModal} />
+            <AddIcon onClick={() => handleOpenTaskModal('DO')} />
           </S.TasksContainerHeader>
 
           <S.TasksList>{renderTasks(tasksToDo)}</S.TasksList>
@@ -93,7 +97,7 @@ function TasksSection() {
         <S.TasksContainer>
           <S.TasksContainerHeader>
             <S.Label>Fazendo</S.Label>
-            <AddIcon />
+            <AddIcon onClick={() => handleOpenTaskModal('DOING')} />
           </S.TasksContainerHeader>
           <S.TasksList>{renderTasks(tasksDoing)}</S.TasksList>
         </S.TasksContainer>
@@ -101,7 +105,7 @@ function TasksSection() {
         <S.TasksContainer>
           <S.TasksContainerHeader>
             <S.Label>Feito</S.Label>
-            <AddIcon />
+            <AddIcon onClick={() => handleOpenTaskModal('DONE')} />
           </S.TasksContainerHeader>
 
           <S.TasksList>{renderTasks(tasksDone)}</S.TasksList>
