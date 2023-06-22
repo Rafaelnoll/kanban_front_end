@@ -1,11 +1,25 @@
 import styled, { css } from 'styled-components';
 
+const ButtonsTemplate = styled.button`
+  ${({ theme }) => css`
+    width: 100%;
+    max-width: 100px;
+    font-size: ${theme.size.medium};
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    padding: ${theme.spacing.small};
+  `}
+`;
+
 export const Container = styled.div`
   ${({ theme }) => css`
     background-color: ${theme.color.white};
     box-shadow: 0px 4px 16px #eae2fd;
     border-radius: 8px;
     padding: ${theme.spacing.big};
+    position: relative;
 
     display: flex;
     flex-direction: column;
@@ -18,12 +32,25 @@ export const Container = styled.div`
   `}
 `;
 
+export const TaskHeader = styled.header`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      color: ${theme.color.text};
+      cursor: pointer;
+    }
+  `}
+`;
+
 export const TaskTitle = styled.strong`
   ${({ theme }) => css`
     font-size: ${theme.size.medium};
     font-weight: 700;
     color: ${theme.color.text};
-    max-width: 200px;
+    max-width: 150px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -58,5 +85,54 @@ export const Category = styled.span`
     font-size: ${theme.size.small};
     border-radius: 8px;
     padding: ${theme.spacing.xsmall} ${theme.spacing.small};
+  `}
+`;
+
+export const ModalDeleteContainer = styled.div`
+  ${({ theme }) => css`
+    position: absolute;
+    background-color: ${theme.color.white};
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    padding: ${theme.spacing.big};
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.spacing.big};
+  `}
+`;
+
+export const ModalDeleteText = styled.strong`
+  ${({ theme }) => css`
+    color: ${theme.color.text};
+    font-size: ${theme.size.big};
+  `}
+`;
+
+export const ModalDeleteActions = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    gap: ${theme.spacing.medium};
+    justify-content: center;
+    align-items: center;
+  `}
+`;
+
+export const CancelButton = styled(ButtonsTemplate)`
+  ${({ theme }) => css`
+    background-color: ${theme.color.light_gray};
+    color: ${theme.color.text};
+  `}
+`;
+
+export const DeleteButton = styled(ButtonsTemplate)`
+  ${({ theme }) => css`
+    background-color: ${theme.color.red};
+    color: ${theme.color.white};
   `}
 `;
