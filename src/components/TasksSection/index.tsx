@@ -53,12 +53,19 @@ function TasksSection() {
     status,
     category_id,
   }: FormTasksInputs) {
-    await TaskController.store({
+    const newTask = await TaskController.store({
       title,
       description,
       status,
       category_id,
     });
+
+    setTasks((prevState) => {
+      prevState.push(newTask);
+      return prevState;
+    });
+
+    setIsTaskModalOpen(false);
   }
 
   useEffect(() => {

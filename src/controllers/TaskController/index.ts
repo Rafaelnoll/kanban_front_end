@@ -21,7 +21,7 @@ class TaskController {
     category_id,
   }: Omit<Task, 'id'>) {
     try {
-      const createdTask = await api.post('/tasks', {
+      const createdTaskResponse = await api.post('/tasks', {
         title,
         description,
         status,
@@ -29,7 +29,7 @@ class TaskController {
       });
 
       toast.success('Tarefa criada');
-      return createdTask;
+      return createdTaskResponse.data;
     } catch (error) {
       toast.error('Erro ao criar a tarefa');
     }
