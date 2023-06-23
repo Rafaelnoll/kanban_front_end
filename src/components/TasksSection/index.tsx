@@ -29,24 +29,6 @@ function TasksSection() {
     setIsTaskModalOpen(true);
   }
 
-  function renderTasks(tasks: TypeTask[]) {
-    return tasks.length === 0 ? (
-      <S.NoTasksContainer>
-        <NoTasksIcon />
-        <span>Sem tarefas</span>
-      </S.NoTasksContainer>
-    ) : (
-      tasks.map((task) => (
-        <Task
-          title={task.title}
-          category={task.category_name}
-          description={task.description}
-          key={task.id}
-        />
-      ))
-    );
-  }
-
   async function createTask({
     title,
     description,
@@ -66,6 +48,34 @@ function TasksSection() {
     });
 
     setIsTaskModalOpen(false);
+  }
+
+  async function deleteTask(taskId: string) {
+    const taskDeleted = await TaskController.delete(taskId);
+
+    if (taskDeleted) {
+      setTasks((prevState) => prevState.filter((task) => task.id !== taskId));
+    }
+  }
+
+  function renderTasks(tasks: TypeTask[]) {
+    return tasks.length === 0 ? (
+      <S.NoTasksContainer>
+        <NoTasksIcon />
+        <span>Sem tarefas</span>
+      </S.NoTasksContainer>
+    ) : (
+      tasks.map((task) => (
+        <Task
+          title={task.title}
+          category_name={task.category_name}
+          description={task.description}
+          id={task.id}
+          key={task.id}
+          onDelete={deleteTask}
+        />
+      ))
+    );
   }
 
   useEffect(() => {

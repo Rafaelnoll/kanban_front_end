@@ -34,6 +34,17 @@ class TaskController {
       toast.error('Erro ao criar a tarefa');
     }
   }
+
+  async delete(taskId: string) {
+    try {
+      await api.delete(`/tasks/${taskId}`);
+      toast.success('Tarefa deletada');
+      return true;
+    } catch (error) {
+      toast.error('Erro ao deletar tarefa');
+      return false;
+    }
+  }
 }
 
 export default new TaskController();

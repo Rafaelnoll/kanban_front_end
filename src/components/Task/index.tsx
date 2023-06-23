@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 
 import * as S from './styles';
 import TrashIcon from '../../assets/trash-icon.svg';
+import { Task as TypeTask } from '../../interfaces/Task';
 
-interface TaskProps {
-  title: string;
-  description?: string;
-  category?: string;
+interface TaskProps extends Omit<TypeTask, 'status'> {
+  onDelete: (taskId: string) => void;
 }
 
-function Task({ title, description = '', category = '' }: TaskProps) {
+function Task({
+  title,
+  description = '',
+  category_name = '',
+  id,
+  onDelete,
+}: TaskProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   function handleOpenDeleteModal() {
@@ -29,7 +34,9 @@ function Task({ title, description = '', category = '' }: TaskProps) {
             <S.CancelButton onClick={handleCloseDeleteModal}>
               Cancelar
             </S.CancelButton>
-            <S.DeleteButton>Deletar</S.DeleteButton>
+            <S.DeleteButton onClick={() => onDelete(id)}>
+              Deletar
+            </S.DeleteButton>
           </S.ModalDeleteActions>
         </S.ModalDeleteContainer>
       )}
@@ -45,9 +52,9 @@ function Task({ title, description = '', category = '' }: TaskProps) {
         <S.Description>Sem descrição...</S.Description>
       )}
 
-      {category && (
+      {category_name && (
         <S.CategoryContainer>
-          <S.Category>{category}</S.Category>
+          <S.Category>{category_name}</S.Category>
         </S.CategoryContainer>
       )}
     </S.Container>
