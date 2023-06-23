@@ -104,6 +104,12 @@ export const ModalDeleteContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: ${theme.spacing.big};
+
+    @media ${theme.media.mobile} {
+      padding: ${theme.spacing.small};
+      gap: ${theme.spacing.small};
+      text-align: center;
+    }
   `}
 `;
 
@@ -120,6 +126,11 @@ export const ModalDeleteActions = styled.div`
     gap: ${theme.spacing.medium};
     justify-content: center;
     align-items: center;
+
+    @media ${theme.media.mobile} {
+      gap: ${theme.spacing.xsmall};
+      width: 100%;
+    }
   `}
 `;
 
