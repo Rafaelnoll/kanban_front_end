@@ -45,6 +45,28 @@ class TaskController {
       return false;
     }
   }
+
+  async update({
+    title,
+    description = '',
+    status = 'DO',
+    category_id,
+    id,
+  }: Task) {
+    try {
+      const updatedUserResponse = await api.put(`/tasks/${id}`, {
+        title,
+        description,
+        status,
+        category_id: category_id ? category_id : null,
+      });
+      toast.success('Tarefa atualizada');
+      return updatedUserResponse.data;
+    } catch (error) {
+      toast.error('Erro ao atualizar tarefa');
+      return false;
+    }
+  }
 }
 
 export default new TaskController();

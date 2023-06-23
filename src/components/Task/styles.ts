@@ -37,11 +37,7 @@ export const TaskHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    svg {
-      color: ${theme.color.text};
-      cursor: pointer;
-    }
+    gap: ${theme.spacing.small};
   `}
 `;
 
@@ -50,10 +46,22 @@ export const TaskTitle = styled.strong`
     font-size: ${theme.size.medium};
     font-weight: 700;
     color: ${theme.color.text};
-    max-width: 150px;
+    max-width: 200px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  `}
+`;
+
+export const TaskActions = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    gap: ${theme.spacing.small};
+
+    svg {
+      color: ${theme.color.text};
+      cursor: pointer;
+    }
   `}
 `;
 

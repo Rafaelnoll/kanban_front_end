@@ -16,9 +16,11 @@ function TasksSection() {
   const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
-  const tasksToDo = tasks.filter((task) => task.status === 'DO');
-  const tasksDoing = tasks.filter((task) => task.status === 'DOING');
-  const tasksDone = tasks.filter((task) => task.status === 'DONE');
+  const tasksSections = {
+    DO: tasks.filter((task) => task.status === 'DO'),
+    DOING: tasks.filter((task) => task.status === 'DOING'),
+    DONE: tasks.filter((task) => task.status === 'DONE'),
+  };
 
   function handleCancelTaskModal() {
     setIsTaskModalOpen(false);
@@ -58,6 +60,27 @@ function TasksSection() {
     }
   }
 
+  async function updateTask(
+    { title, status, description, category_id }: FormTasksInputs,
+    id: string,
+  ) {
+    const updatedTask = await TaskController.update({
+      title,
+      description,
+      status,
+      category_id,
+      id,
+    });
+
+    if (updatedTask) {
+      setTasks((prevState) => {
+        const taskIndex = prevState.findIndex((task) => task.id === id);
+        prevState[taskIndex] = updatedTask;
+        return prevState;
+      });
+    }
+  }
+
   function renderTasks(tasks: TypeTask[]) {
     return tasks.length === 0 ? (
       <S.NoTasksContainer>
@@ -72,7 +95,9 @@ function TasksSection() {
           description={task.description}
           id={task.id}
           key={task.id}
+          status={task.status}
           onDelete={deleteTask}
+          onUpdate={updateTask}
         />
       ))
     );
@@ -108,7 +133,7 @@ function TasksSection() {
             <AddIcon onClick={() => handleOpenTaskModal('DO')} />
           </S.TasksContainerHeader>
 
-          <S.TasksList>{renderTasks(tasksToDo)}</S.TasksList>
+          <S.TasksList>{renderTasks(tasksSections.DO)}</S.TasksList>
         </S.TasksContainer>
 
         <S.TasksContainer>
@@ -116,7 +141,7 @@ function TasksSection() {
             <S.Label>Fazendo</S.Label>
             <AddIcon onClick={() => handleOpenTaskModal('DOING')} />
           </S.TasksContainerHeader>
-          <S.TasksList>{renderTasks(tasksDoing)}</S.TasksList>
+          <S.TasksList>{renderTasks(tasksSections.DOING)}</S.TasksList>
         </S.TasksContainer>
 
         <S.TasksContainer>
@@ -125,7 +150,7 @@ function TasksSection() {
             <AddIcon onClick={() => handleOpenTaskModal('DONE')} />
           </S.TasksContainerHeader>
 
-          <S.TasksList>{renderTasks(tasksDone)}</S.TasksList>
+          <S.TasksList>{renderTasks(tasksSections.DONE)}</S.TasksList>
         </S.TasksContainer>
       </S.Container>
     </>
