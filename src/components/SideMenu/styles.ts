@@ -15,6 +15,10 @@ export const Content = styled.div`
   ${({ theme }) => css`
     position: fixed;
     margin: ${theme.spacing.large};
+
+    @media ${theme.media.mobile} {
+      position: static;
+    }
   `}
 `;
 
