@@ -25,9 +25,13 @@ const Selector = ({
     <S.Container>
       {Icon && <Icon />}
       <S.Selector {...register(name)}>
-        <S.Option value="">{defaultValue}</S.Option>
+        <S.Option value="">Sem categoria</S.Option>
         {categories.map((category: Category) => (
-          <S.Option value={category.id} key={category.id}>
+          <S.Option
+            selected={category.id === defaultValue}
+            value={category.id}
+            key={category.id}
+          >
             {category.name}
           </S.Option>
         ))}
