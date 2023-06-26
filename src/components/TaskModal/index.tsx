@@ -13,19 +13,18 @@ import { Category } from '../../interfaces/Category';
 import CategoryController from '../../controllers/CategoryController';
 import { FormTasksInputs } from '../../interfaces/FormInputs';
 import StatusCheckBoxes from '../StatusCheckBoxes';
-import { TaskStatus } from '../../interfaces/Task';
 
 interface TaskModalProps {
   title: string;
   onCancel: () => void;
   onSubmitEvent: (data: FormTasksInputs) => void;
-  initialStatusOfTask: TaskStatus;
+  initialData: Partial<FormTasksInputs>;
 }
 
 const schema = yup.object({
   title: yup.string().required('Título é obrigatório.'),
   description: yup.string().max(500, 'O máximo de caracteres é 500.'),
-  category_id: yup.string(),
+  category_id: yup.string().nullable(),
   status: yup.string().required('Status é obrigatório.'),
 });
 
@@ -33,7 +32,12 @@ function TaskModal({
   title,
   onCancel,
   onSubmitEvent,
-  initialStatusOfTask,
+  initialData = {
+    title: '',
+    description: '',
+    category_id: '',
+    status: 'DO',
+  },
 }: TaskModalProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const {
@@ -41,12 +45,7 @@ function TaskModal({
     handleSubmit,
     formState: { errors },
   } = useForm<FormTasksInputs>({
-    defaultValues: {
-      title: '',
-      description: '',
-      category_id: '',
-      status: initialStatusOfTask,
-    },
+    defaultValues: initialData,
     resolver: yupResolver(schema),
   });
 
@@ -84,7 +83,7 @@ function TaskModal({
           <S.ErrorMessage>{errors.description?.message}</S.ErrorMessage>
 
           <StatusCheckBoxes
-            defaultStatus={initialStatusOfTask}
+            defaultStatus={initialData.status}
             name="status"
             register={register}
           />
@@ -95,7 +94,9 @@ function TaskModal({
             name="category_id"
             categories={categories}
             icon={CategoryIcon}
-            defaultValue="Sem categoria"
+            defaultValue={
+              initialData.category_id ? initialData.category_id : ''
+            }
           />
           <S.ErrorMessage>{errors.category_id?.message}</S.ErrorMessage>
 

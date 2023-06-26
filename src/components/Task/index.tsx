@@ -16,6 +16,7 @@ function Task({
   title,
   description = '',
   category_name = '',
+  category_id = '',
   id,
   status,
   onDelete,
@@ -56,7 +57,12 @@ function Task({
         <TaskModal
           title="Modificar Tarefa"
           onSubmitEvent={handleUpdateTask}
-          initialStatusOfTask={status}
+          initialData={{
+            title,
+            description,
+            status,
+            category_id,
+          }}
           onCancel={handleCloseUpdateModal}
         />
       )}

@@ -92,6 +92,7 @@ function TasksSection() {
         <Task
           title={task.title}
           category_name={task.category_name}
+          category_id={task.category_id}
           description={task.description}
           id={task.id}
           key={task.id}
@@ -122,7 +123,9 @@ function TasksSection() {
           title="Criar Tarefa"
           onCancel={handleCancelTaskModal}
           onSubmitEvent={createTask}
-          initialStatusOfTask={statusSelected}
+          initialData={{
+            status: statusSelected,
+          }}
         />
       )}
 
