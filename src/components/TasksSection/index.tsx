@@ -73,11 +73,15 @@ function TasksSection() {
     });
 
     if (updatedTask) {
-      setTasks((prevState) => {
-        const taskIndex = prevState.findIndex((task) => task.id === id);
-        prevState[taskIndex] = updatedTask;
-        return prevState;
-      });
+      setTasks((prevState) =>
+        prevState.map((task) => {
+          if (task.id === id) {
+            return updatedTask;
+          }
+
+          return task;
+        }),
+      );
     }
   }
 
