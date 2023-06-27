@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 
 import * as S from './styles';
 
@@ -14,24 +14,31 @@ interface SelectorProps {
   register: UseFormRegister<any>;
 }
 
-const Selector = ({
+const CategorySelector = ({
   icon: Icon,
   defaultValue,
   categories = [],
   register,
   name,
 }: SelectorProps) => {
+  const [defaultCategory, setDefaultCategory] = useState(defaultValue);
+
+  function handleChangeCategory(event: ChangeEvent<HTMLSelectElement>) {
+    setDefaultCategory(event.target.value);
+  }
+
   return (
     <S.Container>
       {Icon && <Icon />}
-      <S.Selector {...register(name)}>
+      <S.Selector
+        value={defaultCategory ? defaultCategory : ''}
+        {...register(name, {
+          onChange: handleChangeCategory,
+        })}
+      >
         <S.Option value="">Sem categoria</S.Option>
         {categories.map((category: Category) => (
-          <S.Option
-            selected={category.id === defaultValue}
-            value={category.id}
-            key={category.id}
-          >
+          <S.Option value={category.id} key={category.id}>
             {category.name}
           </S.Option>
         ))}
@@ -39,4 +46,4 @@ const Selector = ({
     </S.Container>
   );
 };
-export default Selector;
+export default CategorySelector;
