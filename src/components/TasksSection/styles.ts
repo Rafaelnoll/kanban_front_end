@@ -73,3 +73,12 @@ export const NoTasksContainer = styled.div`
     }
   `}
 `;
+
+export const TopContent = styled.main`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ${theme.spacing.medium};
+  `}
+`;

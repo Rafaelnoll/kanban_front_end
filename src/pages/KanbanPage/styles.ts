@@ -31,12 +31,3 @@ export const MainContent = styled.main`
     margin-top: ${theme.spacing.big};
   `}
 `;
-
-export const TopContent = styled.main`
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: ${theme.spacing.medium};
-  `}
-`;

@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import * as S from './styles';
 import Task from '../Task';
 
 import AddIcon from '../../assets/add-icon.svg';
 import NoTasksIcon from '../../assets/no-task.svg';
+import FilterIcon from '../../assets/filter-icon.svg';
 
 import TaskModal from '../TaskModal';
-import { FormTasksInputs } from '../../interfaces/FormInputs';
+import Button from '../Button';
+import SearchInput from '../SearchInput';
 import TaskController from '../../controllers/TaskController';
+
+import { FormTasksInputs } from '../../interfaces/FormInputs';
 import { TaskStatus, Task as TypeTask } from '../../interfaces/Task';
 
 function TasksSection() {
+  const [searchValue, setSearchValue] = useState('');
   const [statusSelected, setStatusSelected] = useState<TaskStatus>('DO');
   const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -21,6 +26,10 @@ function TasksSection() {
     DOING: tasks.filter((task) => task.status === 'DOING'),
     DONE: tasks.filter((task) => task.status === 'DONE'),
   };
+
+  function handleChangeSearchValue(event: ChangeEvent<HTMLInputElement>) {
+    setSearchValue(event.target.value);
+  }
 
   function handleCancelTaskModal() {
     setIsTaskModalOpen(false);
@@ -85,27 +94,49 @@ function TasksSection() {
     }
   }
 
-  function renderTasks(tasks: TypeTask[]) {
-    return tasks.length === 0 ? (
-      <S.NoTasksContainer>
-        <NoTasksIcon />
-        <span>Sem tarefas</span>
-      </S.NoTasksContainer>
-    ) : (
-      tasks.map((task) => (
-        <Task
-          title={task.title}
-          category_name={task.category_name}
-          category_id={task.category_id}
-          description={task.description}
-          id={task.id}
-          key={task.id}
-          status={task.status}
-          onDelete={deleteTask}
-          onUpdate={updateTask}
-        />
-      ))
+  function filterTasksByTitle(tasks: TypeTask[]) {
+    return tasks.filter((task) =>
+      task.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()),
     );
+  }
+
+  function renderTasks(tasks: TypeTask[]) {
+    if (tasks.length === 0 || filterTasksByTitle(tasks).length === 0) {
+      return (
+        <S.NoTasksContainer>
+          <NoTasksIcon />
+          <span>Sem tarefas</span>
+        </S.NoTasksContainer>
+      );
+    }
+
+    return searchValue.length >= 1
+      ? filterTasksByTitle(tasks).map((task) => (
+          <Task
+            title={task.title}
+            category_name={task.category_name}
+            category_id={task.category_id}
+            description={task.description}
+            id={task.id}
+            key={task.id}
+            status={task.status}
+            onDelete={deleteTask}
+            onUpdate={updateTask}
+          />
+        ))
+      : tasks.map((task) => (
+          <Task
+            title={task.title}
+            category_name={task.category_name}
+            category_id={task.category_id}
+            description={task.description}
+            id={task.id}
+            key={task.id}
+            status={task.status}
+            onDelete={deleteTask}
+            onUpdate={updateTask}
+          />
+        ));
   }
 
   useEffect(() => {
@@ -122,6 +153,16 @@ function TasksSection() {
 
   return (
     <>
+      <S.TopContent>
+        <Button responsive="true" text="Filtrar" icon={FilterIcon} />
+        <SearchInput
+          name="search"
+          value={searchValue}
+          onChange={handleChangeSearchValue}
+          placeholder="Busque por cards, assuntos ou responsáveis..."
+        />
+      </S.TopContent>
+
       {isTaskModalOpen && (
         <TaskModal
           title="Criar Tarefa"
