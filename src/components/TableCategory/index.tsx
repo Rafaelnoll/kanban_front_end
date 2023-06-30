@@ -19,24 +19,36 @@ function TableCategory({
   onDelete,
   onUpdate,
 }: TableCategoryProps) {
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
 
-  function handleModalClose() {
+  // Modal Edit
+  function handleCloseModalEdit() {
     setIsModalEditOpen(false);
   }
 
-  function handleModalOpen() {
+  function handleOpenModalEdit() {
     setIsModalEditOpen(true);
   }
 
+  // Modal Delete
+  function handleCloseModalDelete() {
+    setIsModalDeleteOpen(false);
+  }
+
+  function handleOpenModalDelete() {
+    setIsModalDeleteOpen(true);
+  }
+
+  // Actions
   function handleUpdateCategory(data: FormCategoriesInputs) {
     onUpdate(data, id);
-    handleModalClose();
+    handleCloseModalEdit();
   }
 
   function handleDeleteCategory() {
     onDelete(id);
-    handleModalClose();
+    handleCloseModalEdit();
   }
 
   return (
@@ -46,18 +58,31 @@ function TableCategory({
         <td>{tasks_count}</td>
         <td>
           <S.ActionButtonContainer>
-            <S.ActionButton onClick={handleModalOpen}>
-              <EditIcon />
-            </S.ActionButton>
-            <S.ActionButton onClick={handleDeleteCategory}>
-              <DeleteIcon />
-            </S.ActionButton>
+            {isModalDeleteOpen ? (
+              <>
+                <S.CancelButton onClick={handleCloseModalDelete}>
+                  Cancelar
+                </S.CancelButton>
+                <S.DeleteButton onClick={handleDeleteCategory}>
+                  Deletar
+                </S.DeleteButton>
+              </>
+            ) : (
+              <>
+                <S.ActionButton onClick={handleOpenModalEdit}>
+                  <EditIcon />
+                </S.ActionButton>
+                <S.ActionButton onClick={handleOpenModalDelete}>
+                  <DeleteIcon />
+                </S.ActionButton>
+              </>
+            )}
           </S.ActionButtonContainer>
         </td>
         {isModalEditOpen && (
           <td style={{ width: '0%', padding: '0' }}>
             <CategoryModal
-              onCancel={handleModalClose}
+              onCancel={handleCloseModalEdit}
               title="Modificar Categoria"
               initialData={{
                 name,

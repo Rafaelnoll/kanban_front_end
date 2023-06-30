@@ -38,6 +38,19 @@ class CategoryController {
       toast.error('Erro ao modificar a Categoria');
     }
   }
+
+  async delete(categoryId: string) {
+    try {
+      const createdCategoryResponse = await api.delete(
+        `/categories/${categoryId}`,
+      );
+
+      toast.success('Categoria deletada');
+      return createdCategoryResponse.data;
+    } catch (error) {
+      toast.error('Erro ao deletar a Categoria');
+    }
+  }
 }
 
 export default new CategoryController();

@@ -43,25 +43,35 @@ function CategoriesSection() {
 
   async function uptadeCategory({ name }: FormCategoriesInputs, id: string) {
     const updatedCategory = await CategoryController.update({ name }, id);
-    setCategories((prevState) =>
-      prevState.map((category) => {
-        if (category.id === id) {
-          return updatedCategory;
-        }
+    if (updatedCategory) {
+      setCategories((prevState) =>
+        prevState.map((category) => {
+          if (category.id === id) {
+            return updatedCategory;
+          }
 
-        return category;
-      }),
-    );
+          return category;
+        }),
+      );
+    }
   }
 
   async function deleteCategory(id: string) {
-    console.log(id);
+    await CategoryController.delete(id);
+
+    setCategories((prevState) =>
+      prevState.filter((category) => category.id !== id),
+    );
   }
 
   useEffect(() => {
     async function loadCategories() {
-      const categories = await CategoryController.index();
-      setCategories(categories);
+      try {
+        const categories = await CategoryController.index();
+        setCategories(categories);
+      } catch (error) {
+        setCategories([]);
+      }
     }
 
     loadCategories();
