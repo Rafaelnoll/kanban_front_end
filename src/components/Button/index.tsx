@@ -19,14 +19,22 @@ function Button({
   responsive = 'false',
   type = 'button',
 }: ButtonProps) {
+  if (link) {
+    return (
+      <S.StyledLink
+        responsive={responsive}
+        transparent={transparent}
+        type={type}
+        to={link}
+      >
+        {Icon && <Icon />}
+        <S.Text>{text}</S.Text>
+      </S.StyledLink>
+    );
+  }
+
   return (
-    <S.Button
-      responsive={responsive}
-      as={link ? 'a' : ''}
-      href={link}
-      transparent={transparent}
-      type={type}
-    >
+    <S.Button responsive={responsive} transparent={transparent} type={type}>
       {Icon && <Icon />}
       <S.Text>{text}</S.Text>
     </S.Button>
