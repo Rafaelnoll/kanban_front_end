@@ -5,6 +5,7 @@ import PenIcon from '../../assets/pen-icon.svg';
 
 import Title from '../../components/Title';
 import MobileMenu from '../../components/MobileMenu';
+import CategoriesSection from '../../components/CategoriesSection';
 
 function ManegeCategories() {
   return (
@@ -17,6 +18,10 @@ function ManegeCategories() {
             <PenIcon />
           </S.TitleContainer>
         </S.Header>
+
+        <S.MainContent>
+          <CategoriesSection />
+        </S.MainContent>
       </S.Container>
     </>
   );

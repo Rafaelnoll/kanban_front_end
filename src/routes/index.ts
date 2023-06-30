@@ -17,7 +17,7 @@ export default [
   },
   {
     path: '/categories',
-    name: 'Categories',
+    name: 'Categorias',
     icon: CategoriesIcon,
   },
 ] as IRoute[];
