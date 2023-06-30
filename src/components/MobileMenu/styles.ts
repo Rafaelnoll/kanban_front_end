@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   ${({ theme }) => css`
@@ -12,7 +13,7 @@ export const Container = styled.div`
   `}
 `;
 
-export const MenuLink = styled.a`
+export const MenuLink = styled(Link)`
   ${({ theme }) => css`
     color: ${theme.color.primary};
     padding: ${theme.spacing.medium};

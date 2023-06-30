@@ -8,7 +8,7 @@ function MobileMenu() {
     <S.Container>
       <S.ButtonsContainer>
         {routes.map(({ name, icon: Icon, path }) => (
-          <S.MenuLink key={name} href={path}>
+          <S.MenuLink key={name} to={path}>
             {Icon && <Icon />}
             {name}
           </S.MenuLink>
