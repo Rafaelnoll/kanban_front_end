@@ -80,23 +80,3 @@ export const TableRow = styled.tr`
     }
   `}
 `;
-
-export const ActionButtonContainer = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    gap: ${theme.spacing.small};
-  `}
-`;
-
-export const ActionButton = styled.button`
-  ${({ theme }) => css`
-    padding: ${theme.spacing.xsmall};
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-
-    & svg {
-      color: ${theme.color.text};
-    }
-  `}
-`;

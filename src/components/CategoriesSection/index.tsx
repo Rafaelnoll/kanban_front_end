@@ -9,9 +9,8 @@ import { FormCategoriesInputs } from '../../interfaces/FormInputs';
 
 import FilterIcon from '../../assets/filter-icon.svg';
 import CategoryController from '../../controllers/CategoryController';
-import DeleteIcon from '../../assets/trash-icon.svg';
-import EditIcon from '../../assets/edit-icon.svg';
 import AddIcon from '../../assets/add-icon.svg';
+import TableCategory from '../TableCategory';
 
 function CategoriesSection() {
   const [searchValue, setSearchValue] = useState('');
@@ -85,20 +84,12 @@ function CategoriesSection() {
           </thead>
           <S.TableBody>
             {categories.map((category) => (
-              <S.TableRow key={category.id}>
-                <td>{category.name}</td>
-                <td>{category.tasks_count}</td>
-                <td>
-                  <S.ActionButtonContainer>
-                    <S.ActionButton>
-                      <EditIcon />
-                    </S.ActionButton>
-                    <S.ActionButton>
-                      <DeleteIcon />
-                    </S.ActionButton>
-                  </S.ActionButtonContainer>
-                </td>
-              </S.TableRow>
+              <TableCategory
+                key={category.id}
+                name={category.name}
+                id={category.id}
+                tasks_count={category.tasks_count}
+              />
             ))}
           </S.TableBody>
         </S.Table>
