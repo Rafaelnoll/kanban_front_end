@@ -30,8 +30,16 @@ function CategoriesSection() {
     setIsModalOpen(false);
   }
 
-  function createCategory(data: FormCategoriesInputs) {
-    console.log(data);
+  async function createCategory({ name }: FormCategoriesInputs) {
+    const categoryCreated = await CategoryController.store({ name });
+    setCategories((prevstate) => {
+      prevstate.push({
+        ...categoryCreated,
+        tasks_count: '0',
+      });
+      return prevstate;
+    });
+    setIsModalOpen(false);
   }
 
   useEffect(() => {
