@@ -25,6 +25,19 @@ class CategoryController {
       toast.error('Erro ao criar a Categoria');
     }
   }
+
+  async update({ name }: FormCategoriesInputs, id: string) {
+    try {
+      const createdCategoryResponse = await api.put(`/categories/${id}`, {
+        name,
+      });
+
+      toast.success('Categoria modificada');
+      return createdCategoryResponse.data;
+    } catch (error) {
+      toast.error('Erro ao modificar a Categoria');
+    }
+  }
 }
 
 export default new CategoryController();

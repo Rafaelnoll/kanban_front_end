@@ -41,6 +41,23 @@ function CategoriesSection() {
     setIsModalOpen(false);
   }
 
+  async function uptadeCategory({ name }: FormCategoriesInputs, id: string) {
+    const updatedCategory = await CategoryController.update({ name }, id);
+    setCategories((prevState) =>
+      prevState.map((category) => {
+        if (category.id === id) {
+          return updatedCategory;
+        }
+
+        return category;
+      }),
+    );
+  }
+
+  async function deleteCategory(id: string) {
+    console.log(id);
+  }
+
   useEffect(() => {
     async function loadCategories() {
       const categories = await CategoryController.index();
@@ -89,6 +106,8 @@ function CategoriesSection() {
                 name={category.name}
                 id={category.id}
                 tasks_count={category.tasks_count}
+                onUpdate={uptadeCategory}
+                onDelete={deleteCategory}
               />
             ))}
           </S.TableBody>
