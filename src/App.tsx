@@ -6,14 +6,21 @@ import GlobalStyles from './styles/GlobalStyles';
 import BaseTemplate from './components/BaseTemplate';
 import SideMenu from './components/SideMenu';
 import KanbanPage from './pages/KanbanPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ManegeCategories from './pages/ManageCategories';
 
 function App() {
   return (
     <>
       <GlobalStyles />
       <BaseTemplate>
-        <SideMenu />
-        <KanbanPage />
+        <BrowserRouter basename="/">
+          <SideMenu />
+          <Routes>
+            <Route path="/categories" element={<ManegeCategories />} />
+            <Route path="/" element={<KanbanPage />} />
+          </Routes>
+        </BrowserRouter>
         <ToastContainer position="bottom-center" />
       </BaseTemplate>
     </>
