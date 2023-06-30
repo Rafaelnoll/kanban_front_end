@@ -14,11 +14,11 @@ function App() {
     <>
       <GlobalStyles />
       <BaseTemplate>
-        <BrowserRouter basename="/">
+        <BrowserRouter>
           <SideMenu />
           <Routes>
-            <Route path="/categories" element={<ManegeCategories />} />
             <Route path="/" element={<KanbanPage />} />
+            <Route path="/categories" element={<ManegeCategories />} />
           </Routes>
         </BrowserRouter>
         <ToastContainer position="bottom-center" />
