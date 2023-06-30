@@ -22,9 +22,31 @@ export const TopContent = styled.main`
   `}
 `;
 
-export const Table = styled.table`
+export const MainContent = styled.main`
   ${({ theme }) => css`
     margin-top: ${theme.spacing.large};
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: ${theme.spacing.small};
+  `}
+`;
+
+export const ButtonAdd = styled.button`
+  ${({ theme }) => css`
+    background-color: ${theme.color.primary};
+    padding: ${theme.spacing.xsmall};
+    color: ${theme.color.white};
+
+    display: flex;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  `}
+`;
+
+export const Table = styled.table`
+  ${({ theme }) => css`
     border: solid 2px ${theme.color.light_gray};
     border-radius: 8px;
 
