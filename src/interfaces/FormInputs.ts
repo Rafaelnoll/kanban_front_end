@@ -6,3 +6,7 @@ export interface FormTasksInputs {
   category_id: string | null;
   status: Task['status'];
 }
+
+export interface FormCategoriesInputs {
+  name: string;
+}
