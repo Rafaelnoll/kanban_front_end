@@ -14,12 +14,14 @@ import TaskController from '../../controllers/TaskController';
 
 import { FormTasksInputs } from '../../interfaces/FormInputs';
 import { TaskStatus, Task as TypeTask } from '../../interfaces/Task';
+import TaskSkeleton from '../TaskSkeleton';
 
 function TasksSection() {
   const [searchValue, setSearchValue] = useState('');
   const [statusSelected, setStatusSelected] = useState<TaskStatus>('DO');
   const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const tasksSections = {
     DO: tasks.filter((task) => task.status === 'DO'),
@@ -101,6 +103,10 @@ function TasksSection() {
   }
 
   function renderTasks(tasks: TypeTask[]) {
+    if (isLoading) {
+      return <TaskSkeleton />;
+    }
+
     if (tasks.length === 0 || filterTasksByTitle(tasks).length === 0) {
       return (
         <S.NoTasksContainer>
@@ -141,11 +147,13 @@ function TasksSection() {
 
   useEffect(() => {
     async function loadTasks() {
+      setIsLoading(true);
       const tasks = await TaskController.index();
 
       if (!tasks) return;
 
       setTasks(tasks);
+      setIsLoading(false);
     }
 
     loadTasks();
