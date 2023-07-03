@@ -64,6 +64,36 @@ function CategoriesSection() {
     );
   }
 
+  function renderCategories() {
+    const filtredCategories = categories.filter((category) =>
+      category.name.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+
+    if (searchValue.length >= 1) {
+      return filtredCategories.map((category) => (
+        <TableCategory
+          key={category.id}
+          name={category.name}
+          id={category.id}
+          tasks_count={category.tasks_count}
+          onUpdate={uptadeCategory}
+          onDelete={deleteCategory}
+        />
+      ));
+    }
+
+    return categories.map((category) => (
+      <TableCategory
+        key={category.id}
+        name={category.name}
+        id={category.id}
+        tasks_count={category.tasks_count}
+        onUpdate={uptadeCategory}
+        onDelete={deleteCategory}
+      />
+    ));
+  }
+
   useEffect(() => {
     async function loadCategories() {
       try {
@@ -109,18 +139,7 @@ function CategoriesSection() {
               <th>Ações</th>
             </S.TableRow>
           </thead>
-          <S.TableBody>
-            {categories.map((category) => (
-              <TableCategory
-                key={category.id}
-                name={category.name}
-                id={category.id}
-                tasks_count={category.tasks_count}
-                onUpdate={uptadeCategory}
-                onDelete={deleteCategory}
-              />
-            ))}
-          </S.TableBody>
+          <S.TableBody>{renderCategories()}</S.TableBody>
         </S.Table>
       </S.MainContent>
     </>
