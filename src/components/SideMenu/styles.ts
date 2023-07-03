@@ -24,6 +24,10 @@ export const Content = styled.div`
     @media ${theme.media.mobile} {
       position: static;
     }
+
+    & > svg {
+      color: ${theme.color.white};
+    }
   `}
 `;
 
