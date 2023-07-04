@@ -9,34 +9,30 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../components/Button';
 
-interface FormLoginInputs {
+interface FormForgotPasswordInputs {
   email: string;
-  password: string;
 }
 
 const schema = yup.object({
   email: yup.string().required('Email é obrigatório.').email('E-mail inválido'),
-  password: yup.string().required('Senha é obrigatório.'),
 });
 
-function LoginPage() {
+function ForgotPasswordPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormLoginInputs>({
+  } = useForm<FormForgotPasswordInputs>({
     defaultValues: {
       email: '',
-      password: '',
     },
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormLoginInputs> = ({
+  const onSubmit: SubmitHandler<FormForgotPasswordInputs> = ({
     email,
-    password,
-  }: FormLoginInputs) => {
-    console.log(email, password);
+  }: FormForgotPasswordInputs) => {
+    console.log(email);
   };
 
   return (
@@ -51,7 +47,13 @@ function LoginPage() {
           <S.Text>Kanban</S.Text>
         </S.FormHeader>
 
-        <S.Title>Bem-Vindo novamente</S.Title>
+        <S.TextContainer>
+          <S.Title>Esqueceu a senha?</S.Title>
+          <S.Description>
+            Não se preocupe! Isso acontece. Por favor, informe o seu endereço de
+            de e-mail conectado à sua conta para que eu possa ajudar você.
+          </S.Description>
+        </S.TextContainer>
 
         <S.Form onSubmit={handleSubmit(onSubmit)}>
           <S.InputContainer>
@@ -67,28 +69,10 @@ function LoginPage() {
             )}
           </S.InputContainer>
 
-          <S.InputContainer>
-            <S.Label>Senha</S.Label>
-            <Input
-              register={register}
-              name="password"
-              placeholder="Digite a sua senha"
-              type="password"
-            />
-            {errors.password && (
-              <S.ErrorMessage>{errors.password.message}</S.ErrorMessage>
-            )}
-          </S.InputContainer>
-
-          <S.FormLink to="/forgot-password">Esqueceu a senha?</S.FormLink>
-
-          <Button text="Logar" type="submit" />
-
-          <S.Separator />
+          <Button text="Enviar código" type="submit" />
 
           <S.SmallText>
-            Não tem uma conta?{' '}
-            <S.FormLink to="/register">Registre-se agora</S.FormLink>
+            Lembra da senha? <S.FormLink to="/login">Login</S.FormLink>
           </S.SmallText>
         </S.Form>
       </S.FormContainer>
@@ -96,4 +80,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default ForgotPasswordPage;
