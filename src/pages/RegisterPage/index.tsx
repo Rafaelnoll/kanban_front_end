@@ -9,33 +9,45 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../components/Button';
 
-interface FormLoginInputs {
+interface FormRegisterInputs {
+  username: string;
   email: string;
   password: string;
+  password_confirmation: string;
 }
 
 const schema = yup.object({
+  username: yup
+    .string()
+    .required('Nome é obrigatório')
+    .max(16, 'Nome pode ter até 16 caracteres'),
   email: yup.string().required('Email é obrigatório.').email('E-mail inválido'),
   password: yup.string().required('Senha é obrigatório.'),
+  password_confirmation: yup
+    .string()
+    .required('Confirme a senha')
+    .oneOf([yup.ref('password')], 'Senhas devem ser iguais'),
 });
 
-function LoginPage() {
+function RegisterPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormLoginInputs>({
+  } = useForm<FormRegisterInputs>({
     defaultValues: {
+      username: '',
       email: '',
       password: '',
+      password_confirmation: '',
     },
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormLoginInputs> = ({
+  const onSubmit: SubmitHandler<FormRegisterInputs> = ({
     email,
     password,
-  }: FormLoginInputs) => {
+  }: FormRegisterInputs) => {
     console.log(email, password);
   };
 
@@ -51,9 +63,21 @@ function LoginPage() {
           <S.Text>Kanban</S.Text>
         </S.FormHeader>
 
-        <S.Title>Bem-Vindo novamente</S.Title>
+        <S.Title>Olá! Registre-se para começar</S.Title>
 
         <S.Form onSubmit={handleSubmit(onSubmit)}>
+          <S.InputContainer>
+            <S.Label>Nome de usuário</S.Label>
+            <Input
+              register={register}
+              name="username"
+              placeholder="Digite o seu nome de usuário"
+            />
+            {errors.username && (
+              <S.ErrorMessage>{errors.username.message}</S.ErrorMessage>
+            )}
+          </S.InputContainer>
+
           <S.InputContainer>
             <S.Label>E-mail</S.Label>
             <Input
@@ -80,15 +104,28 @@ function LoginPage() {
             )}
           </S.InputContainer>
 
-          <S.FormLink to="#">Esqueceu a senha?</S.FormLink>
+          <S.InputContainer>
+            <S.Label>Confirmar senha</S.Label>
+            <Input
+              register={register}
+              name="password_confirmation"
+              placeholder="Confirme a sua senha"
+              type="password"
+            />
+            {errors.password_confirmation && (
+              <S.ErrorMessage>
+                {errors.password_confirmation.message}
+              </S.ErrorMessage>
+            )}
+          </S.InputContainer>
 
-          <Button text="Logar" type="submit" />
+          <Button text="Registrar" type="submit" />
 
           <S.Separator />
 
           <S.SmallText>
-            Não tem uma conta?{' '}
-            <S.FormLink to="/register">Registre-se agora</S.FormLink>
+            Já tem uma conta?{' '}
+            <S.FormLink to="/login">Faça login agora</S.FormLink>
           </S.SmallText>
         </S.Form>
       </S.FormContainer>
@@ -96,4 +133,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

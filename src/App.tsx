@@ -7,6 +7,7 @@ import KanbanPage from './pages/KanbanPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ManegeCategories from './pages/ManageCategories';
 import LoginPage from './pages/Login';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<KanbanPage />} />
           <Route path="/categories" element={<ManegeCategories />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer position="bottom-center" />
