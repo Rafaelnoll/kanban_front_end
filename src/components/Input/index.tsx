@@ -7,6 +7,7 @@ import { UseFormRegister } from 'react-hook-form';
 interface InputProps {
   asTextarea?: boolean;
   placeholder?: string;
+  type?: 'email' | 'password' | 'search';
   name: string;
   register: UseFormRegister<any>;
 }
@@ -17,6 +18,7 @@ const Input = ({
   placeholder = '',
   register,
   name,
+  type,
 }: InputProps) => {
   if (asTextarea) {
     return (
@@ -28,6 +30,6 @@ const Input = ({
     );
   }
 
-  return <S.Input placeholder={placeholder} {...register(name)} />;
+  return <S.Input type={type} placeholder={placeholder} {...register(name)} />;
 };
 export default Input;
