@@ -10,6 +10,10 @@ export const Input = styled.input`
     padding: ${theme.spacing.medium} ${theme.spacing.small};
     border: 2px solid ${theme.color.light_gray};
     border-radius: 8px;
+
+    &:focus {
+      border-color: ${theme.color.primary};
+    }
   `}
 `;
 
