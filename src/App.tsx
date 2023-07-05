@@ -9,6 +9,7 @@ import ManegeCategories from './pages/ManageCategories';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import Page404 from './pages/Page404';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer position="bottom-center" />
