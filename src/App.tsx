@@ -10,6 +10,7 @@ import LoginPage from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import Page404 from './pages/Page404';
+import UserProfilePage from './pages/UserProfilePage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/profile" element={<UserProfilePage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
