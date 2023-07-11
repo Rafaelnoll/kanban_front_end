@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../components/Button';
+import UserController from '../../controllers/UserController';
 
 interface FormRegisterInputs {
   username: string;
@@ -44,11 +45,18 @@ function RegisterPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormRegisterInputs> = ({
+  const onSubmit: SubmitHandler<FormRegisterInputs> = async ({
+    username,
     email,
     password,
+    password_confirmation,
   }: FormRegisterInputs) => {
-    console.log(email, password);
+    await UserController.store({
+      username,
+      email,
+      password,
+      password_confirmation,
+    });
   };
 
   return (
