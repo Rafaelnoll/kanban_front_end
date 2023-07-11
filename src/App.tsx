@@ -27,7 +27,7 @@ function App() {
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position="bottom-center" limit={3} />
     </>
   );
 }
