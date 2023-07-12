@@ -4,7 +4,7 @@ export const Container = styled.div`
   ${({ theme }) => css`
     background-color: ${theme.color.background};
     padding: ${theme.spacing.large};
-    margin-top: 3px;
+    margin-top: ${theme.spacing.xsmall};
     border-top-left-radius: 32px;
 
     @media ${theme.media.mobile} {
