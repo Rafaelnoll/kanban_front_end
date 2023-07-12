@@ -1,4 +1,6 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import api from '../services/api';
 
 export interface IAutheticationContext {
   authenticated: boolean;
@@ -20,10 +22,27 @@ export function AuthenticationProvider({
 }: AuthenticationProviderProps) {
   const [authenticated, setAuthenticated] = useState(false);
 
-  function handleLogin(token: string, callback?: () => void) {
-    setAuthenticated(true);
-    callback && callback();
+  function setAuthorizationTokenInHeader(token: string) {
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
+
+  function handleLogin(token: string, callback?: () => void) {
+    if (token) {
+      setAuthenticated(true);
+      Cookies.set('auth_token', token, { secure: true, sameSite: 'strict' });
+      setAuthorizationTokenInHeader(token);
+      callback && callback();
+    }
+  }
+
+  useEffect(() => {
+    const token = Cookies.get('auth_token');
+
+    if (token) {
+      setAuthorizationTokenInHeader(token);
+      setAuthenticated(true);
+    }
+  }, []);
 
   return (
     <AuthenticationContext.Provider value={{ authenticated, handleLogin }}>
