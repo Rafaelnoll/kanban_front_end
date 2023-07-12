@@ -11,7 +11,7 @@ interface IRoute {
 
 export default [
   {
-    path: '/',
+    path: '/dashboard',
     name: 'Boards',
     icon: BoardsIcon,
   },
