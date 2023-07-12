@@ -8,6 +8,11 @@ interface RegisterUserInputs {
   password_confirmation: string;
 }
 
+interface LoginUserInputs {
+  email: string;
+  password: string;
+}
+
 class UserController {
   async store({
     username,
@@ -26,6 +31,20 @@ class UserController {
       toast.success('Usuário criado com sucesso!');
     } catch (error) {
       toast.error('Erro ao criar usuário');
+    }
+  }
+
+  async getTokenAuthentication({ email, password }: LoginUserInputs) {
+    try {
+      const { data: token } = await api.post('/users/login', {
+        email,
+        password,
+      });
+
+      toast.success('Login feito com sucesso!');
+      return token;
+    } catch (error) {
+      toast.error('Erro ao fazer login');
     }
   }
 }

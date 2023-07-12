@@ -8,6 +8,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../components/Button';
+import useAuthentication from '../../hooks/useAuthentication';
+import UserController from '../../controllers/UserController';
 
 interface FormLoginInputs {
   email: string;
@@ -32,11 +34,18 @@ function LoginPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormLoginInputs> = ({
+  const { handleLogin } = useAuthentication();
+
+  const onSubmit: SubmitHandler<FormLoginInputs> = async ({
     email,
     password,
   }: FormLoginInputs) => {
-    console.log(email, password);
+    const authenticationToken = await UserController.getTokenAuthentication({
+      email,
+      password,
+    });
+
+    handleLogin(authenticationToken);
   };
 
   return (
