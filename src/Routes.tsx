@@ -16,12 +16,18 @@ function Routes() {
   return (
     <BrowserRouter>
       <RDRoutes>
-        <Route path="/" element={<KanbanPage />} />
-        <Route path="/categories" element={<ManegeCategories />} />
+        {authenticated && (
+          <>
+            <Route path="/dashboard" element={<KanbanPage />} />
+            <Route path="/categories" element={<ManegeCategories />} />
+            <Route path="/profile" element={<UserProfilePage />} />
+          </>
+        )}
+
+        <Route path="/" element={<h1>Home</h1>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/profile" element={<UserProfilePage />} />
         <Route path="*" element={<Page404 />} />
       </RDRoutes>
     </BrowserRouter>

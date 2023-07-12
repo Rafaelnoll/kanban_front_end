@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../components/Button';
 import useAuthentication from '../../hooks/useAuthentication';
 import UserController from '../../controllers/UserController';
+import { useNavigate } from 'react-router-dom';
 
 interface FormLoginInputs {
   email: string;
@@ -35,6 +36,7 @@ function LoginPage() {
   });
 
   const { handleLogin } = useAuthentication();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormLoginInputs> = async ({
     email,
@@ -45,7 +47,9 @@ function LoginPage() {
       password,
     });
 
-    handleLogin(authenticationToken);
+    handleLogin(authenticationToken, () => {
+      navigate('/dashboard');
+    });
   };
 
   return (
