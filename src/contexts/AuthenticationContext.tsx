@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 
 export interface IAutheticationContext {
   authenticated: boolean;
-  handleLogin: (token: string) => void;
+  handleLogin: (token: string, callback?: () => void) => void;
 }
 
 interface AuthenticationProviderProps {
@@ -20,10 +20,9 @@ export function AuthenticationProvider({
 }: AuthenticationProviderProps) {
   const [authenticated, setAuthenticated] = useState(false);
 
-  function handleLogin(token: string) {
-    if (token) {
-      setAuthenticated(true);
-    }
+  function handleLogin(token: string, callback?: () => void) {
+    setAuthenticated(true);
+    callback && callback();
   }
 
   return (
