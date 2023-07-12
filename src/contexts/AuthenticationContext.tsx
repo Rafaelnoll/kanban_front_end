@@ -1,9 +1,7 @@
 import React, { createContext, useState } from 'react';
 
-type Token = string | null;
-
 export interface IAutheticationContext {
-  token: Token;
+  authenticated: boolean;
   handleLogin: (token: string) => void;
 }
 
@@ -12,7 +10,7 @@ interface AuthenticationProviderProps {
 }
 
 export const AuthenticationContext = createContext<IAutheticationContext>({
-  token: null,
+  authenticated: false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleLogin: () => {},
 });
@@ -20,14 +18,16 @@ export const AuthenticationContext = createContext<IAutheticationContext>({
 export function AuthenticationProvider({
   children,
 }: AuthenticationProviderProps) {
-  const [token, setToken] = useState<Token>(null);
+  const [authenticated, setAuthenticated] = useState(false);
 
   function handleLogin(token: string) {
-    setToken(token);
+    if (token) {
+      setAuthenticated(true);
+    }
   }
 
   return (
-    <AuthenticationContext.Provider value={{ token, handleLogin }}>
+    <AuthenticationContext.Provider value={{ authenticated, handleLogin }}>
       {children}
     </AuthenticationContext.Provider>
   );

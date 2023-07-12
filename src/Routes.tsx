@@ -8,8 +8,11 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import Page404 from './pages/Page404';
 import UserProfilePage from './pages/UserProfilePage';
 import KanbanPage from './pages/KanbanPage';
+import useAuthentication from './hooks/useAuthentication';
 
 function Routes() {
+  const { authenticated } = useAuthentication();
+
   return (
     <BrowserRouter>
       <RDRoutes>

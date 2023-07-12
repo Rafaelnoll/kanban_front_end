@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import GlobalStyles from './styles/GlobalStyles';
 import Routes from './Routes';
-import { AuthenticationProvider } from './contexts/AuthenticationProvider';
+import { AuthenticationProvider } from './contexts/AuthenticationContext';
 
 function App() {
   return (
