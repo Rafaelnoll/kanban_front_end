@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 
 type Token = string | null;
 
-interface IAutheticationContext {
+export interface IAutheticationContext {
   token: Token;
   handleLogin: (token: string) => void;
 }
