@@ -14,6 +14,7 @@ import Input from '../../components/Input';
 
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import useAuthentication from '../../hooks/useAuthentication';
 
 interface FormInfosInputs {
   username: string;
@@ -33,14 +34,16 @@ const schema = yup.object({
 });
 
 function UserProfilePage() {
+  const { user } = useAuthentication();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInfosInputs>({
     defaultValues: {
-      username: '',
-      email: '',
+      username: user?.username,
+      email: user?.email,
       currentPassword: '',
       newPassword: '',
     },
@@ -77,8 +80,8 @@ function UserProfilePage() {
             <S.AccountPhoto src={ProfileImage} />
 
             <S.AccountInfos>
-              <S.AccountName>Rafael Noll</S.AccountName>
-              <S.AccountEmail>rafael@email.com</S.AccountEmail>
+              <S.AccountName>{user?.username}</S.AccountName>
+              <S.AccountEmail>{user?.email}</S.AccountEmail>
 
               <Button text="Mudar foto" />
             </S.AccountInfos>
