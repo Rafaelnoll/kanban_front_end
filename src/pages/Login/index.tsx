@@ -42,12 +42,12 @@ function LoginPage() {
     email,
     password,
   }: FormLoginInputs) => {
-    const authenticationToken = await UserController.getTokenAuthentication({
+    const authenticationData = await UserController.getTokenAuthentication({
       email,
       password,
     });
 
-    handleLogin(authenticationToken, () => {
+    handleLogin(authenticationData, () => {
       navigate('/dashboard');
     });
   };

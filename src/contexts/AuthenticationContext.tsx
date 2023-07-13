@@ -1,10 +1,24 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import api from '../services/api';
+import UserController from '../controllers/UserController';
+
+interface IAuthenticationData {
+  token: string;
+  userId: string;
+}
+
+interface IUser {
+  username: string;
+  email: string;
+}
 
 export interface IAutheticationContext {
-  authenticated: boolean;
-  handleLogin: (token: string, callback?: () => void) => void;
+  user: IUser | null;
+  handleLogin: (
+    authenticationData: IAuthenticationData,
+    callback?: () => void,
+  ) => void;
 }
 
 interface AuthenticationProviderProps {
@@ -12,7 +26,7 @@ interface AuthenticationProviderProps {
 }
 
 export const AuthenticationContext = createContext<IAutheticationContext>({
-  authenticated: false,
+  user: null,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleLogin: () => {},
 });
@@ -20,16 +34,21 @@ export const AuthenticationContext = createContext<IAutheticationContext>({
 export function AuthenticationProvider({
   children,
 }: AuthenticationProviderProps) {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState<IUser | null>(null);
 
   function setAuthorizationTokenInHeader(token: string) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 
-  function handleLogin(token: string, callback?: () => void) {
-    if (token) {
-      setAuthenticated(true);
+  function handleLogin(
+    authenticationData: IAuthenticationData,
+    callback?: () => void,
+  ) {
+    const { token, userId } = authenticationData;
+
+    if (authenticationData) {
       Cookies.set('auth_token', token, { secure: true, sameSite: 'strict' });
+      Cookies.set('userId', userId, { secure: true, sameSite: 'strict' });
       setAuthorizationTokenInHeader(token);
       callback && callback();
     }
@@ -37,15 +56,21 @@ export function AuthenticationProvider({
 
   useEffect(() => {
     const token = Cookies.get('auth_token');
+    const userId = Cookies.get('userId');
 
-    if (token) {
+    async function loadUserData(id: string) {
+      const userData = await UserController.getUserInfosById(id);
+      setUser(userData);
+    }
+
+    if (token && userId) {
       setAuthorizationTokenInHeader(token);
-      setAuthenticated(true);
+      loadUserData(userId);
     }
   }, []);
 
   return (
-    <AuthenticationContext.Provider value={{ authenticated, handleLogin }}>
+    <AuthenticationContext.Provider value={{ user, handleLogin }}>
       {children}
     </AuthenticationContext.Provider>
   );

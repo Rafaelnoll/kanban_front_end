@@ -11,12 +11,12 @@ import KanbanPage from './pages/KanbanPage';
 import useAuthentication from './hooks/useAuthentication';
 
 function Routes() {
-  const { authenticated } = useAuthentication();
+  const { user } = useAuthentication();
 
   return (
     <BrowserRouter>
       <RDRoutes>
-        {authenticated && (
+        {user && (
           <>
             <Route path="/dashboard" element={<KanbanPage />} />
             <Route path="/categories" element={<ManegeCategories />} />

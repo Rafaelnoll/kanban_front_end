@@ -47,6 +47,16 @@ class UserController {
       toast.error('Erro ao fazer login');
     }
   }
+
+  async getUserInfosById(userId: string) {
+    try {
+      const userResponse = await api.get(`/users/${userId}`);
+
+      return userResponse.data;
+    } catch (error) {
+      toast.error('Erro ao buscar usuário');
+    }
+  }
 }
 
 export default new UserController();
