@@ -40,16 +40,22 @@ export function AuthenticationProvider({
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 
+  async function loadUserData(id: string) {
+    const userData = await UserController.getUserInfosById(id);
+    setUser(userData);
+  }
+
   function handleLogin(
     authenticationData: IAuthenticationData,
     callback?: () => void,
   ) {
-    const { token, userId } = authenticationData;
-
     if (authenticationData) {
+      const { token, userId } = authenticationData;
+
+      setAuthorizationTokenInHeader(token);
+      loadUserData(userId);
       Cookies.set('auth_token', token, { secure: true, sameSite: 'strict' });
       Cookies.set('userId', userId, { secure: true, sameSite: 'strict' });
-      setAuthorizationTokenInHeader(token);
       callback && callback();
     }
   }
@@ -57,11 +63,6 @@ export function AuthenticationProvider({
   useEffect(() => {
     const token = Cookies.get('auth_token');
     const userId = Cookies.get('userId');
-
-    async function loadUserData(id: string) {
-      const userData = await UserController.getUserInfosById(id);
-      setUser(userData);
-    }
 
     if (token && userId) {
       setAuthorizationTokenInHeader(token);
