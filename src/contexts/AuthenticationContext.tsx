@@ -11,6 +11,7 @@ interface IAuthenticationData {
 interface IUser {
   username: string;
   email: string;
+  description?: string;
 }
 
 export interface IAutheticationContext {

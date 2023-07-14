@@ -111,6 +111,7 @@ export const FormHeader = styled.header`
   ${({ theme }) => css`
     display: flex;
     justify-content: space-between;
+    margin-top: ${theme.spacing.big};
 
     @media ${theme.media.mobile} {
       flex-direction: column;
@@ -169,6 +170,11 @@ export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.xsmall};
+
+    & > textarea {
+      border: 2px solid ${theme.color.light_gray};
+      height: 100px;
+    }
   `}
 `;
 

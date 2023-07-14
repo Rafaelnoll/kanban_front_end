@@ -19,8 +19,7 @@ import useAuthentication from '../../hooks/useAuthentication';
 interface FormInfosInputs {
   username: string;
   email: string;
-  currentPassword: string;
-  newPassword: string;
+  description: string | undefined;
 }
 
 const schema = yup.object({
@@ -29,8 +28,10 @@ const schema = yup.object({
     .required('Nome é obrigatório')
     .max(16, 'Nome pode ter até 16 caracteres'),
   email: yup.string().required('Email é obrigatório.').email('E-mail inválido'),
-  currentPassword: yup.string().required('Senha atual é obrigatório.'),
-  newPassword: yup.string().required('Nova senha é obrigatório.'),
+  description: yup
+    .string()
+    .optional()
+    .max(200, 'O campo excedeu o limite de caracteres permitido(200).'),
 });
 
 function UserProfilePage() {
@@ -44,8 +45,7 @@ function UserProfilePage() {
     defaultValues: {
       username: user?.username,
       email: user?.email,
-      currentPassword: '',
-      newPassword: '',
+      description: user?.description,
     },
     resolver: yupResolver(schema),
   });
@@ -53,10 +53,9 @@ function UserProfilePage() {
   const onSubmit: SubmitHandler<FormInfosInputs> = ({
     username,
     email,
-    currentPassword,
-    newPassword,
+    description,
   }: FormInfosInputs) => {
-    console.log(email);
+    console.log(description);
   };
 
   return (
@@ -123,33 +122,24 @@ function UserProfilePage() {
                   <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
                 )}
               </S.InputContainer>
+            </S.FieldsContainer>
 
+            <S.FormHeader>
+              <S.FormTitle>Sobre Mim</S.FormTitle>
+            </S.FormHeader>
+
+            <S.Separator />
+
+            <S.FieldsContainer>
               <S.InputContainer>
-                <S.Label>Senha atual</S.Label>
-
                 <Input
-                  name="currentPassword"
+                  name="description"
                   register={register}
-                  placeholder="Senha atual"
-                  type="password"
+                  placeholder="Descrição sobre você..."
+                  asTextarea
                 />
-                {errors.currentPassword && (
-                  <S.ErrorMessage>
-                    {errors.currentPassword.message}
-                  </S.ErrorMessage>
-                )}
-              </S.InputContainer>
-
-              <S.InputContainer>
-                <S.Label>Nova senha</S.Label>
-                <Input
-                  name="newPassword"
-                  register={register}
-                  placeholder="Nova senha"
-                  type="password"
-                />
-                {errors.newPassword && (
-                  <S.ErrorMessage>{errors.newPassword.message}</S.ErrorMessage>
+                {errors.description && (
+                  <S.ErrorMessage>{errors.description.message}</S.ErrorMessage>
                 )}
               </S.InputContainer>
             </S.FieldsContainer>
