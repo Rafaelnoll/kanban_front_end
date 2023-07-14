@@ -9,6 +9,7 @@ interface IAuthenticationData {
 }
 
 interface IUser {
+  id: string;
   username: string;
   email: string;
   description?: string;
@@ -20,6 +21,7 @@ export interface IAutheticationContext {
     authenticationData: IAuthenticationData,
     callback?: () => void,
   ) => void;
+  handleUpdateUser: (user: IUser) => void;
 }
 
 interface AuthenticationProviderProps {
@@ -30,6 +32,8 @@ export const AuthenticationContext = createContext<IAutheticationContext>({
   user: null,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleLogin: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handleUpdateUser: () => {},
 });
 
 export function AuthenticationProvider({
@@ -41,9 +45,16 @@ export function AuthenticationProvider({
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 
+  function handleUpdateUser(user: IUser) {
+    setUser(user);
+  }
+
   async function loadUserData(id: string) {
     const userData = await UserController.getUserInfosById(id);
-    setUser(userData);
+    setUser({
+      id,
+      ...userData,
+    });
   }
 
   function handleLogin(
@@ -83,7 +94,9 @@ export function AuthenticationProvider({
   }, []);
 
   return (
-    <AuthenticationContext.Provider value={{ user, handleLogin }}>
+    <AuthenticationContext.Provider
+      value={{ user, handleLogin, handleUpdateUser }}
+    >
       {children}
     </AuthenticationContext.Provider>
   );

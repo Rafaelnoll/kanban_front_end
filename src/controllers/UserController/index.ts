@@ -13,6 +13,12 @@ interface LoginUserInputs {
   password: string;
 }
 
+interface InfoProfileInputs {
+  username: string;
+  email: string;
+  description?: string;
+}
+
 class UserController {
   async store({
     username,
@@ -55,6 +61,23 @@ class UserController {
       return userResponse.data;
     } catch (error) {
       toast.error('Erro ao buscar usuário');
+    }
+  }
+
+  async updateInfo(
+    { username, email, description }: InfoProfileInputs,
+    id: string,
+  ) {
+    try {
+      const userResponse = await api.put(`/users/${id}`, {
+        username,
+        email,
+        description,
+      });
+
+      return userResponse.data;
+    } catch (error) {
+      toast.error('Erro ao atualizar usuário');
     }
   }
 }

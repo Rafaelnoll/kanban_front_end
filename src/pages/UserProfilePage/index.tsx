@@ -15,6 +15,7 @@ import Input from '../../components/Input';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAuthentication from '../../hooks/useAuthentication';
+import UserController from '../../controllers/UserController';
 
 interface FormInfosInputs {
   username: string;
@@ -35,7 +36,7 @@ const schema = yup.object({
 });
 
 function UserProfilePage() {
-  const { user } = useAuthentication();
+  const { user, handleUpdateUser } = useAuthentication();
 
   const {
     register,
@@ -50,12 +51,18 @@ function UserProfilePage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormInfosInputs> = ({
+  const onSubmit: SubmitHandler<FormInfosInputs> = async ({
     username,
     email,
     description,
   }: FormInfosInputs) => {
-    console.log(description);
+    if (user) {
+      const uptadedUser = await UserController.updateInfo(
+        { username, email, description },
+        user.id,
+      );
+      handleUpdateUser(uptadedUser);
+    }
   };
 
   return (
