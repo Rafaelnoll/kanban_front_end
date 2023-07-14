@@ -44,6 +44,11 @@ export const MainContent = styled.main`
 
     display: grid;
     grid-template-columns: 0.8fr 1fr;
+
+    @media ${theme.media.tablet} {
+      grid-template-columns: 1fr;
+      gap: ${theme.spacing.large};
+    }
   `}
 `;
 
@@ -55,6 +60,10 @@ export const AccountDetails = styled.div`
 
     gap: ${theme.spacing.big};
     border-right: 2px solid ${theme.color.secondary};
+
+    @media ${theme.media.tablet} {
+      border: none;
+    }
   `}
 `;
 
@@ -99,8 +108,16 @@ export const AccountEmail = styled.span`
 `;
 
 export const FormHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+
+    @media ${theme.media.mobile} {
+      flex-direction: column;
+      text-align: center;
+      gap: ${theme.spacing.medium};
+    }
+  `}
 `;
 
 export const ActionButtonsContainer = styled.div`
