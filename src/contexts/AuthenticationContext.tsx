@@ -52,10 +52,21 @@ export function AuthenticationProvider({
     if (authenticationData) {
       const { token, userId } = authenticationData;
 
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 1);
+
       setAuthorizationTokenInHeader(token);
       loadUserData(userId);
-      Cookies.set('auth_token', token, { secure: true, sameSite: 'strict' });
-      Cookies.set('userId', userId, { secure: true, sameSite: 'strict' });
+      Cookies.set('auth_token', token, {
+        secure: true,
+        sameSite: 'strict',
+        expires: expirationDate,
+      });
+      Cookies.set('userId', userId, {
+        secure: true,
+        sameSite: 'strict',
+        expires: expirationDate,
+      });
       callback && callback();
     }
   }
