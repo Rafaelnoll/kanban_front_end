@@ -22,6 +22,7 @@ export interface IAutheticationContext {
     callback?: () => void,
   ) => void;
   handleUpdateUser: (user: IUser) => void;
+  handleLogout: () => void;
 }
 
 interface AuthenticationProviderProps {
@@ -34,6 +35,8 @@ export const AuthenticationContext = createContext<IAutheticationContext>({
   handleLogin: () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handleUpdateUser: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handleLogout: () => {},
 });
 
 export function AuthenticationProvider({
@@ -83,6 +86,12 @@ export function AuthenticationProvider({
     }
   }
 
+  function handleLogout() {
+    Cookies.remove('auth_token');
+    Cookies.remove('userId');
+    setUser(null);
+  }
+
   useEffect(() => {
     const token = Cookies.get('auth_token');
     const userId = Cookies.get('userId');
@@ -95,7 +104,7 @@ export function AuthenticationProvider({
 
   return (
     <AuthenticationContext.Provider
-      value={{ user, handleLogin, handleUpdateUser }}
+      value={{ user, handleLogin, handleUpdateUser, handleLogout }}
     >
       {children}
     </AuthenticationContext.Provider>
