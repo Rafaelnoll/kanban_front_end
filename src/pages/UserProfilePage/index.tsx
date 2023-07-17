@@ -88,6 +88,7 @@ function UserProfilePage() {
             <S.AccountInfos>
               <S.AccountName>{user?.username}</S.AccountName>
               <S.AccountEmail>{user?.email}</S.AccountEmail>
+              <S.AccountDescription>{user?.description}</S.AccountDescription>
 
               <Button text="Mudar foto" />
             </S.AccountInfos>

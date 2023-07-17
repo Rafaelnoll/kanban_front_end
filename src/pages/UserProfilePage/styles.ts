@@ -107,6 +107,15 @@ export const AccountEmail = styled.span`
   `}
 `;
 
+export const AccountDescription = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.color.text_secondary};
+    font-size: ${theme.size.small};
+    margin-bottom: ${theme.spacing.big};
+    max-width: 300px;
+  `}
+`;
+
 export const FormHeader = styled.header`
   ${({ theme }) => css`
     display: flex;
