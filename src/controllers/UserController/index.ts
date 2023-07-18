@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import api from '../../services/api';
+import { handleAction } from '../../utils/handleAction';
 
 interface RegisterUserInputs {
   username: string;
@@ -26,7 +27,7 @@ class UserController {
     password,
     password_confirmation,
   }: RegisterUserInputs) {
-    try {
+    return handleAction(async () => {
       await api.post('/users', {
         username,
         email,
@@ -35,13 +36,11 @@ class UserController {
       });
 
       toast.success('Usuário criado com sucesso!');
-    } catch (error) {
-      toast.error('Erro ao criar usuário');
-    }
+    });
   }
 
   async getTokenAuthentication({ email, password }: LoginUserInputs) {
-    try {
+    return handleAction(async () => {
       const { data: token } = await api.post('/users/login', {
         email,
         password,
@@ -49,26 +48,22 @@ class UserController {
 
       toast.success('Login feito com sucesso!');
       return token;
-    } catch (error) {
-      toast.error('Erro ao fazer login');
-    }
+    });
   }
 
   async getUserInfosById(userId: string) {
-    try {
+    return handleAction(async () => {
       const userResponse = await api.get(`/users/${userId}`);
 
       return userResponse.data;
-    } catch (error) {
-      toast.error('Erro ao buscar usuário');
-    }
+    });
   }
 
   async updateInfo(
     { username, email, description }: InfoProfileInputs,
     id: string,
   ) {
-    try {
+    return handleAction(async () => {
       const userResponse = await api.put(`/users/${id}`, {
         username,
         email,
@@ -76,9 +71,7 @@ class UserController {
       });
 
       return userResponse.data;
-    } catch (error) {
-      toast.error('Erro ao atualizar usuário');
-    }
+    });
   }
 }
 

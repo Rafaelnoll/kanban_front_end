@@ -2,16 +2,15 @@ import { toast } from 'react-toastify';
 
 import { Task } from '../../interfaces/Task';
 import api from '../../services/api';
+import { handleAction } from '../../utils/handleAction';
 
 class TaskController {
   async index() {
-    try {
+    return handleAction(async () => {
       const allTasksResponse = await api.get('/tasks');
 
       return allTasksResponse.data;
-    } catch (error) {
-      toast.error('Erro ao carregar as tarefas');
-    }
+    });
   }
 
   async store({
@@ -20,7 +19,7 @@ class TaskController {
     status = 'DO',
     category_id,
   }: Omit<Task, 'id'>) {
-    try {
+    return handleAction(async () => {
       const createdTaskResponse = await api.post('/tasks', {
         title,
         description,
@@ -30,20 +29,15 @@ class TaskController {
 
       toast.success('Tarefa criada');
       return createdTaskResponse.data;
-    } catch (error) {
-      toast.error('Erro ao criar a tarefa');
-    }
+    });
   }
 
   async delete(taskId: string) {
-    try {
+    return handleAction(async () => {
       await api.delete(`/tasks/${taskId}`);
       toast.success('Tarefa deletada');
       return true;
-    } catch (error) {
-      toast.error('Erro ao deletar tarefa');
-      return false;
-    }
+    });
   }
 
   async update({
@@ -53,7 +47,7 @@ class TaskController {
     category_id,
     id,
   }: Task) {
-    try {
+    return handleAction(async () => {
       const updatedUserResponse = await api.put(`/tasks/${id}`, {
         title,
         description,
@@ -62,10 +56,7 @@ class TaskController {
       });
       toast.success('Tarefa atualizada');
       return updatedUserResponse.data;
-    } catch (error) {
-      toast.error('Erro ao atualizar tarefa');
-      return false;
-    }
+    });
   }
 }
 
