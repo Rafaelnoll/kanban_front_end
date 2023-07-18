@@ -42,6 +42,7 @@ function UserProfilePage() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormInfosInputs>({
     defaultValues: {
       username: user?.username,
@@ -50,6 +51,14 @@ function UserProfilePage() {
     },
     resolver: yupResolver(schema),
   });
+
+  const handleCancel = () => {
+    reset({
+      username: user?.username,
+      email: user?.email,
+      description: user?.description,
+    });
+  };
 
   const onSubmit: SubmitHandler<FormInfosInputs> = async ({
     username,
@@ -98,8 +107,10 @@ function UserProfilePage() {
             <S.FormHeader>
               <S.FormTitle>Informações</S.FormTitle>
               <S.ActionButtonsContainer>
-                <S.CancelButton>Cancelar</S.CancelButton>
-                <S.SaveButton>Salvar</S.SaveButton>
+                <S.CancelButton type="button" onClick={handleCancel}>
+                  Cancelar
+                </S.CancelButton>
+                <S.SaveButton type="submit">Salvar</S.SaveButton>
               </S.ActionButtonsContainer>
             </S.FormHeader>
 
