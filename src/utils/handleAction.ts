@@ -1,12 +1,14 @@
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
-type TypeHandleActionFunc = () => unknown;
+type TypeHandleActionFunc<Type> = () => Type;
 type ErrorData = {
   error: string;
 };
 
-export async function handleAction(func: TypeHandleActionFunc) {
+export async function handleAction<Type = unknown>(
+  func: TypeHandleActionFunc<Type>,
+) {
   try {
     return await func();
   } catch (error) {
