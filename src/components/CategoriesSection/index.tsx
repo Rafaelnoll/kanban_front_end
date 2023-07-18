@@ -31,14 +31,17 @@ function CategoriesSection() {
 
   async function createCategory({ name }: FormCategoriesInputs) {
     const categoryCreated = await CategoryController.store({ name });
-    setCategories((prevstate) => {
-      prevstate.push({
-        ...categoryCreated,
-        tasks_count: '0',
+
+    if (categoryCreated) {
+      setCategories((prevstate) => {
+        prevstate.push({
+          ...categoryCreated,
+          tasks_count: '0',
+        });
+        return prevstate;
       });
-      return prevstate;
-    });
-    setIsModalOpen(false);
+      setIsModalOpen(false);
+    }
   }
 
   async function uptadeCategory({ name }: FormCategoriesInputs, id: string) {
