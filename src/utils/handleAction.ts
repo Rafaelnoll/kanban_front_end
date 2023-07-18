@@ -16,5 +16,7 @@ export async function handleAction(func: TypeHandleActionFunc) {
       const errorData = axiosError.response.data as ErrorData;
       toast.error(errorData.error);
     }
+
+    return undefined;
   }
 }
