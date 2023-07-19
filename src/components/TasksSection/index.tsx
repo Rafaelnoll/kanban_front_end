@@ -1,20 +1,19 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import * as S from './styles';
-import Task from '../Task';
 
 import AddIcon from '../../assets/add-icon.svg';
 import NoTasksIcon from '../../assets/no-task.svg';
-import FilterIcon from '../../assets/filter-icon.svg';
 
+import Task from '../Task';
 import TaskModal from '../TaskModal';
-import Button from '../Button';
 import SearchInput from '../SearchInput';
 import TaskController from '../../controllers/TaskController';
+import TaskSkeleton from '../TaskSkeleton';
 
 import { FormTasksInputs } from '../../interfaces/FormInputs';
 import { TaskStatus, Task as TypeTask } from '../../interfaces/Task';
-import TaskSkeleton from '../TaskSkeleton';
+import ButtonFilterCategories from '../ButtonFilter';
 
 function TasksSection() {
   const [searchValue, setSearchValue] = useState('');
@@ -162,7 +161,7 @@ function TasksSection() {
   return (
     <>
       <S.TopContent>
-        <Button responsive="true" text="Filtrar" icon={FilterIcon} />
+        <ButtonFilterCategories />
         <SearchInput
           name="search"
           value={searchValue}
