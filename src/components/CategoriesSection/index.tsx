@@ -1,13 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import * as S from './styles';
-import Button from '../Button';
 import SearchInput from '../SearchInput';
 import { Category } from '../../interfaces/Category';
 import CategoryModal from '../CategoryModal';
 import { FormCategoriesInputs } from '../../interfaces/FormInputs';
 
-import FilterIcon from '../../assets/filter-icon.svg';
 import CategoryController from '../../controllers/CategoryController';
 import AddIcon from '../../assets/add-icon.svg';
 import TableCategory from '../TableCategory';
@@ -121,12 +119,11 @@ function CategoriesSection() {
       )}
 
       <S.TopContent>
-        <Button responsive="true" text="Filtrar" icon={FilterIcon} />
         <SearchInput
           name="search"
           value={searchValue}
           onChange={handleChangeSearchValue}
-          placeholder="Busque por cards, assuntos ou responsáveis..."
+          placeholder="Busque por categorias..."
         />
       </S.TopContent>
 
