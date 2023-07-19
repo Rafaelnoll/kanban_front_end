@@ -50,21 +50,23 @@ function ButtonFilterCategories({
       />
       {isListOpen && (
         <S.List>
-          {categories.map((category) => (
-            <S.ListItem
-              onClick={() => onSelectCategory(category.name)}
-              key={category.id}
-            >
-              <S.IconContainer
-                selected={
-                  selectedCategory.toLowerCase() === category.name.toLowerCase()
-                }
+          {categories.map((category) => {
+            const isCategorySelected =
+              selectedCategory.toLowerCase() === category.name.toLowerCase();
+
+            return (
+              <S.ListItem
+                onClick={() => onSelectCategory(category.name)}
+                key={category.id}
+                selected={isCategorySelected}
               >
-                <SelectedIcon />
-              </S.IconContainer>
-              <S.ListItemText>{category.name}</S.ListItemText>
-            </S.ListItem>
-          ))}
+                <S.IconContainer selected={isCategorySelected}>
+                  <SelectedIcon />
+                </S.IconContainer>
+                <S.ListItemText>{category.name}</S.ListItemText>
+              </S.ListItem>
+            );
+          })}
         </S.List>
       )}
     </S.Container>

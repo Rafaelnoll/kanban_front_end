@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-interface IconContainerProps {
+interface SelectedProp {
   selected: boolean;
 }
 
@@ -8,11 +8,12 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const ListItem = styled.div`
-  ${({ theme }) => css`
+export const ListItem = styled.div<SelectedProp>`
+  ${({ theme, selected }) => css`
     display: flex;
     gap: ${theme.spacing.small};
 
+    background-color: ${selected ? theme.color.secondary : 'none'};
     padding: ${theme.spacing.medium};
     cursor: pointer;
 
@@ -62,7 +63,7 @@ export const List = styled.div`
   `}
 `;
 
-export const IconContainer = styled.div<IconContainerProps>`
+export const IconContainer = styled.div<SelectedProp>`
   ${({ theme, selected }) => css`
     & > svg {
       opacity: ${selected ? 1 : 0};
