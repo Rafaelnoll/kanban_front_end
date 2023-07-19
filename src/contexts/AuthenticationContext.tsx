@@ -17,10 +17,7 @@ interface IUser {
 
 export interface IAutheticationContext {
   user: IUser | null;
-  handleLogin: (
-    authenticationData: IAuthenticationData,
-    callback?: () => void,
-  ) => void;
+  handleLogin: (authenticationData: IAuthenticationData) => void;
   handleUpdateUser: (user: IUser) => void;
   handleLogout: () => void;
 }
@@ -60,10 +57,7 @@ export function AuthenticationProvider({
     });
   }
 
-  function handleLogin(
-    authenticationData: IAuthenticationData,
-    callback?: () => void,
-  ) {
+  function handleLogin(authenticationData: IAuthenticationData) {
     if (authenticationData) {
       const { token, userId } = authenticationData;
 
@@ -82,7 +76,6 @@ export function AuthenticationProvider({
         sameSite: 'strict',
         expires: expirationDate,
       });
-      callback && callback();
     }
   }
 

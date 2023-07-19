@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import * as S from './styles';
 import KanbanImage from '../../assets/login-kanban.svg';
@@ -35,7 +35,7 @@ function LoginPage() {
     resolver: yupResolver(schema),
   });
 
-  const { handleLogin } = useAuthentication();
+  const { user, handleLogin } = useAuthentication();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormLoginInputs> = async ({
@@ -47,10 +47,14 @@ function LoginPage() {
       password,
     });
 
-    handleLogin(authenticationData, () => {
-      navigate('/dashboard');
-    });
+    handleLogin(authenticationData);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  });
 
   return (
     <S.Container>
