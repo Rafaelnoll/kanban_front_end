@@ -4,9 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import * as S from './styles';
 import BaseTemplate from '../../components/BaseTemplate';
 import MobileMenu from '../../components/MobileMenu';
-import ProfilePhoto from '../../components/ProfilePhoto';
 import SideMenu from '../../components/SideMenu';
-import Title from '../../components/Title';
 
 import ProfileImage from '../../assets/profile_image.jpg';
 import Button from '../../components/Button';
@@ -16,6 +14,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAuthentication from '../../hooks/useAuthentication';
 import UserController from '../../controllers/UserController';
+import { Header } from '../../components/Header';
 
 interface FormInfosInputs {
   username: string;
@@ -80,13 +79,7 @@ function UserProfilePage() {
 
       <MobileMenu />
       <S.Container>
-        <S.Header>
-          <S.TitleContainer>
-            <Title>Conta</Title>
-          </S.TitleContainer>
-
-          <ProfilePhoto />
-        </S.Header>
+        <Header title="Conta" />
 
         <S.MainContent>
           <S.AccountDetails>
