@@ -80,5 +80,10 @@ export const TopContent = styled.main`
     align-items: center;
     justify-content: space-between;
     gap: ${theme.spacing.medium};
+
+    @media ${theme.media.mobile} {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
   `}
 `;
