@@ -2,9 +2,6 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import * as S from './styles';
-import BaseTemplate from '../../components/BaseTemplate';
-import MobileMenu from '../../components/MobileMenu';
-import SideMenu from '../../components/SideMenu';
 
 import ProfileImage from '../../assets/profile_image.jpg';
 import Button from '../../components/Button';
@@ -14,7 +11,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAuthentication from '../../hooks/useAuthentication';
 import UserController from '../../controllers/UserController';
-import { Header } from '../../components/Header';
+import { ContentPage } from '../../templates/ContentPage';
 
 interface FormInfosInputs {
   username: string;
@@ -74,91 +71,82 @@ function UserProfilePage() {
   };
 
   return (
-    <BaseTemplate>
-      <SideMenu />
+    <ContentPage title="Conta">
+      <S.AccountDetails>
+        <S.AccountText>Foto</S.AccountText>
 
-      <MobileMenu />
-      <S.Container>
-        <Header title="Conta" />
+        <S.AccountPhoto src={ProfileImage} />
 
-        <S.MainContent>
-          <S.AccountDetails>
-            <S.AccountText>Foto</S.AccountText>
+        <S.AccountInfos>
+          <S.AccountName>{user?.username}</S.AccountName>
+          <S.AccountEmail>{user?.email}</S.AccountEmail>
+          <S.AccountDescription>{user?.description}</S.AccountDescription>
 
-            <S.AccountPhoto src={ProfileImage} />
+          <Button text="Mudar foto" />
+        </S.AccountInfos>
+      </S.AccountDetails>
 
-            <S.AccountInfos>
-              <S.AccountName>{user?.username}</S.AccountName>
-              <S.AccountEmail>{user?.email}</S.AccountEmail>
-              <S.AccountDescription>{user?.description}</S.AccountDescription>
+      <S.Form onSubmit={handleSubmit(onSubmit)}>
+        <S.FormHeader>
+          <S.FormTitle>Informações</S.FormTitle>
+          <S.ActionButtonsContainer>
+            <S.CancelButton type="button" onClick={handleCancel}>
+              Cancelar
+            </S.CancelButton>
+            <S.SaveButton type="submit">Salvar</S.SaveButton>
+          </S.ActionButtonsContainer>
+        </S.FormHeader>
 
-              <Button text="Mudar foto" />
-            </S.AccountInfos>
-          </S.AccountDetails>
+        <S.Separator />
 
-          <S.Form onSubmit={handleSubmit(onSubmit)}>
-            <S.FormHeader>
-              <S.FormTitle>Informações</S.FormTitle>
-              <S.ActionButtonsContainer>
-                <S.CancelButton type="button" onClick={handleCancel}>
-                  Cancelar
-                </S.CancelButton>
-                <S.SaveButton type="submit">Salvar</S.SaveButton>
-              </S.ActionButtonsContainer>
-            </S.FormHeader>
+        <S.FieldsContainer>
+          <S.InputContainer>
+            <S.Label>Nome de usuário</S.Label>
+            <Input
+              name="username"
+              register={register}
+              placeholder="Nome do usuário"
+            />
+            {errors.username && (
+              <S.ErrorMessage>{errors.username.message}</S.ErrorMessage>
+            )}
+          </S.InputContainer>
 
-            <S.Separator />
+          <S.InputContainer>
+            <S.Label>E-mail</S.Label>
+            <Input
+              name="email"
+              register={register}
+              placeholder="Email da conta"
+              type="email"
+            />
+            {errors.email && (
+              <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
+            )}
+          </S.InputContainer>
+        </S.FieldsContainer>
 
-            <S.FieldsContainer>
-              <S.InputContainer>
-                <S.Label>Nome de usuário</S.Label>
-                <Input
-                  name="username"
-                  register={register}
-                  placeholder="Nome do usuário"
-                />
-                {errors.username && (
-                  <S.ErrorMessage>{errors.username.message}</S.ErrorMessage>
-                )}
-              </S.InputContainer>
+        <S.FormHeader>
+          <S.FormTitle>Sobre Mim</S.FormTitle>
+        </S.FormHeader>
 
-              <S.InputContainer>
-                <S.Label>E-mail</S.Label>
-                <Input
-                  name="email"
-                  register={register}
-                  placeholder="Email da conta"
-                  type="email"
-                />
-                {errors.email && (
-                  <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
-                )}
-              </S.InputContainer>
-            </S.FieldsContainer>
+        <S.Separator />
 
-            <S.FormHeader>
-              <S.FormTitle>Sobre Mim</S.FormTitle>
-            </S.FormHeader>
-
-            <S.Separator />
-
-            <S.FieldsContainer>
-              <S.InputContainer>
-                <Input
-                  name="description"
-                  register={register}
-                  placeholder="Descrição sobre você..."
-                  asTextarea
-                />
-                {errors.description && (
-                  <S.ErrorMessage>{errors.description.message}</S.ErrorMessage>
-                )}
-              </S.InputContainer>
-            </S.FieldsContainer>
-          </S.Form>
-        </S.MainContent>
-      </S.Container>
-    </BaseTemplate>
+        <S.FieldsContainer>
+          <S.InputContainer>
+            <Input
+              name="description"
+              register={register}
+              placeholder="Descrição sobre você..."
+              asTextarea
+            />
+            {errors.description && (
+              <S.ErrorMessage>{errors.description.message}</S.ErrorMessage>
+            )}
+          </S.InputContainer>
+        </S.FieldsContainer>
+      </S.Form>
+    </ContentPage>
   );
 }
 
