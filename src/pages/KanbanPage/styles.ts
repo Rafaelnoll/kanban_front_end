@@ -16,14 +16,27 @@ export const Container = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-  display: flex;
-  gap: 1rem;
+  ${({ theme }) => css`
+    display: flex;
+    gap: ${theme.spacing.medium};
+    align-items: center;
+
+    @media ${theme.media.mobile} {
+      & > svg {
+        display: none;
+      }
+    }
+  `}
 `;
 
 export const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: ${theme.spacing.medium};
+  `}
 `;
 
 export const MainContent = styled.main`
