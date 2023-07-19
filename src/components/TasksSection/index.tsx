@@ -17,6 +17,7 @@ import ButtonFilterCategories from '../ButtonFilter';
 
 function TasksSection() {
   const [searchValue, setSearchValue] = useState('');
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('');
   const [statusSelected, setStatusSelected] = useState<TaskStatus>('DO');
   const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -27,6 +28,12 @@ function TasksSection() {
     DOING: tasks.filter((task) => task.status === 'DOING'),
     DONE: tasks.filter((task) => task.status === 'DONE'),
   };
+
+  function handleSelectCategoryFilter(categorySelected: string) {
+    setSelectedCategoryFilter((prevState) =>
+      categorySelected === prevState ? '' : categorySelected,
+    );
+  }
 
   function handleChangeSearchValue(event: ChangeEvent<HTMLInputElement>) {
     setSearchValue(event.target.value);
@@ -101,6 +108,17 @@ function TasksSection() {
     );
   }
 
+  function filterTasksByCategory(tasks: TypeTask[]) {
+    return tasks.filter((task) => {
+      if (!selectedCategoryFilter) return true;
+
+      return (
+        task.category_name?.toLowerCase() ===
+        selectedCategoryFilter.toLowerCase()
+      );
+    });
+  }
+
   function renderTasks(tasks: TypeTask[]) {
     if (isLoading) {
       return <TaskSkeleton />;
@@ -116,7 +134,7 @@ function TasksSection() {
     }
 
     return searchValue.length >= 1
-      ? filterTasksByTitle(tasks).map((task) => (
+      ? filterTasksByTitle(filterTasksByCategory(tasks)).map((task) => (
           <Task
             title={task.title}
             category_name={task.category_name}
@@ -129,7 +147,7 @@ function TasksSection() {
             onUpdate={updateTask}
           />
         ))
-      : tasks.map((task) => (
+      : filterTasksByCategory(tasks).map((task) => (
           <Task
             title={task.title}
             category_name={task.category_name}
@@ -161,7 +179,10 @@ function TasksSection() {
   return (
     <>
       <S.TopContent>
-        <ButtonFilterCategories />
+        <ButtonFilterCategories
+          selectedCategory={selectedCategoryFilter}
+          onSelectCategory={handleSelectCategoryFilter}
+        />
         <SearchInput
           name="search"
           value={searchValue}

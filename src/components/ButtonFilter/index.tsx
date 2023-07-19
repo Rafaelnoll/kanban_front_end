@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import FilterIcon from '../../assets/filter-icon.svg';
+import SelectedIcon from '../../assets/selected-icon.svg';
+
 import Button from '../Button';
 import * as S from './styles';
 import { Category } from '../../interfaces/Category';
@@ -8,9 +10,15 @@ import CategoryController from '../../controllers/CategoryController';
 
 interface ButtonFilterProps {
   initialCategories?: Category[];
+  selectedCategory: string;
+  onSelectCategory: (categorySelected: string) => void;
 }
 
-function ButtonFilterCategories({ initialCategories }: ButtonFilterProps) {
+function ButtonFilterCategories({
+  initialCategories,
+  onSelectCategory,
+  selectedCategory,
+}: ButtonFilterProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isListOpen, setIsListOpen] = useState(false);
 
@@ -43,7 +51,19 @@ function ButtonFilterCategories({ initialCategories }: ButtonFilterProps) {
       {isListOpen && (
         <S.List>
           {categories.map((category) => (
-            <S.ListItem key={category.id}>{category.name}</S.ListItem>
+            <S.ListItem
+              onClick={() => onSelectCategory(category.name)}
+              key={category.id}
+            >
+              <S.IconContainer
+                selected={
+                  selectedCategory.toLowerCase() === category.name.toLowerCase()
+                }
+              >
+                <SelectedIcon />
+              </S.IconContainer>
+              <S.ListItemText>{category.name}</S.ListItemText>
+            </S.ListItem>
           ))}
         </S.List>
       )}

@@ -1,19 +1,33 @@
 import styled, { css } from 'styled-components';
 
+interface IconContainerProps {
+  selected: boolean;
+}
+
 export const Container = styled.div`
   position: relative;
 `;
 
 export const ListItem = styled.div`
   ${({ theme }) => css`
-    padding: ${theme.spacing.medium} ${theme.spacing.big};
+    display: flex;
+    gap: ${theme.spacing.small};
+
+    padding: ${theme.spacing.medium};
     cursor: pointer;
-    color: ${theme.color.text};
-    font-size: ${theme.size.small};
 
     &:hover {
       background-color: ${theme.color.secondary};
     }
+  `}
+`;
+
+export const ListItemText = styled.span`
+  ${({ theme }) => css`
+    color: ${theme.color.text};
+    font-size: ${theme.size.small};
+
+    flex: 1;
   `}
 `;
 
@@ -26,7 +40,7 @@ export const List = styled.div`
     left: 0;
     border-radius: 8px;
     margin-top: ${theme.spacing.xsmall};
-    width: 100%;
+    min-width: 100%;
 
     ${ListItem} {
       border-top: solid 1px ${theme.color.light_gray};
@@ -44,6 +58,15 @@ export const List = styled.div`
     ${ListItem}:last-child {
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
+    }
+  `}
+`;
+
+export const IconContainer = styled.div<IconContainerProps>`
+  ${({ theme, selected }) => css`
+    & > svg {
+      opacity: ${selected ? 1 : 0};
+      color: ${theme.color.primary};
     }
   `}
 `;
