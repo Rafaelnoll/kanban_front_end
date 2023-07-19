@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SideFormPage } from '../../templates/SideFormPage';
-import { FormForgotPassword } from '../../components/FormForgotPassword';
+import { FormForgotPassword } from '../../components/Forms/FormForgotPassword';
 
 function ForgotPasswordPage() {
   return (

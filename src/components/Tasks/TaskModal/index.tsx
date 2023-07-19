@@ -4,15 +4,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import * as S from './styles';
-import CloseIcon from '../../assets/close-circle.svg';
-import CategoryIcon from '../../assets/category-icon.svg';
+import CloseIcon from '../../../assets/close-circle.svg';
+import CategoryIcon from '../../../assets/category-icon.svg';
 
-import Input from '../Input';
-import CategorySelector from '../CategorySelector';
-import { Category } from '../../interfaces/Category';
-import CategoryController from '../../controllers/CategoryController';
-import { FormTasksInputs } from '../../interfaces/FormInputs';
-import StatusCheckBoxes from '../StatusCheckBoxes';
+import Input from '../../Input';
+import CategorySelector from '../../Categories/CategorySelector';
+import { Category } from '../../../interfaces/Category';
+import CategoryController from '../../../controllers/CategoryController';
+import { FormTasksInputs } from '../../../interfaces/FormInputs';
+import StatusCheckBoxes from '../../StatusCheckBoxes';
 
 interface TaskModalProps {
   title: string;

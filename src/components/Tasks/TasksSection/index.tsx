@@ -2,18 +2,18 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import * as S from './styles';
 
-import AddIcon from '../../assets/add-icon.svg';
-import NoTasksIcon from '../../assets/no-task.svg';
+import AddIcon from '../../../assets/add-icon.svg';
+import NoTasksIcon from '../../../assets/no-task.svg';
 
 import Task from '../Task';
 import TaskModal from '../TaskModal';
-import SearchInput from '../SearchInput';
-import TaskController from '../../controllers/TaskController';
+import SearchInput from '../../SearchInput';
+import TaskController from '../../../controllers/TaskController';
 import TaskSkeleton from '../TaskSkeleton';
 
-import { FormTasksInputs } from '../../interfaces/FormInputs';
-import { TaskStatus, Task as TypeTask } from '../../interfaces/Task';
-import ButtonFilterCategories from '../ButtonFilter';
+import { FormTasksInputs } from '../../../interfaces/FormInputs';
+import { TaskStatus, Task as TypeTask } from '../../../interfaces/Task';
+import ButtonFilterCategories from '../../ButtonFilter';
 
 function TasksSection() {
   const [searchValue, setSearchValue] = useState('');

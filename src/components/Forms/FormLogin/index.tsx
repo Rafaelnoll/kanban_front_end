@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 
 import * as S from './styles';
 
-import Input from '../../components/Input';
+import Input from '../../../components/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Button from '../../components/Button';
-import useAuthentication from '../../hooks/useAuthentication';
-import UserController from '../../controllers/UserController';
+import Button from '../../../components/Button';
+import useAuthentication from '../../../hooks/useAuthentication';
+import UserController from '../../../controllers/UserController';
 import { useNavigate } from 'react-router-dom';
 
 interface FormLoginInputs {

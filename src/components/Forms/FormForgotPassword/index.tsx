@@ -4,8 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import * as S from './styles';
-import Button from '../Button';
-import Input from '../Input';
+import Button from '../../Button';
+import Input from '../../Input';
 
 interface FormForgotPasswordInputs {
   email: string;

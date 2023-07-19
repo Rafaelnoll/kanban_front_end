@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import * as S from './styles';
-import TrashIcon from '../../assets/trash-icon.svg';
-import EditIcon from '../../assets/edit-icon.svg';
-import { Task as TypeTask } from '../../interfaces/Task';
-import { FormTasksInputs } from '../../interfaces/FormInputs';
+import TrashIcon from '../../../assets/trash-icon.svg';
+import EditIcon from '../../../assets/edit-icon.svg';
+import { Task as TypeTask } from '../../../interfaces/Task';
+import { FormTasksInputs } from '../../../interfaces/FormInputs';
 import TaskModal from '../TaskModal';
 
 interface TaskProps extends TypeTask {

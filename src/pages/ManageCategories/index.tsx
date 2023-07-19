@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CategoriesSection from '../../components/CategoriesSection';
+import CategoriesSection from '../../components/Categories/CategoriesSection';
 import { ContentPage } from '../../templates/ContentPage';
 
 function ManegeCategories() {

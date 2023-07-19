@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 import * as S from './styles';
-import EditIcon from '../../assets/edit-icon.svg';
-import DeleteIcon from '../../assets/trash-icon.svg';
-import { Category } from '../../interfaces/Category';
+
+import EditIcon from '../../../assets/edit-icon.svg';
+import DeleteIcon from '../../../assets/trash-icon.svg';
+import { Category } from '../../../interfaces/Category';
 import CategoryModal from '../CategoryModal';
-import { FormCategoriesInputs } from '../../interfaces/FormInputs';
+import { FormCategoriesInputs } from '../../../interfaces/FormInputs';
 
 interface TableCategoryProps extends Category {
   onDelete: (categoryId: string) => void;

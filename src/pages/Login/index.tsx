@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SideFormPage } from '../../templates/SideFormPage';
-import { FormLogin } from '../../components/FormLogin';
+import { FormLogin } from '../../components/Forms/FormLogin';
 
 function LoginPage() {
   return (

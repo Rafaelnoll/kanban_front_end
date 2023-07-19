@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import * as S from './styles';
-import SearchInput from '../SearchInput';
-import { Category } from '../../interfaces/Category';
+import SearchInput from '../../SearchInput';
+import { Category } from '../../../interfaces/Category';
 import CategoryModal from '../CategoryModal';
-import { FormCategoriesInputs } from '../../interfaces/FormInputs';
+import { FormCategoriesInputs } from '../../../interfaces/FormInputs';
 
-import CategoryController from '../../controllers/CategoryController';
-import AddIcon from '../../assets/add-icon.svg';
+import CategoryController from '../../../controllers/CategoryController';
+import AddIcon from '../../../assets/add-icon.svg';
 import TableCategory from '../TableCategory';
 
 function CategoriesSection() {

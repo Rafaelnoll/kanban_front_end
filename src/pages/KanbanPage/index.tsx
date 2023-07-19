@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TasksSection from '../../components/TasksSection';
+import TasksSection from '../../components/Tasks/TasksSection';
 import { ContentPage } from '../../templates/ContentPage';
 
 function KanbanPage() {

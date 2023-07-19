@@ -4,10 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import * as S from './styles';
-import CloseIcon from '../../assets/close-circle.svg';
+import CloseIcon from '../../../assets/close-circle.svg';
 
-import Input from '../Input';
-import { FormCategoriesInputs } from '../../interfaces/FormInputs';
+import Input from '../../Input';
+import { FormCategoriesInputs } from '../../../interfaces/FormInputs';
 
 interface TaskModalProps {
   title: string;

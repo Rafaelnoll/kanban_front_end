@@ -2,12 +2,12 @@ import React from 'react';
 
 import * as S from './styles';
 
-import Input from '../Input';
+import Input from '../../Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Button from '../Button';
-import UserController from '../../controllers/UserController';
+import Button from '../../Button';
+import UserController from '../../../controllers/UserController';
 
 interface FormRegisterInputs {
   username: string;
