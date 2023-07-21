@@ -38,7 +38,7 @@ export const Header = styled.header`
   align-items: center;
 `;
 
-export const MainContent = styled.main`
+export const Content = styled.main`
   ${({ theme }) => css`
     margin-top: ${theme.spacing.big};
 

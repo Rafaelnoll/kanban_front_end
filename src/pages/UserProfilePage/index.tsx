@@ -72,80 +72,82 @@ function UserProfilePage() {
 
   return (
     <ContentPage title="Conta">
-      <S.AccountDetails>
-        <S.AccountText>Foto</S.AccountText>
+      <S.Content>
+        <S.AccountDetails>
+          <S.AccountText>Foto</S.AccountText>
 
-        <S.AccountPhoto src={ProfileImage} />
+          <S.AccountPhoto src={ProfileImage} />
 
-        <S.AccountInfos>
-          <S.AccountName>{user?.username}</S.AccountName>
-          <S.AccountEmail>{user?.email}</S.AccountEmail>
-          <S.AccountDescription>{user?.description}</S.AccountDescription>
+          <S.AccountInfos>
+            <S.AccountName>{user?.username}</S.AccountName>
+            <S.AccountEmail>{user?.email}</S.AccountEmail>
+            <S.AccountDescription>{user?.description}</S.AccountDescription>
 
-          <Button text="Mudar foto" />
-        </S.AccountInfos>
-      </S.AccountDetails>
+            <Button text="Mudar foto" />
+          </S.AccountInfos>
+        </S.AccountDetails>
 
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <S.FormHeader>
-          <S.FormTitle>Informações</S.FormTitle>
-          <S.ActionButtonsContainer>
-            <S.CancelButton type="button" onClick={handleCancel}>
-              Cancelar
-            </S.CancelButton>
-            <S.SaveButton type="submit">Salvar</S.SaveButton>
-          </S.ActionButtonsContainer>
-        </S.FormHeader>
+        <S.Form onSubmit={handleSubmit(onSubmit)}>
+          <S.FormHeader>
+            <S.FormTitle>Informações</S.FormTitle>
+            <S.ActionButtonsContainer>
+              <S.CancelButton type="button" onClick={handleCancel}>
+                Cancelar
+              </S.CancelButton>
+              <S.SaveButton type="submit">Salvar</S.SaveButton>
+            </S.ActionButtonsContainer>
+          </S.FormHeader>
 
-        <S.Separator />
+          <S.Separator />
 
-        <S.FieldsContainer>
-          <S.InputContainer>
-            <S.Label>Nome de usuário</S.Label>
-            <Input
-              name="username"
-              register={register}
-              placeholder="Nome do usuário"
-            />
-            {errors.username && (
-              <S.ErrorMessage>{errors.username.message}</S.ErrorMessage>
-            )}
-          </S.InputContainer>
+          <S.FieldsContainer>
+            <S.InputContainer>
+              <S.Label>Nome de usuário</S.Label>
+              <Input
+                name="username"
+                register={register}
+                placeholder="Nome do usuário"
+              />
+              {errors.username && (
+                <S.ErrorMessage>{errors.username.message}</S.ErrorMessage>
+              )}
+            </S.InputContainer>
 
-          <S.InputContainer>
-            <S.Label>E-mail</S.Label>
-            <Input
-              name="email"
-              register={register}
-              placeholder="Email da conta"
-              type="email"
-            />
-            {errors.email && (
-              <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
-            )}
-          </S.InputContainer>
-        </S.FieldsContainer>
+            <S.InputContainer>
+              <S.Label>E-mail</S.Label>
+              <Input
+                name="email"
+                register={register}
+                placeholder="Email da conta"
+                type="email"
+              />
+              {errors.email && (
+                <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
+              )}
+            </S.InputContainer>
+          </S.FieldsContainer>
 
-        <S.FormHeader>
-          <S.FormTitle>Sobre Mim</S.FormTitle>
-        </S.FormHeader>
+          <S.FormHeader>
+            <S.FormTitle>Sobre Mim</S.FormTitle>
+          </S.FormHeader>
 
-        <S.Separator />
+          <S.Separator />
 
-        <S.FieldsContainer>
-          <S.InputContainer>
-            <Input
-              name="description"
-              register={register}
-              placeholder="Descrição sobre você..."
-              asTextarea
-            />
-            {errors.description && (
-              <S.ErrorMessage>{errors.description.message}</S.ErrorMessage>
-            )}
-          </S.InputContainer>
-        </S.FieldsContainer>
-      </S.Form>
+          <S.FieldsContainer>
+            <S.InputContainer>
+              <Input
+                name="description"
+                register={register}
+                placeholder="Descrição sobre você..."
+                asTextarea
+              />
+              {errors.description && (
+                <S.ErrorMessage>{errors.description.message}</S.ErrorMessage>
+              )}
+            </S.InputContainer>
+          </S.FieldsContainer>
+        </S.Form>
+      </S.Content>
     </ContentPage>
   );
 }
