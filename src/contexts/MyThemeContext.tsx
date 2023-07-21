@@ -1,4 +1,7 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext } from 'react';
+
+import { useLocalState } from '../hooks/useLocalState';
+import { ITheme } from '../interfaces/Theme';
 
 type Theme = 'dark' | 'light';
 
@@ -18,36 +21,15 @@ export const MyThemeContext = createContext<IMyThemeProvider>({
 });
 
 export function MyThemeProvider({ children }: IChildren) {
-  const [currentTheme, setCurrentTheme] = useState<Theme>('light');
-
-  function setThemeInLocalStorage(theme: Theme) {
-    localStorage.setItem('@kanban_theme', theme);
-  }
-
-  function getThemeInLocalStorage() {
-    return localStorage.getItem('@kanban_theme') as Theme | null;
-  }
+  const [theme, setTheme] = useLocalState<ITheme>('@kanban_theme', 'light');
 
   function handleChangeTheme() {
-    setCurrentTheme((prevState) => {
-      const newTheme = prevState === 'dark' ? 'light' : 'dark';
-      setThemeInLocalStorage(newTheme);
-      return newTheme;
-    });
+    setTheme((prevState) => (prevState === 'dark' ? 'light' : 'dark'));
   }
-
-  useEffect(() => {
-    const themeInLocalStorage = getThemeInLocalStorage();
-
-    if (themeInLocalStorage) {
-      setCurrentTheme(themeInLocalStorage);
-      return;
-    }
-  }, []);
 
   return (
     <MyThemeContext.Provider
-      value={{ currentTheme, changeTheme: handleChangeTheme }}
+      value={{ currentTheme: theme, changeTheme: handleChangeTheme }}
     >
       {children}
     </MyThemeContext.Provider>
