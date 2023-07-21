@@ -58,6 +58,10 @@ export const Table = styled.table`
       padding: ${theme.spacing.small};
       color: ${theme.color.text};
       background-color: ${theme.color.secondary};
+
+      @media ${theme.media.mobile} {
+        text-align: center;
+      }
     }
   `}
 `;

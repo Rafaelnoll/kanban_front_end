@@ -17,6 +17,10 @@ export const TableRow = styled.tr`
       padding: ${theme.spacing.small};
       color: ${theme.color.text};
       max-width: 50px;
+
+      @media ${theme.media.mobile} {
+        text-align: center;
+      }
     }
   `}
 `;
