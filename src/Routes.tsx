@@ -9,6 +9,7 @@ import Page404 from './pages/Page404';
 import UserProfilePage from './pages/UserProfilePage';
 import KanbanPage from './pages/KanbanPage';
 import useAuthentication from './hooks/useAuthentication';
+import UserSettingsPage from './pages/UserSettingsPage';
 
 function Routes() {
   const { user } = useAuthentication();
@@ -21,6 +22,7 @@ function Routes() {
             <Route path="/dashboard" element={<KanbanPage />} />
             <Route path="/categories" element={<ManegeCategories />} />
             <Route path="/profile" element={<UserProfilePage />} />
+            <Route path="/settings" element={<UserSettingsPage />} />
           </>
         )}
 
