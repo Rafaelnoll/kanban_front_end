@@ -25,7 +25,7 @@ export const MenuLink = styled(Link)`
     gap: ${theme.spacing.small};
 
     &:hover {
-      background-color: ${theme.color.secondary};
+      background-color: ${theme.color.bg_tertiary};
     }
 
     & svg {
