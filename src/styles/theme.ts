@@ -1,16 +1,4 @@
-export default {
-  color: {
-    text: '#403937',
-    text_secondary: '#756966',
-    text_error: '#ff3333',
-    white: '#FFF',
-    light_gray: '#DFDFE6',
-    background: '#FBFAFF',
-    primary: '#7C3AED',
-    secondary: '#E2D6FF',
-    orange: '#F9AE1D',
-    red: '#E0162E',
-  },
+const defaultValues = {
   size: {
     xsmall: '0.7rem',
     small: '0.9rem',
@@ -29,5 +17,38 @@ export default {
     tablet: '(max-width: 1150px)',
     mobile: '(max-width: 750px)',
     not_mobile: '(min-width: 750px)',
+  },
+};
+
+export default {
+  light: {
+    ...defaultValues,
+    color: {
+      text: '#403937',
+      text_secondary: '#756966',
+      text_error: '#ff3333',
+      white: '#FFF',
+      light_gray: '#DFDFE6',
+      background: '#FBFAFF',
+      primary: '#7C3AED',
+      secondary: '#E2D6FF',
+      orange: '#F9AE1D',
+      red: '#E0162E',
+    },
+  },
+  dark: {
+    ...defaultValues,
+    color: {
+      text: '#F0F0F0',
+      text_secondary: '#B3B3B3',
+      text_error: '#FF6666',
+      white: '#101010',
+      light_gray: '#333333',
+      background: '#1A1A1A',
+      primary: '#8C33B4',
+      secondary: '#4C4CA6',
+      orange: '#FFA500',
+      red: '#FF0000',
+    },
   },
 };
