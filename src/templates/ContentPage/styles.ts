@@ -55,5 +55,6 @@ export const Header = styled.header`
 export const MainContent = styled.main`
   ${({ theme }) => css`
     margin-top: ${theme.spacing.big};
+    min-height: 100vh;
   `}
 `;
