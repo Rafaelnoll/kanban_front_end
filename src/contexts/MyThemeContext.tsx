@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
 
@@ -20,9 +20,30 @@ export const MyThemeContext = createContext<IMyThemeProvider>({
 export function MyThemeProvider({ children }: IChildren) {
   const [currentTheme, setCurrentTheme] = useState<Theme>('light');
 
-  function handleChangeTheme() {
-    setCurrentTheme((prevState) => (prevState === 'dark' ? 'light' : 'dark'));
+  function setThemeInLocalStorage(theme: Theme) {
+    localStorage.setItem('@kanban_theme', theme);
   }
+
+  function getThemeInLocalStorage() {
+    return localStorage.getItem('@kanban_theme') as Theme | null;
+  }
+
+  function handleChangeTheme() {
+    setCurrentTheme((prevState) => {
+      const newTheme = prevState === 'dark' ? 'light' : 'dark';
+      setThemeInLocalStorage(newTheme);
+      return newTheme;
+    });
+  }
+
+  useEffect(() => {
+    const themeInLocalStorage = getThemeInLocalStorage();
+
+    if (themeInLocalStorage) {
+      setCurrentTheme(themeInLocalStorage);
+      return;
+    }
+  }, []);
 
   return (
     <MyThemeContext.Provider
