@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const IconContainerTemplate = styled.div`
   ${({ theme }) => css`
     position: absolute;
-    background-color: ${theme.color.white};
+    background-color: ${theme.color.bg_secondary};
     padding: ${theme.spacing.xsmall};
 
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -35,7 +35,7 @@ export const ConfigContainer = styled(IconContainerTemplate)`
     }
 
     &:hover > svg {
-      color: ${theme.color.primary};
+      color: ${theme.color.secondary};
     }
   `}
 `;

@@ -25,7 +25,7 @@ export const ListItem = styled.div<SelectedProp>`
 
 export const ListItemText = styled.span`
   ${({ theme }) => css`
-    color: ${theme.color.text};
+    color: ${theme.color.text_dark};
     font-size: ${theme.size.small};
 
     flex: 1;

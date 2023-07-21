@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const Input = styled.input`
   ${({ theme }) => css`
     border: none;
-    color: ${theme.color.text};
+    color: ${theme.color.text_dark};
     font-size: ${theme.size.small};
     width: 100%;
 
@@ -20,7 +20,7 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
   ${({ theme }) => css`
     border: none;
-    color: ${theme.color.text};
+    color: ${theme.color.text_dark};
     font-size: ${theme.size.small};
     width: 100%;
     resize: none;

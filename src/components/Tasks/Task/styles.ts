@@ -15,8 +15,8 @@ const ButtonsTemplate = styled.button`
 
 export const Container = styled.div`
   ${({ theme }) => css`
-    background-color: ${theme.color.white};
-    box-shadow: 0px 4px 16px #eae2fd;
+    background-color: ${theme.color.bg_secondary};
+    box-shadow: ${theme.color.shadow_box};
     border-radius: 8px;
     padding: ${theme.spacing.big};
     position: relative;
@@ -99,7 +99,7 @@ export const Category = styled.span`
 export const ModalDeleteContainer = styled.div`
   ${({ theme }) => css`
     position: absolute;
-    background-color: ${theme.color.white};
+    background-color: ${theme.color.bg_secondary};
     top: 0;
     left: 0;
     width: 100%;
@@ -145,7 +145,7 @@ export const ModalDeleteActions = styled.div`
 export const CancelButton = styled(ButtonsTemplate)`
   ${({ theme }) => css`
     background-color: ${theme.color.light_gray};
-    color: ${theme.color.text};
+    color: ${theme.color.text_dark};
   `}
 `;
 

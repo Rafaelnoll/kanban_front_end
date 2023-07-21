@@ -35,7 +35,7 @@ export const Container = styled.div`
 
 export const ModalContainer = styled.div`
   ${({ theme }) => css`
-    background-color: ${theme.color.white};
+    background-color: ${theme.color.bg_secondary};
     padding: ${theme.spacing.medium};
 
     width: 100%;
@@ -95,7 +95,7 @@ export const ErrorMessage = styled.span`
 export const CancelButton = styled(ButtonTemplate)`
   ${({ theme }) => css`
     background-color: ${theme.color.light_gray};
-    color: ${theme.color.text};
+    color: ${theme.color.text_dark};
   `}
 `;
 

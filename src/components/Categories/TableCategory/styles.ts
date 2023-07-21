@@ -48,7 +48,7 @@ export const ActionButton = styled.button`
 export const CancelButton = styled(ButtonsTemplate)`
   ${({ theme }) => css`
     background-color: ${theme.color.light_gray};
-    color: ${theme.color.text};
+    color: ${theme.color.text_dark};
   `}
 `;
 

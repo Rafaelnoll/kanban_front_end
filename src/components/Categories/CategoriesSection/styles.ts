@@ -57,11 +57,19 @@ export const Table = styled.table`
       text-align: left;
       padding: ${theme.spacing.small};
       color: ${theme.color.text};
-      background-color: ${theme.color.secondary};
+      background-color: ${theme.color.bg_tertiary};
 
       @media ${theme.media.mobile} {
         text-align: center;
       }
+    }
+
+    & th:first-child {
+      border-top-left-radius: 6px;
+    }
+
+    & th:last-child {
+      border-top-right-radius: 6px;
     }
   `}
 `;
@@ -69,7 +77,16 @@ export const Table = styled.table`
 export const TableBody = styled.tbody`
   ${({ theme }) => css`
     & tr:nth-child(2n) {
-      background-color: ${theme.color.secondary};
+      background-color: ${theme.color.bg_tertiary};
+    }
+
+    & tr:last-child {
+      & td:first-child {
+        border-bottom-left-radius: 6px;
+      }
+      & td:last-child {
+        border-bottom-right-radius: 6px;
+      }
     }
   `}
 `;

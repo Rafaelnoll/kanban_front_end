@@ -22,7 +22,7 @@ export const Input = styled.input`
   ${({ theme }) => css`
     flex: 1;
 
-    color: ${theme.color.text};
+    color: ${theme.color.text_dark};
     font-size: ${theme.size.medium};
     border: none;
   `}

@@ -15,7 +15,7 @@ export const Container = styled.div`
 
 export const Title = styled.strong`
   ${({ theme }) => css`
-    color: ${theme.color.text_secondary};
+    color: ${theme.color.text};
     font-size: ${theme.size.small};
   `}
 `;
@@ -28,7 +28,7 @@ export const Label = styled.label<LabelProps>`
   ${({ theme, ischecked }) => css`
     background-color: ${ischecked === 'true'
       ? theme.color.primary
-      : theme.color.light_gray};
+      : theme.color.background};
     color: ${ischecked === 'true' ? theme.color.white : theme.color.text};
 
     padding: ${theme.spacing.small};

@@ -11,7 +11,7 @@ export const Container = styled.div`
     border-radius: 8px;
 
     svg {
-      color: ${theme.color.text_secondary};
+      color: ${theme.color.text_dark};
     }
   `}
 `;
@@ -21,7 +21,7 @@ export const Selector = styled.select`
     border: none;
     width: 100%;
 
-    color: ${theme.color.text_secondary};
+    color: ${theme.color.text_dark};
     font-size: ${theme.size.small};
     background-color: ${theme.color.white};
   `}
