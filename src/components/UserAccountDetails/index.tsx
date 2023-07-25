@@ -5,6 +5,8 @@ import Button from '../Button';
 import ProfileImage from '../../assets/profile_image.jpg';
 import { IUser } from '../../interfaces/User';
 import ImageEditor from '../ImageEditor';
+import UserController from '../../controllers/UserController';
+import useAuthentication from '../../hooks/useAuthentication';
 
 interface UserAccountDetailsProps {
   user: IUser | null;
@@ -13,6 +15,7 @@ interface UserAccountDetailsProps {
 function UserAccountDetails({ user }: UserAccountDetailsProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { handleUpdateUser } = useAuthentication();
 
   const handleOpenFilePicker = () => {
     const input = fileInputRef.current;
@@ -39,8 +42,18 @@ function UserAccountDetails({ user }: UserAccountDetailsProps) {
     }
   };
 
-  const handleEditProfilePicture = (image: string) => {
-    console.log(image);
+  const handleEditProfilePicture = async (image: File) => {
+    const formData = new FormData();
+
+    formData.append('file', image);
+
+    if (user) {
+      const userUpdated = await UserController.updateUserImageProfile(
+        formData,
+        user?.id,
+      );
+      handleUpdateUser(userUpdated);
+    }
   };
 
   return (

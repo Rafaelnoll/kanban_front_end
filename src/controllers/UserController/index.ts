@@ -73,6 +73,22 @@ class UserController {
       return userResponse.data;
     });
   }
+
+  async updateUserImageProfile(formData: FormData, id: string) {
+    return handleAction(async () => {
+      const updatedUser = await api.put(
+        `/users/${id}/change-picture`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+
+      return updatedUser.data;
+    });
+  }
 }
 
 export default new UserController();

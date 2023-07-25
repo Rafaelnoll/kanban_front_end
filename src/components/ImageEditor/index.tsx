@@ -3,21 +3,34 @@ import AvatarEditor from 'react-avatar-editor';
 
 import * as S from './styles';
 import CloseIcon from '../../assets/close-circle.svg';
+import { toast } from 'react-toastify';
 
 interface ImageEditorProps {
   image: File;
   onClose: () => void;
-  onEdit: (editedImage: string) => void;
+  onEdit: (editedImage: File) => void;
 }
 
 function ImageEditor({ image, onClose, onEdit }: ImageEditorProps) {
   const editorRef = useRef<AvatarEditor | null>(null);
 
   function handleEditImage() {
-    const image = editorRef.current
+    const dataURL = editorRef.current
       ?.getImageScaledToCanvas()
       .toDataURL('image/png');
-    image && onEdit(image);
+
+    if (dataURL) {
+      fetch(dataURL)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const file = new File([blob], image.name, { type: 'image/png' });
+          onEdit(file);
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        .catch((error) => {
+          toast.error('Erro ao mudar foto de perfil!');
+        });
+    }
   }
 
   return (
