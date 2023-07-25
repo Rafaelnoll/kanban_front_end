@@ -3,8 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import * as S from './styles';
 
-import ProfileImage from '../../assets/profile_image.jpg';
-import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 import * as yup from 'yup';
@@ -12,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useAuthentication from '../../hooks/useAuthentication';
 import UserController from '../../controllers/UserController';
 import { ContentPage } from '../../templates/ContentPage';
+import UserAccountDetails from '../../components/UserAccountDetails';
 
 interface FormInfosInputs {
   username: string;
@@ -73,19 +72,7 @@ function UserProfilePage() {
   return (
     <ContentPage title="Conta">
       <S.Content>
-        <S.AccountDetails>
-          <S.AccountText>Foto</S.AccountText>
-
-          <S.AccountPhoto src={ProfileImage} />
-
-          <S.AccountInfos>
-            <S.AccountName>{user?.username}</S.AccountName>
-            <S.AccountEmail>{user?.email}</S.AccountEmail>
-            <S.AccountDescription>{user?.description}</S.AccountDescription>
-
-            <Button text="Mudar foto" />
-          </S.AccountInfos>
-        </S.AccountDetails>
+        <UserAccountDetails user={user} />
 
         <S.Form onSubmit={handleSubmit(onSubmit)}>
           <S.FormHeader>

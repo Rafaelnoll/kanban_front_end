@@ -1,18 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+
 import api from '../services/api';
 import UserController from '../controllers/UserController';
-
+import { IUser } from '../interfaces/User';
 interface IAuthenticationData {
   token: string;
   userId: string;
-}
-
-interface IUser {
-  id: string;
-  username: string;
-  email: string;
-  description?: string;
 }
 
 export interface IAutheticationContext {
