@@ -1,18 +1,28 @@
 import React from 'react';
 
 import * as S from './styles';
-import ProfileImage from '../../assets/profile_image.jpg';
+import DefaultProfileImage from '../../assets/profile_image.jpg';
 import ConfigIcon from '../../assets/configuration-icon.svg';
 import LogoutIcon from '../../assets/logout-icon.svg';
 import { Link } from 'react-router-dom';
 import useAuthentication from '../../hooks/useAuthentication';
 
-function ProfilePhoto() {
+interface ProfilePhotoProps {
+  image_path?: string;
+}
+
+function ProfilePhoto({ image_path }: ProfilePhotoProps) {
   const { handleLogout } = useAuthentication();
 
   return (
     <S.Container>
-      <S.ProfileImage src={ProfileImage} />
+      <S.ProfileImage
+        src={
+          image_path
+            ? `http://localhost:3000/uploads/${image_path}`
+            : DefaultProfileImage
+        }
+      />
 
       <Link to="/profile">
         <S.ConfigContainer>

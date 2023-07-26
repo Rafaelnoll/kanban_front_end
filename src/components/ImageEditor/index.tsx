@@ -17,13 +17,13 @@ function ImageEditor({ image, onClose, onEdit }: ImageEditorProps) {
   function handleEditImage() {
     const dataURL = editorRef.current
       ?.getImageScaledToCanvas()
-      .toDataURL('image/png');
+      .toDataURL('image/jpeg', 0.8);
 
     if (dataURL) {
       fetch(dataURL)
         .then((response) => response.blob())
         .then((blob) => {
-          const file = new File([blob], image.name, { type: 'image/png' });
+          const file = new File([blob], image.name, { type: 'image/jpeg' });
           onEdit(file);
         })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars

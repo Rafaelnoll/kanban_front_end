@@ -2,11 +2,11 @@ import React, { ChangeEvent, useRef, useState } from 'react';
 
 import * as S from './styles';
 import Button from '../Button';
-import ProfileImage from '../../assets/profile_image.jpg';
 import { IUser } from '../../interfaces/User';
 import ImageEditor from '../ImageEditor';
 import UserController from '../../controllers/UserController';
 import useAuthentication from '../../hooks/useAuthentication';
+import DefaultProfileImage from '../../assets/profile_image.jpg';
 
 interface UserAccountDetailsProps {
   user: IUser | null;
@@ -60,7 +60,13 @@ function UserAccountDetails({ user }: UserAccountDetailsProps) {
     <S.AccountDetails>
       <S.AccountText>Foto</S.AccountText>
 
-      <S.AccountPhoto src={ProfileImage} />
+      <S.AccountPhoto
+        src={
+          user?.image_path
+            ? `http://localhost:3000/uploads/${user.image_path}`
+            : DefaultProfileImage
+        }
+      />
 
       <S.AccountInfos>
         <S.AccountName>{user?.username}</S.AccountName>
@@ -73,7 +79,7 @@ function UserAccountDetails({ user }: UserAccountDetailsProps) {
           onChange={(e) => handleSelectFile(e)}
           style={{ display: 'none' }}
           type="file"
-          accept="image/png, image/jpg"
+          accept="image/png, image/jpg, image/jpeg"
         />
       </S.AccountInfos>
 
