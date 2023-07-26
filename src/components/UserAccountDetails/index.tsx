@@ -53,6 +53,7 @@ function UserAccountDetails({ user }: UserAccountDetailsProps) {
         user?.id,
       );
       handleUpdateUser(userUpdated);
+      handleCloseImageEditor();
     }
   };
 
