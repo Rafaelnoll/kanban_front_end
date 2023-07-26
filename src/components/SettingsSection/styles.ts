@@ -1,6 +1,13 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.big};
+    align-items: center;
+  `}
+`;
 
 export const ChangeThemeContainer = styled.div`
   ${({ theme }) => css`

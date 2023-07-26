@@ -4,6 +4,7 @@ import * as S from './styles';
 import Details from '../Details';
 import ToggleSwitch from '../ToggleSwitch';
 import useMyTheme from '../../hooks/useMyTheme';
+import { FormChangePassword } from '../Forms/FormChangePassword';
 
 function SettingsSection() {
   const { currentTheme, changeTheme } = useMyTheme();
@@ -18,6 +19,10 @@ function SettingsSection() {
             handleClick={changeTheme}
           />
         </S.ChangeThemeContainer>
+      </Details>
+
+      <Details title="Mudança de senha">
+        <FormChangePassword />
       </Details>
     </S.Container>
   );
