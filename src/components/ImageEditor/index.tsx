@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 
 import * as S from './styles';
@@ -13,6 +13,7 @@ interface ImageEditorProps {
 
 function ImageEditor({ image, onClose, onEdit }: ImageEditorProps) {
   const editorRef = useRef<AvatarEditor | null>(null);
+  const [zoom, setZoom] = useState(1);
 
   function handleEditImage() {
     const dataURL = editorRef.current
@@ -33,6 +34,11 @@ function ImageEditor({ image, onClose, onEdit }: ImageEditorProps) {
     }
   }
 
+  function handleChangeZoom(event: ChangeEvent<HTMLInputElement>) {
+    const zoomLevel = event.target.value;
+    setZoom(Number(zoomLevel) / 100);
+  }
+
   return (
     <S.Container>
       <S.ModalContainer>
@@ -45,10 +51,20 @@ function ImageEditor({ image, onClose, onEdit }: ImageEditorProps) {
           <AvatarEditor
             ref={editorRef}
             image={image}
-            scale={1.2}
+            scale={zoom}
             borderRadius={200}
             style={{ width: '100%', height: '100%', borderRadius: '8px' }}
           />
+          <S.ZoomRangeContainer>
+            <S.Text>+</S.Text>
+            <S.ZoomRangeInput
+              max={150}
+              min={100}
+              aria-orientation="vertical"
+              onChange={(e) => handleChangeZoom(e)}
+            />
+            <S.Text>-</S.Text>
+          </S.ZoomRangeContainer>
         </S.AvatarEditorContainer>
 
         <S.ModalFooter>

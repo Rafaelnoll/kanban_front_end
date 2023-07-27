@@ -70,8 +70,7 @@ export const Title = styled.strong`
 export const AvatarEditorContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: ${theme.spacing.small};
 
     margin: ${theme.spacing.medium} 0;
     border-radius: 8px;
@@ -82,10 +81,51 @@ export const ModalFooter = styled.footer`
   ${({ theme }) => css`
     display: flex;
     gap: ${theme.spacing.medium};
+    margin-top: ${theme.spacing.small};
 
     @media ${theme.media.mobile} {
       flex-direction: column-reverse;
     }
+  `}
+`;
+
+export const ZoomRangeContainer = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: ${theme.spacing.small};
+  `}
+`;
+
+export const ZoomRangeInput = styled.input.attrs({ type: 'range' })`
+  ${({ theme }) => css`
+    -webkit-appearance: none;
+    writing-mode: bt-lr;
+    width: 16px;
+    height: 100%;
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+      height: 100%;
+      border-radius: 8px;
+      background-color: ${theme.color.primary};
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      background-color: red;
+      height: 10px;
+      width: 10px;
+    }
+  `}
+`;
+
+export const Text = styled.span`
+  ${({ theme }) => css`
+    color: ${theme.color.text};
+    font-size: ${theme.size.medium};
   `}
 `;
 
