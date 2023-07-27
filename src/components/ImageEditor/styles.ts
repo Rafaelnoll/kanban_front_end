@@ -70,6 +70,7 @@ export const Title = styled.strong`
 export const AvatarEditorContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
+    flex-direction: column;
     gap: ${theme.spacing.small};
 
     margin: ${theme.spacing.medium} 0;
@@ -92,9 +93,7 @@ export const ModalFooter = styled.footer`
 export const ZoomRangeContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
-    flex-direction: column;
     align-items: center;
-
     gap: ${theme.spacing.small};
   `}
 `;
@@ -102,22 +101,47 @@ export const ZoomRangeContainer = styled.div`
 export const ZoomRangeInput = styled.input.attrs({ type: 'range' })`
   ${({ theme }) => css`
     -webkit-appearance: none;
-    writing-mode: bt-lr;
-    width: 16px;
-    height: 100%;
+    appearance: none;
+    background: transparent;
     cursor: pointer;
+    outline: none;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
 
     &::-webkit-slider-runnable-track {
-      height: 100%;
+      background: ${theme.color.secondary};
+      width: 100%;
+      height: 16px;
       border-radius: 8px;
-      background-color: ${theme.color.primary};
     }
 
     &::-webkit-slider-thumb {
+      -webkit-appearance: none;
       appearance: none;
-      background-color: red;
-      height: 10px;
-      width: 10px;
+
+      height: 100%;
+      width: 16px;
+      background-color: ${theme.color.primary};
+      border-radius: 50%;
+      border: 2px solid ${theme.color.white};
+      box-shadow: -407px 0 0 400px ${theme.color.primary};
+    }
+
+    /* Track: Mozilla Firefox */
+    &::-moz-range-track {
+      background: ${theme.color.primary};
+      height: 16px;
+      border-radius: 8px;
+    }
+
+    &::-moz-range-thumb {
+      height: 15px;
+      width: 15px;
+      background-color: ${theme.color.primary};
+      border-radius: 50%;
+      border: 2px solid ${theme.color.white};
+      box-shadow: -407px 0 0 400px ${theme.color.primary};
     }
   `}
 `;
