@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import UserController from '../../../controllers/UserController';
 import useAuthentication from '../../../hooks/useAuthentication';
+import { passwordRegex } from '../../../utils/passwordRegex';
 
 interface FormChangePasswordInputs {
   current_password: string;
@@ -17,7 +18,15 @@ interface FormChangePasswordInputs {
 
 const schema = yup.object({
   current_password: yup.string().required('Senha atual é obrigatória.'),
-  new_password: yup.string().required('Nova senha é obrigatória.'),
+  new_password: yup
+    .string()
+    .required('Nova senha é obrigatória.')
+    .min(8, 'Senha deve conter entre 8 e 16 caracteres.')
+    .max(16, 'Senha deve conter entre 8 e 16 caracteres.')
+    .matches(passwordRegex, {
+      message:
+        'Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
+    }),
   new_password_confirmation: yup
     .string()
     .required('Confirme a nova senha')

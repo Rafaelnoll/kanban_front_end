@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../Button';
 import UserController from '../../../controllers/UserController';
+import { passwordRegex } from '../../../utils/passwordRegex';
 
 interface FormRegisterInputs {
   username: string;
@@ -22,7 +23,15 @@ const schema = yup.object({
     .required('Nome é obrigatório')
     .max(16, 'Nome pode ter até 16 caracteres'),
   email: yup.string().required('Email é obrigatório.').email('E-mail inválido'),
-  password: yup.string().required('Senha é obrigatório.'),
+  password: yup
+    .string()
+    .required('Senha é obrigatório.')
+    .min(8, 'Senha deve conter entre 8 e 16 caracteres.')
+    .max(16, 'Senha deve conter entre 8 e 16 caracteres.')
+    .matches(passwordRegex, {
+      message:
+        'Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
+    }),
   password_confirmation: yup
     .string()
     .required('Confirme a senha')
