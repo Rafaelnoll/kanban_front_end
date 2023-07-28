@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
 import * as S from './styles';
-import TrashIcon from '../../../assets/trash-icon.svg';
-import EditIcon from '../../../assets/edit-icon.svg';
 import { Task as TypeTask } from '../../../interfaces/Task';
 import { FormTasksInputs } from '../../../interfaces/FormInputs';
 import TaskModal from '../TaskModal';
+import TaskActions from '../TaskActions';
 
 interface TaskProps extends TypeTask {
   onDelete: (taskId: string) => void;
@@ -29,12 +28,12 @@ function Task({
     setIsDeleteModalOpen(true);
   }
 
-  function handleCloseDeleteModal() {
-    setIsDeleteModalOpen(false);
-  }
-
   function handleOpenUpdateModal() {
     setIsUpdateModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
   }
 
   function handleCloseUpdateModal() {
@@ -83,10 +82,10 @@ function Task({
 
         <S.TaskHeader>
           <S.TaskTitle>{title}</S.TaskTitle>
-          <S.TaskActions>
-            <EditIcon onClick={handleOpenUpdateModal} />
-            <TrashIcon onClick={handleOpenDeleteModal} />
-          </S.TaskActions>
+          <TaskActions
+            onDelete={handleOpenDeleteModal}
+            onUpdate={handleOpenUpdateModal}
+          />
         </S.TaskHeader>
 
         {description ? (

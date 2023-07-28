@@ -53,18 +53,6 @@ export const TaskTitle = styled.strong`
   `}
 `;
 
-export const TaskActions = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    gap: ${theme.spacing.small};
-
-    svg {
-      color: ${theme.color.text};
-      cursor: pointer;
-    }
-  `}
-`;
-
 export const Description = styled.p`
   ${({ theme }) => css`
     display: -webkit-box;
@@ -106,6 +94,7 @@ export const ModalDeleteContainer = styled.div`
     height: 100%;
     border-radius: 8px;
     padding: ${theme.spacing.big};
+    z-index: 10;
 
     display: flex;
     flex-direction: column;

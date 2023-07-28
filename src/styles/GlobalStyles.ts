@@ -24,6 +24,11 @@ const GlobalStyles = createGlobalStyle`
     a {
       text-decoration: none;
     }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
 `;
 
 export default GlobalStyles;
