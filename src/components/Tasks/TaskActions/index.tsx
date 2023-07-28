@@ -14,6 +14,16 @@ interface TaskActionsProps {
 export default function TaskActions({ onUpdate, onDelete }: TaskActionsProps) {
   const [isActionsOpen, setIsActionsOpen] = useState(false);
 
+  function handleUpdate() {
+    onUpdate();
+    setIsActionsOpen(false);
+  }
+
+  function handleDelete() {
+    onDelete();
+    setIsActionsOpen(false);
+  }
+
   return (
     <S.TaskActionsContainer>
       {isActionsOpen ? (
@@ -23,11 +33,11 @@ export default function TaskActions({ onUpdate, onDelete }: TaskActionsProps) {
       )}
       {isActionsOpen && (
         <S.TaskActions>
-          <S.Action onClick={onUpdate}>
+          <S.Action onClick={handleUpdate}>
             <EditIcon />
             Editar
           </S.Action>
-          <S.Action onClick={onDelete}>
+          <S.Action onClick={handleDelete}>
             <TrashIcon />
             Deletar
           </S.Action>
