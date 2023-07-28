@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import * as S from './styles';
 import TrashIcon from '../../../assets/trash-icon.svg';
@@ -9,20 +9,38 @@ import CloseIcon from '../../../assets/close-icon.svg';
 interface TaskActionsProps {
   onUpdate: () => void;
   onDelete: () => void;
+  taskRef?: React.RefObject<HTMLDivElement>;
 }
 
-export default function TaskActions({ onUpdate, onDelete }: TaskActionsProps) {
+export default function TaskActions({
+  onUpdate,
+  onDelete,
+  taskRef,
+}: TaskActionsProps) {
   const [isActionsOpen, setIsActionsOpen] = useState(false);
+
+  const closeActionsMenu = useCallback(() => {
+    setIsActionsOpen(false);
+  }, []);
 
   function handleUpdate() {
     onUpdate();
-    setIsActionsOpen(false);
+    closeActionsMenu();
   }
 
   function handleDelete() {
     onDelete();
-    setIsActionsOpen(false);
+    closeActionsMenu();
   }
+
+  useEffect(() => {
+    const taskContainer = taskRef?.current;
+
+    taskContainer?.addEventListener('mouseleave', closeActionsMenu);
+
+    return () =>
+      taskContainer?.removeEventListener('mouseleave', closeActionsMenu);
+  }, [taskRef]);
 
   return (
     <S.TaskActionsContainer>

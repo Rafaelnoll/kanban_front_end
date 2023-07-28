@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import * as S from './styles';
 import { Task as TypeTask } from '../../../interfaces/Task';
@@ -23,6 +23,7 @@ function Task({
 }: TaskProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const taskRef = useRef<HTMLDivElement>(null);
 
   function handleOpenDeleteModal() {
     setIsDeleteModalOpen(true);
@@ -65,7 +66,7 @@ function Task({
           onCancel={handleCloseUpdateModal}
         />
       )}
-      <S.Container>
+      <S.Container ref={taskRef}>
         {isDeleteModalOpen && (
           <S.ModalDeleteContainer>
             <S.ModalDeleteText>Deletar essa tarefa?</S.ModalDeleteText>
@@ -85,6 +86,7 @@ function Task({
           <TaskActions
             onDelete={handleOpenDeleteModal}
             onUpdate={handleOpenUpdateModal}
+            taskRef={taskRef}
           />
         </S.TaskHeader>
 
