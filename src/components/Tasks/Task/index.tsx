@@ -5,6 +5,7 @@ import { Task as TypeTask } from '../../../interfaces/Task';
 import { FormTasksInputs } from '../../../interfaces/FormInputs';
 import TaskModal from '../TaskModal';
 import TaskActions from '../TaskActions';
+import TaskDetails from '../TaskDetails';
 
 interface TaskProps extends TypeTask {
   onDelete: (taskId: string) => void;
@@ -23,6 +24,7 @@ function Task({
 }: TaskProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const taskRef = useRef<HTMLDivElement>(null);
 
   function handleOpenDeleteModal() {
@@ -39,6 +41,14 @@ function Task({
 
   function handleCloseUpdateModal() {
     setIsUpdateModalOpen(false);
+  }
+
+  function handleOpenDetailsModal() {
+    setIsDetailsModalOpen(true);
+  }
+
+  function handleCloseDetailsModal() {
+    setIsDetailsModalOpen(false);
   }
 
   function handleUpdateTask({
@@ -66,6 +76,14 @@ function Task({
           onCancel={handleCloseUpdateModal}
         />
       )}
+
+      {isDetailsModalOpen && (
+        <TaskDetails
+          task={{ title, description, status, category_name }}
+          onCancel={handleCloseDetailsModal}
+        />
+      )}
+
       <S.Container ref={taskRef}>
         {isDeleteModalOpen && (
           <S.ModalDeleteContainer>
@@ -86,6 +104,7 @@ function Task({
           <TaskActions
             onDelete={handleOpenDeleteModal}
             onUpdate={handleOpenUpdateModal}
+            onSeeDetails={handleOpenDetailsModal}
             taskRef={taskRef}
           />
         </S.TaskHeader>

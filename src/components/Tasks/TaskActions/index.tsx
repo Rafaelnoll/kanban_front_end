@@ -5,16 +5,19 @@ import TrashIcon from '../../../assets/trash-icon.svg';
 import EditIcon from '../../../assets/edit-icon.svg';
 import MoreIcon from '../../../assets/more-icon.svg';
 import CloseIcon from '../../../assets/close-icon.svg';
+import InfoIcon from '../../../assets/info-icon.svg';
 
 interface TaskActionsProps {
   onUpdate: () => void;
   onDelete: () => void;
+  onSeeDetails: () => void;
   taskRef?: React.RefObject<HTMLDivElement>;
 }
 
 export default function TaskActions({
   onUpdate,
   onDelete,
+  onSeeDetails,
   taskRef,
 }: TaskActionsProps) {
   const [isActionsOpen, setIsActionsOpen] = useState(false);
@@ -30,6 +33,11 @@ export default function TaskActions({
 
   function handleDelete() {
     onDelete();
+    closeActionsMenu();
+  }
+
+  function handleSeeDetails() {
+    onSeeDetails();
     closeActionsMenu();
   }
 
@@ -58,6 +66,10 @@ export default function TaskActions({
           <S.Action onClick={handleDelete}>
             <TrashIcon />
             Deletar
+          </S.Action>
+          <S.Action onClick={handleSeeDetails}>
+            <InfoIcon />
+            Detalhes
           </S.Action>
         </S.TaskActions>
       )}
