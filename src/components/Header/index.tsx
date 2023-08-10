@@ -4,7 +4,6 @@ import * as S from './styles';
 import Title from '../Title';
 import ProfilePhoto from '../ProfilePhoto';
 
-import PenIcon from '../../assets/pen-icon.svg';
 import useAuthentication from '../../hooks/useAuthentication';
 
 interface HeaderProps {
@@ -18,7 +17,6 @@ export function Header({ title }: HeaderProps) {
     <S.Header>
       <S.TitleContainer>
         <Title>{title}</Title>
-        <PenIcon />
       </S.TitleContainer>
 
       <ProfilePhoto image_path={user?.image_path} />
