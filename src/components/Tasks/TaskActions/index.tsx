@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import * as S from './styles';
 import TrashIcon from '../../../assets/trash-icon.svg';
@@ -11,16 +11,15 @@ interface TaskActionsProps {
   onUpdate: () => void;
   onDelete: () => void;
   onSeeDetails: () => void;
-  taskRef?: React.RefObject<HTMLDivElement>;
 }
 
 export default function TaskActions({
   onUpdate,
   onDelete,
   onSeeDetails,
-  taskRef,
 }: TaskActionsProps) {
   const [isActionsOpen, setIsActionsOpen] = useState(false);
+  const actionsMenuRef = useRef<HTMLDivElement | null>(null);
 
   const closeActionsMenu = useCallback(() => {
     setIsActionsOpen(false);
@@ -42,16 +41,21 @@ export default function TaskActions({
   }
 
   useEffect(() => {
-    const taskContainer = taskRef?.current;
+    const actionsMenu = actionsMenuRef.current;
 
-    taskContainer?.addEventListener('mouseleave', closeActionsMenu);
+    function handleClickOutside(event: MouseEvent) {
+      if (!actionsMenu?.contains(event.target as Node)) {
+        setIsActionsOpen(false);
+      }
+    }
 
-    return () =>
-      taskContainer?.removeEventListener('mouseleave', closeActionsMenu);
-  }, [taskRef]);
+    document?.addEventListener('mousedown', handleClickOutside);
+
+    return () => document?.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
-    <S.TaskActionsContainer>
+    <S.TaskActionsContainer ref={actionsMenuRef}>
       {isActionsOpen ? (
         <CloseIcon onClick={() => setIsActionsOpen(false)} />
       ) : (
