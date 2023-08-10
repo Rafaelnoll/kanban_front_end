@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import * as S from './styles';
 import CloseIcon from '../../../assets/close-circle.svg';
@@ -30,8 +30,26 @@ function showTaskStatusInPtBR(status: TaskStatus) {
 }
 
 function TaskDetails({ task, onCancel }: TaskDetailsProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+
+    function handleClickOutside(event: MouseEvent) {
+      if (!container?.contains(event.target as Node)) {
+        onCancel();
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <S.Container>
+    <S.Container ref={containerRef}>
       <S.Header>
         <S.Title>{task.title}</S.Title>
         <CloseIcon onClick={onCancel} />
