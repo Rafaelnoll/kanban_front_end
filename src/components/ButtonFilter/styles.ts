@@ -72,3 +72,18 @@ export const IconContainer = styled.div<SelectedProp>`
     }
   `}
 `;
+
+export const WithoutCategories = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.color.text_dark};
+    font-size: ${theme.size.small};
+    text-align: center;
+    padding: ${theme.spacing.small};
+
+    & > a {
+      display: block;
+      margin-top: ${theme.spacing.small};
+      color: ${theme.color.primary};
+    }
+  `}
+`;

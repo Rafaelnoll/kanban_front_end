@@ -7,6 +7,7 @@ import Button from '../Button';
 import * as S from './styles';
 import { Category } from '../../interfaces/Category';
 import CategoryController from '../../controllers/CategoryController';
+import { Link } from 'react-router-dom';
 
 interface ButtonFilterProps {
   initialCategories?: Category[];
@@ -50,23 +51,30 @@ function ButtonFilterCategories({
       />
       {isListOpen && (
         <S.List>
-          {categories.map((category) => {
-            const isCategorySelected =
-              selectedCategory.toLowerCase() === category.name.toLowerCase();
+          {categories.length === 0 ? (
+            <S.WithoutCategories>
+              <S.ListItemText>Nenhuma categoria!</S.ListItemText>
+              <Link to="/categories">Criar nova</Link>
+            </S.WithoutCategories>
+          ) : (
+            categories.map((category) => {
+              const isCategorySelected =
+                selectedCategory.toLowerCase() === category.name.toLowerCase();
 
-            return (
-              <S.ListItem
-                onClick={() => onSelectCategory(category.name)}
-                key={category.id}
-                selected={isCategorySelected}
-              >
-                <S.IconContainer selected={isCategorySelected}>
-                  <SelectedIcon />
-                </S.IconContainer>
-                <S.ListItemText>{category.name}</S.ListItemText>
-              </S.ListItem>
-            );
-          })}
+              return (
+                <S.ListItem
+                  onClick={() => onSelectCategory(category.name)}
+                  key={category.id}
+                  selected={isCategorySelected}
+                >
+                  <S.IconContainer selected={isCategorySelected}>
+                    <SelectedIcon />
+                  </S.IconContainer>
+                  <S.ListItemText>{category.name}</S.ListItemText>
+                </S.ListItem>
+              );
+            })
+          )}
         </S.List>
       )}
     </S.Container>
