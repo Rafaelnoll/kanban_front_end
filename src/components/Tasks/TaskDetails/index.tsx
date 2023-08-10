@@ -31,14 +31,15 @@ function showTaskStatusInPtBR(status: TaskStatus) {
 
 function TaskDetails({ task, onCancel }: TaskDetailsProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const container = containerRef.current;
-
   const [isOnScreen, setIsOnScreen] = useState(true);
 
   useEffect(() => {
+    const container = containerRef.current;
+
     function handleClickOutside(event: MouseEvent) {
-      if (!container?.contains(event.target as Node)) {
+      if (container && !container?.contains(event.target as Node)) {
         setIsOnScreen(false);
+        console.log('safds');
       }
     }
 
@@ -50,6 +51,8 @@ function TaskDetails({ task, onCancel }: TaskDetailsProps) {
   }, []);
 
   useEffect(() => {
+    const container = containerRef.current;
+
     function handleAnimationEnd() {
       if (!isOnScreen) {
         onCancel();
@@ -63,11 +66,13 @@ function TaskDetails({ task, onCancel }: TaskDetailsProps) {
     };
   }, [isOnScreen]);
 
+  const handleCloseTaskDetails = () => setIsOnScreen(false);
+
   return (
     <S.Container ref={containerRef} inscreen={isOnScreen ? 'true' : 'false'}>
       <S.Header>
         <S.Title>{task.title}</S.Title>
-        <CloseIcon onClick={onCancel} />
+        <CloseIcon onClick={handleCloseTaskDetails} />
       </S.Header>
       <S.Content>
         <S.DetailContainer>
@@ -78,7 +83,7 @@ function TaskDetails({ task, onCancel }: TaskDetailsProps) {
           <S.Text>Categoria:</S.Text>
           <S.CategoryName>{task.category_name}</S.CategoryName>
         </S.DetailContainer>
-        <S.Description>{task.description}</S.Description>
+        <S.Description value={task.description} readOnly />
       </S.Content>
     </S.Container>
   );

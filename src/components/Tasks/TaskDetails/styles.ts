@@ -56,6 +56,8 @@ export const Content = styled.main`
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.small};
+
+    height: 100%;
     margin-top: ${theme.spacing.big};
   `}
 `;
@@ -104,9 +106,16 @@ export const CategoryName = styled.span`
   `}
 `;
 
-export const Description = styled.p`
+export const Description = styled.textarea`
   ${({ theme }) => css`
     color: ${theme.color.text};
     font-size: ${theme.size.medium};
+
+    overflow: hidden;
+    border: none;
+
+    margin-top: ${theme.spacing.medium};
+    width: 100%;
+    height: 100%;
   `}
 `;
