@@ -40,10 +40,9 @@ export const Container = styled.div<ContainerProps>`
 
 export const Header = styled.header`
   ${({ theme }) => css`
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
-    justify-content: space-between;
-    gap: ${theme.spacing.medium};
 
     svg {
       color: ${theme.color.text};
