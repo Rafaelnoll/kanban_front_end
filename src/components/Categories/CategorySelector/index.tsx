@@ -3,7 +3,7 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 
 import * as S from './styles';
 
-import { Category } from '../../interfaces/Category';
+import { Category } from '../../../interfaces/Category';
 import { UseFormRegister } from 'react-hook-form';
 
 interface SelectorProps {
