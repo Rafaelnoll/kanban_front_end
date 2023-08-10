@@ -1,9 +1,30 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
-export const Container = styled.div`
-  ${({ theme }) => css`
-    position: fixed;
+type TypeInScreen = 'true' | 'false';
+
+interface ContainerProps {
+  inscreen: TypeInScreen;
+}
+
+const showInScreen = keyframes`
+  to {
     right: 0;
+  }
+`;
+
+const exitOfScreen = keyframes`
+  from {
+    right: 0;
+  }
+  to {
+    right: -35vw;
+  }
+`;
+
+export const Container = styled.div<ContainerProps>`
+  ${({ theme, inscreen }) => css`
+    position: fixed;
+    right: -35vw;
     top: 0;
     z-index: 988;
 
@@ -12,6 +33,8 @@ export const Container = styled.div`
     width: 35vw;
     height: 100%;
     padding: ${theme.spacing.medium};
+    animation: ${inscreen === 'true' ? showInScreen : exitOfScreen} 0.3s
+      ease-in-out ${inscreen === 'true' ? 'forwards' : 'none'};
   `}
 `;
 

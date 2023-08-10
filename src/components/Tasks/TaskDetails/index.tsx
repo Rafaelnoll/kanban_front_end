@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import * as S from './styles';
 import CloseIcon from '../../../assets/close-circle.svg';
@@ -31,13 +31,14 @@ function showTaskStatusInPtBR(status: TaskStatus) {
 
 function TaskDetails({ task, onCancel }: TaskDetailsProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const container = containerRef.current;
+
+  const [isOnScreen, setIsOnScreen] = useState(true);
 
   useEffect(() => {
-    const container = containerRef.current;
-
     function handleClickOutside(event: MouseEvent) {
       if (!container?.contains(event.target as Node)) {
-        onCancel();
+        setIsOnScreen(false);
       }
     }
 
@@ -48,8 +49,22 @@ function TaskDetails({ task, onCancel }: TaskDetailsProps) {
     };
   }, []);
 
+  useEffect(() => {
+    function handleAnimationEnd() {
+      if (!isOnScreen) {
+        onCancel();
+      }
+    }
+
+    container?.addEventListener('animationend', handleAnimationEnd);
+
+    return () => {
+      container?.removeEventListener('animationend', handleAnimationEnd);
+    };
+  }, [isOnScreen]);
+
   return (
-    <S.Container ref={containerRef}>
+    <S.Container ref={containerRef} inscreen={isOnScreen ? 'true' : 'false'}>
       <S.Header>
         <S.Title>{task.title}</S.Title>
         <CloseIcon onClick={onCancel} />
