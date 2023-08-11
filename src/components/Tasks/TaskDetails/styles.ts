@@ -108,6 +108,7 @@ export const CategoryName = styled.span`
 
 export const Description = styled.textarea`
   ${({ theme }) => css`
+    background-color: ${theme.color.background};
     color: ${theme.color.text};
     font-size: ${theme.size.medium};
 
