@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 
 import api from '../services/api';
 import UserController from '../controllers/UserController';
 import { IUser } from '../interfaces/User';
+import { useSessionState } from '../hooks/useSessionState';
 interface IAuthenticationData {
   token: string;
   userId: string;
@@ -34,6 +34,11 @@ export function AuthenticationProvider({
   children,
 }: AuthenticationProviderProps) {
   const [user, setUser] = useState<IUser | null>(null);
+  const [userAuthToken, setUserAuthToken] = useSessionState<string | null>(
+    '@auth_token',
+    null,
+  );
+  const [userId, setUserId] = useSessionState<string | null>('@user_id', null);
 
   function setAuthorizationTokenInHeader(token: string) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -60,34 +65,23 @@ export function AuthenticationProvider({
 
       setAuthorizationTokenInHeader(token);
       loadUserData(userId);
-      Cookies.set('auth_token', token, {
-        secure: true,
-        sameSite: 'strict',
-        expires: expirationDate,
-      });
-      Cookies.set('userId', userId, {
-        secure: true,
-        sameSite: 'strict',
-        expires: expirationDate,
-      });
+      setUserAuthToken(token);
+      setUserId(userId);
     }
   }
 
   function handleLogout() {
-    Cookies.remove('auth_token');
-    Cookies.remove('userId');
+    setUserAuthToken(null);
+    setUserId(null);
     setUser(null);
   }
 
   useEffect(() => {
-    const token = Cookies.get('auth_token');
-    const userId = Cookies.get('userId');
-
-    if (token && userId) {
-      setAuthorizationTokenInHeader(token);
+    if (userAuthToken && userId) {
+      setAuthorizationTokenInHeader(userAuthToken);
       loadUserData(userId);
     }
-  }, []);
+  }, [userAuthToken, userId]);
 
   return (
     <AuthenticationContext.Provider
