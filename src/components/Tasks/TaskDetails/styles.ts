@@ -12,14 +12,16 @@ const showInScreen = keyframes`
   }
 `;
 
-const exitOfScreen = keyframes`
+const exitOfScreen = (from: string, to: string) => {
+  return keyframes`
   from {
-    right: 0;
+    right: ${from};
   }
   to {
-    right: -35vw;
+    right: ${to};
   }
 `;
+};
 
 export const Container = styled.div<ContainerProps>`
   ${({ theme, inscreen }) => css`
@@ -33,8 +35,21 @@ export const Container = styled.div<ContainerProps>`
     width: 35vw;
     height: 100%;
     padding: ${theme.spacing.medium};
-    animation: ${inscreen === 'true' ? showInScreen : exitOfScreen} 0.3s
-      ease-in-out ${inscreen === 'true' ? 'forwards' : 'none'};
+    animation: ${inscreen === 'true'
+        ? showInScreen
+        : exitOfScreen('0', '-35vw')}
+      0.3s ease-in-out ${inscreen === 'true' ? 'forwards' : 'none'};
+
+    @media ${theme.media.mobile} {
+      right: -100%;
+      width: 100%;
+      padding: ${theme.spacing.medium};
+
+      animation: ${inscreen === 'true'
+          ? showInScreen
+          : exitOfScreen('0', '-100vw')}
+        0.3s ease-in-out ${inscreen === 'true' ? 'forwards' : 'none'};
+    }
   `}
 `;
 
