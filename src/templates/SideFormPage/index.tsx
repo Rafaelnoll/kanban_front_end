@@ -17,14 +17,16 @@ export function SideFormPage({ title, children }: SideFormPageProps) {
       </S.ImageContainer>
 
       <S.FormContainer>
-        <S.FormHeader>
-          <LogoIcon />
-          <S.Text>Kanban</S.Text>
-        </S.FormHeader>
+        <S.FormContent>
+          <S.FormHeader>
+            <LogoIcon />
+            <S.Text>Kanban</S.Text>
+          </S.FormHeader>
 
-        <S.Title>{title}</S.Title>
+          <S.Title>{title}</S.Title>
 
-        {children}
+          {children}
+        </S.FormContent>
       </S.FormContainer>
     </S.Container>
   );

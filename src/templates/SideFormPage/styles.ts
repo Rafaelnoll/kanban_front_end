@@ -5,6 +5,7 @@ export const Container = styled.div`
   ${({ theme }) => css`
     display: flex;
     height: 100vh;
+
     background-color: ${theme.color.white};
 
     @media ${theme.media.tablet} {
@@ -20,7 +21,6 @@ export const ImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${theme.color.white};
 
     @media ${theme.media.tablet} {
       display: none;
@@ -31,16 +31,30 @@ export const ImageContainer = styled.div`
 export const FormContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+
+    @media ${theme.media.tablet} {
+      max-width: 800px;
+    }
+  `}
+`;
+
+export const FormContent = styled.div`
+  ${({ theme }) => css`
+    display: flex;
     flex-direction: column;
     gap: ${theme.spacing.big};
 
-    flex: 0.5;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     padding: ${theme.spacing.large};
+    background-color: ${theme.color.white};
 
-    @media ${theme.media.tablet} {
-      flex: 1;
-      max-width: 800px;
+    min-width: 80%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 16px;
+
+    @media ${theme.media.mobile} {
       box-shadow: none;
     }
   `}
