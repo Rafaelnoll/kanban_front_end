@@ -1,16 +1,11 @@
 import { toast } from 'react-toastify';
 
 import { Task } from '../../interfaces/Task';
-import api from '../../services/api';
-import { handleAction } from '../../utils/handleAction';
+import tasks from '../../mocks/tasks';
 
 class TaskController {
   async index() {
-    return handleAction(async () => {
-      const allTasksResponse = await api.get('/tasks');
-
-      return allTasksResponse.data;
-    });
+    return tasks;
   }
 
   async store({
@@ -19,25 +14,23 @@ class TaskController {
     status = 'DO',
     category_id,
   }: Omit<Task, 'id'>) {
-    return handleAction(async () => {
-      const createdTaskResponse = await api.post('/tasks', {
-        title,
-        description,
-        status,
-        category_id: category_id ? category_id : null,
-      });
+    const createdTask = {
+      id: Date.now() as unknown as string,
+      title,
+      description,
+      status,
+      category_id: category_id ? category_id : null,
+    };
 
-      toast.success('Tarefa criada');
-      return createdTaskResponse.data;
-    });
+    toast.success('Tarefa criada');
+
+    return createdTask;
   }
 
   async delete(taskId: string) {
-    return handleAction(async () => {
-      await api.delete(`/tasks/${taskId}`);
-      toast.success('Tarefa deletada');
-      return true;
-    });
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+    tasks.splice(taskIndex, 1);
+    return true;
   }
 
   async update({
@@ -47,16 +40,16 @@ class TaskController {
     category_id,
     id,
   }: Task) {
-    return handleAction(async () => {
-      const updatedUserResponse = await api.put(`/tasks/${id}`, {
-        title,
-        description,
-        status,
-        category_id: category_id ? category_id : null,
-      });
-      toast.success('Tarefa atualizada');
-      return updatedUserResponse.data;
-    });
+    const updatedTask = {
+      id,
+      title,
+      description,
+      status,
+      category_id: category_id ? category_id : null,
+    };
+
+    toast.success('Tarefa atualizada');
+    return updatedTask;
   }
 }
 

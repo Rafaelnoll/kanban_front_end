@@ -1,48 +1,50 @@
 import { toast } from 'react-toastify';
-import { handleAction } from '../../utils/handleAction';
 
-import api from '../../services/api';
 import { FormCategoriesInputs } from '../../interfaces/FormInputs';
+import categories from '../../mocks/categories';
+import { Category } from '../../interfaces/Category';
 
 class CategoryController {
   async index() {
-    return handleAction(async () => {
-      const response = await api.get('/categories');
-      return response.data;
-    });
+    return categories;
   }
 
   async store({ name }: FormCategoriesInputs) {
-    return handleAction(async () => {
-      const createdCategoryResponse = await api.post('/categories', {
-        name,
-      });
+    const createdCategory = {
+      id: Date.now(),
+      name,
+      tasks_count: 0,
+    } as unknown as Category;
 
-      toast.success('Categoria criada');
-      return createdCategoryResponse.data;
-    });
+    toast.success('Categoria criada');
+    return createdCategory;
   }
 
   async update({ name }: FormCategoriesInputs, id: string) {
-    return handleAction(async () => {
-      const createdCategoryResponse = await api.put(`/categories/${id}`, {
-        name,
-      });
+    const categoryIndex = categories.findIndex(
+      (category) => category.id === id,
+    );
 
-      toast.success('Categoria modificada');
-      return createdCategoryResponse.data;
-    });
+    const updatedCategory = {
+      ...categories[categoryIndex],
+      name,
+    };
+
+    categories[categoryIndex] = updatedCategory;
+
+    toast.success('Categoria modificada');
+    return updatedCategory;
   }
 
   async delete(categoryId: string) {
-    return handleAction(async () => {
-      const createdCategoryResponse = await api.delete(
-        `/categories/${categoryId}`,
-      );
+    const categoryIndex = categories.findIndex(
+      (category) => category.id === categoryId,
+    );
 
-      toast.success('Categoria deletada');
-      return createdCategoryResponse.data;
-    });
+    categories.splice(categoryIndex, 1);
+
+    toast.success('Categoria deletada');
+    return true;
   }
 }
 
