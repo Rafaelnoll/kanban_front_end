@@ -16,6 +16,15 @@ class CategoryController {
       tasks_count: 0,
     } as unknown as Category;
 
+    const categoryAlreadyExists = categories.find(
+      (category) => category.name === name,
+    );
+
+    if (categoryAlreadyExists) {
+      toast.error('Categoria já existe');
+      return false;
+    }
+
     categories.push(createdCategory);
 
     toast.success('Categoria criada');
