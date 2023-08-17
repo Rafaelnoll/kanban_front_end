@@ -69,13 +69,24 @@ class TaskController {
     category_id,
     id,
   }: Task) {
+    const categoryIndex = categories.findIndex(
+      (category) => String(category.id) === category_id,
+    );
+
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+
+    const category = categories[categoryIndex];
+
     const updatedTask = {
       id,
       title,
       description,
       status,
       category_id: category_id ? category_id : null,
+      category_name: category?.name ? category?.name : undefined,
     };
+
+    tasks[taskIndex] = updatedTask;
 
     toast.success('Tarefa atualizada');
     return updatedTask;
