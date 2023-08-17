@@ -15,9 +15,11 @@ class TaskController {
     status = 'DO',
     category_id,
   }: Omit<Task, 'id'>) {
-    const category = categories.find(
+    const categoryIndex = categories.findIndex(
       (category) => String(category.id) === category_id,
     );
+
+    const category = categories[categoryIndex];
 
     const createdTask = {
       id: Date.now() as unknown as string,
@@ -28,6 +30,12 @@ class TaskController {
       category_name: category?.name ? category?.name : undefined,
     };
 
+    if (category) {
+      categories[categoryIndex].tasks_count = `${
+        Number(category.tasks_count) + 1
+      }`;
+    }
+
     toast.success('Tarefa criada');
 
     return createdTask;
@@ -35,6 +43,21 @@ class TaskController {
 
   async delete(taskId: string) {
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+    const task = tasks[taskIndex];
+
+    if (task.category_id) {
+      const categoryIndex = categories.findIndex(
+        (category) => String(category.id) === task.category_id,
+      );
+
+      const category = categories[categoryIndex];
+
+      categories[categoryIndex].tasks_count = `${
+        Number(category.tasks_count) - 1
+      }`;
+    }
+
     tasks.splice(taskIndex, 1);
     return true;
   }
