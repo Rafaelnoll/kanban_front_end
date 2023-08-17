@@ -3,12 +3,11 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   ${({ theme }) => css`
     margin-top: ${theme.spacing.large};
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: ${theme.spacing.large};
+    display: flex;
+    gap: ${theme.spacing.big};
 
     @media ${theme.media.tablet} {
-      grid-template-columns: 1fr;
+      flex-direction: column;
     }
   `}
 `;
