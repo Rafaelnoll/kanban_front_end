@@ -61,10 +61,11 @@ function UserProfilePage() {
     description,
   }: FormInfosInputs) => {
     if (user) {
-      const uptadedUser = await UserController.updateInfo(
-        { username, email, description },
-        user.id,
-      );
+      const uptadedUser = await UserController.updateInfo({
+        username,
+        email,
+        description,
+      });
       handleUpdateUser(uptadedUser);
     }
   };

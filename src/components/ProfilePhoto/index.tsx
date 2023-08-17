@@ -5,15 +5,12 @@ import DefaultProfileImage from '../../assets/profile_image.jpg';
 import ConfigIcon from '../../assets/configuration-icon.svg';
 import LogoutIcon from '../../assets/logout-icon.svg';
 import { Link } from 'react-router-dom';
-import useAuthentication from '../../hooks/useAuthentication';
 
 interface ProfilePhotoProps {
   image_path?: string;
 }
 
 function ProfilePhoto({ image_path }: ProfilePhotoProps) {
-  const { handleLogout } = useAuthentication();
-
   return (
     <S.Container>
       <S.ProfileImage
@@ -30,7 +27,7 @@ function ProfilePhoto({ image_path }: ProfilePhotoProps) {
         </S.ConfigContainer>
       </Link>
 
-      <Link to="/" onClick={handleLogout}>
+      <Link to="/">
         <S.LogoutContainer>
           <LogoutIcon />
         </S.LogoutContainer>
