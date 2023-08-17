@@ -17,6 +17,7 @@ const defaultValues = {
     tablet: '(max-width: 1250px)',
     mobile: '(max-width: 750px)',
     not_mobile: '(min-width: 750px)',
+    large_screen: '(min-width: 1800px)',
   },
 };
 
