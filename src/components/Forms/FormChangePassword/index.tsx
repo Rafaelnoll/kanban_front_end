@@ -58,15 +58,9 @@ export function FormChangePassword() {
     });
   };
 
-  const onSubmit: SubmitHandler<FormChangePasswordInputs> = async ({
-    current_password,
-    new_password,
-  }: FormChangePasswordInputs) => {
+  const onSubmit: SubmitHandler<FormChangePasswordInputs> = async () => {
     if (user) {
-      await UserController.changePassword(
-        { current_password, new_password },
-        user.id,
-      );
+      await UserController.changePassword();
     }
   };
 

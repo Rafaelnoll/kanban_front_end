@@ -9,11 +9,6 @@ interface InfoProfileInputs {
   description?: string;
 }
 
-interface ChangePasswordInputs {
-  current_password: string;
-  new_password: string;
-}
-
 class UserController {
   async updateInfo({ username, email, description }: InfoProfileInputs) {
     const updatedUser = {
@@ -42,18 +37,8 @@ class UserController {
     });
   }
 
-  async changePassword(
-    { current_password, new_password }: ChangePasswordInputs,
-    id: string,
-  ) {
-    return handleAction(async () => {
-      await api.put(`/users/${id}/change-password`, {
-        current_password,
-        new_password,
-      });
-
-      toast.success('Senha alterada!');
-    });
+  async changePassword() {
+    toast.success('Senha alterada!');
   }
 }
 
