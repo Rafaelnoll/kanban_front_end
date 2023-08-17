@@ -29,6 +29,10 @@ export const Container = styled.div`
     @media ${theme.media.tablet} {
       flex: 1;
     }
+
+    @media ${theme.media.large_screen} {
+      flex: 0.5;
+    }
   `}
 `;
 
