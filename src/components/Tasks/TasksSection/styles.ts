@@ -3,11 +3,16 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   ${({ theme }) => css`
     margin-top: ${theme.spacing.large};
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: ${theme.spacing.big};
 
     @media ${theme.media.tablet} {
-      flex-direction: column;
+      grid-template-columns: 1fr;
+    }
+
+    @media ${theme.media.large_screen} {
+      gap: ${theme.spacing.large};
     }
   `}
 `;
@@ -20,7 +25,13 @@ export const Label = styled.strong`
   `}
 `;
 
-export const TasksContainer = styled.div``;
+export const TasksContainer = styled.div`
+  ${({ theme }) => css`
+    @media ${theme.media.large_screen} {
+      flex: 1;
+    }
+  `}
+`;
 
 export const TasksContainerHeader = styled.header`
   ${({ theme }) => css`
@@ -48,6 +59,11 @@ export const TasksList = styled.div`
     gap: ${theme.spacing.medium};
 
     @media ${theme.media.tablet} {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    @media ${theme.media.large_screen} {
       flex-direction: row;
       flex-wrap: wrap;
     }
