@@ -9,6 +9,7 @@ import { FormCategoriesInputs } from '../../../interfaces/FormInputs';
 import CategoryController from '../../../controllers/CategoryController';
 import AddIcon from '../../../assets/add-icon.svg';
 import TableCategory from '../TableCategory';
+import categoriesMock from '../../../mocks/categories';
 
 function CategoriesSection() {
   const [searchValue, setSearchValue] = useState('');
@@ -31,13 +32,7 @@ function CategoriesSection() {
     const categoryCreated = await CategoryController.store({ name });
 
     if (categoryCreated) {
-      setCategories((prevstate) => {
-        prevstate.push({
-          ...categoryCreated,
-          tasks_count: '0',
-        });
-        return prevstate;
-      });
+      setCategories(categoriesMock);
       setIsModalOpen(false);
     }
   }

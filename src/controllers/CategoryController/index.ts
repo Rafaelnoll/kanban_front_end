@@ -16,8 +16,10 @@ class CategoryController {
       tasks_count: 0,
     } as unknown as Category;
 
+    categories.push(createdCategory);
+
     toast.success('Categoria criada');
-    return createdCategory;
+    return true;
   }
 
   async update({ name }: FormCategoriesInputs, id: string) {
