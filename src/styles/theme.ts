@@ -14,7 +14,7 @@ const defaultValues = {
     large: '3rem',
   },
   media: {
-    tablet: '(max-width: 1150px)',
+    tablet: '(max-width: 1250px)',
     mobile: '(max-width: 750px)',
     not_mobile: '(min-width: 750px)',
   },
