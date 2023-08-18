@@ -63,3 +63,9 @@ export const AccountDescription = styled.p`
     max-width: 300px;
   `}
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
