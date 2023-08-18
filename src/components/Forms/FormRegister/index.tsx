@@ -30,7 +30,7 @@ const schema = yup.object({
     .max(16, 'Senha deve conter entre 8 e 16 caracteres.')
     .matches(passwordRegex, {
       message:
-        'Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
+        'Senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.',
     }),
   password_confirmation: yup
     .string()
