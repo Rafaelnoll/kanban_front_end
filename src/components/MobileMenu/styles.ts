@@ -15,7 +15,7 @@ export const Container = styled.div`
 
 export const MenuLink = styled(Link)`
   ${({ theme }) => css`
-    color: ${theme.color.primary};
+    color: ${theme.color.text};
     padding: ${theme.spacing.medium};
 
     flex: 1;
@@ -29,7 +29,7 @@ export const MenuLink = styled(Link)`
     }
 
     & svg {
-      color: ${theme.color.primary};
+      color: ${theme.color.text};
     }
 
     transition: background-color 0.5s;

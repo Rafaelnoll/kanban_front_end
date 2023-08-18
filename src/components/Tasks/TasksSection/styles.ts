@@ -14,10 +14,6 @@ export const Container = styled.div`
     @media ${theme.media.large_screen} {
       gap: ${theme.spacing.large};
     }
-
-    @media ${theme.media.large_screen} {
-      gap: ${theme.spacing.large};
-    }
   `}
 `;
 
