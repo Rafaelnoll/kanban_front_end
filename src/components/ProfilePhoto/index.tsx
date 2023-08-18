@@ -5,21 +5,14 @@ import DefaultProfileImage from '../../assets/profile_image.jpg';
 import ConfigIcon from '../../assets/configuration-icon.svg';
 import LogoutIcon from '../../assets/logout-icon.svg';
 import { Link } from 'react-router-dom';
+import useAuthentication from '../../hooks/useAuthentication';
 
-interface ProfilePhotoProps {
-  image_path?: string;
-}
+function ProfilePhoto() {
+  const { profilePhoto } = useAuthentication();
 
-function ProfilePhoto({ image_path }: ProfilePhotoProps) {
   return (
     <S.Container>
-      <S.ProfileImage
-        src={
-          image_path
-            ? `http://localhost:3000/uploads/${image_path}`
-            : DefaultProfileImage
-        }
-      />
+      <S.ProfileImage src={profilePhoto ? profilePhoto : DefaultProfileImage} />
 
       <Link to="/profile">
         <S.ConfigContainer>

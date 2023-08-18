@@ -4,9 +4,8 @@ import * as S from './styles';
 import Button from '../Button';
 import { IUser } from '../../interfaces/User';
 import ImageEditor from '../ImageEditor';
-import UserController from '../../controllers/UserController';
-import useAuthentication from '../../hooks/useAuthentication';
 import DefaultProfileImage from '../../assets/profile_image.jpg';
+import useAuthentication from '../../hooks/useAuthentication';
 
 interface UserAccountDetailsProps {
   user: IUser | null;
@@ -15,7 +14,8 @@ interface UserAccountDetailsProps {
 function UserAccountDetails({ user }: UserAccountDetailsProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const { handleUpdateUser } = useAuthentication();
+
+  const { profilePhoto, handleUpdateProfilePhoto } = useAuthentication();
 
   const handleOpenFilePicker = () => {
     const input = fileInputRef.current;
@@ -43,31 +43,22 @@ function UserAccountDetails({ user }: UserAccountDetailsProps) {
   };
 
   const handleEditProfilePicture = async (image: File) => {
-    const formData = new FormData();
-
-    formData.append('file', image);
-
-    if (user) {
-      const userUpdated = await UserController.updateUserImageProfile(
-        formData,
-        user?.id,
-      );
-      handleUpdateUser(userUpdated);
-      handleCloseImageEditor();
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        handleUpdateProfilePhoto(event.target?.result);
+      };
+      reader.readAsDataURL(image);
     }
+
+    handleCloseImageEditor();
   };
 
   return (
     <S.AccountDetails>
       <S.AccountText>Foto</S.AccountText>
 
-      <S.AccountPhoto
-        src={
-          user?.image_path
-            ? `http://localhost:3000/uploads/${user.image_path}`
-            : DefaultProfileImage
-        }
-      />
+      <S.AccountPhoto src={profilePhoto ? profilePhoto : DefaultProfileImage} />
 
       <S.AccountInfos>
         <S.AccountName>{user?.username}</S.AccountName>
