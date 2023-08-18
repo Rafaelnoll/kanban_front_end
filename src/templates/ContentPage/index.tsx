@@ -4,6 +4,7 @@ import * as S from './styles';
 import MobileMenu from '../../components/MobileMenu';
 import SideMenu from '../../components/SideMenu';
 import { Header } from '../../components/Header';
+import HelpButton from '../../components/HelpButton';
 
 interface ContentPageProps {
   title: string;
@@ -22,6 +23,7 @@ export function ContentPage({ title, children }: ContentPageProps) {
 
         <S.MainContent>{children}</S.MainContent>
       </S.Content>
+      <HelpButton />
     </S.Container>
   );
 }
