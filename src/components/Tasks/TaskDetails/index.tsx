@@ -81,7 +81,11 @@ function TaskDetails({ task, onCancel }: TaskDetailsProps) {
         </S.DetailContainer>
         <S.DetailContainer>
           <S.Text>Categoria:</S.Text>
-          <S.CategoryName>{task.category_name}</S.CategoryName>
+          {task.category_name ? (
+            <S.CategoryName>{task.category_name}</S.CategoryName>
+          ) : (
+            <S.Text>Sem categoria</S.Text>
+          )}
         </S.DetailContainer>
         <S.Description value={task.description} readOnly />
       </S.Content>
