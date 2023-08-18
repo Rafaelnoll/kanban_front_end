@@ -63,9 +63,13 @@ function UserAccountDetails({ user }: UserAccountDetailsProps) {
       <S.AccountInfos>
         <S.AccountName>{user?.username}</S.AccountName>
         <S.AccountEmail>{user?.email}</S.AccountEmail>
-        <S.AccountDescription>{user?.description}</S.AccountDescription>
+        <S.AccountDescription>
+          {user?.description ? user?.description : 'Estou usando MyKanban!'}
+        </S.AccountDescription>
 
-        <Button text="Mudar foto" handleClick={handleOpenFilePicker} />
+        <S.ButtonContainer>
+          <Button text="Mudar foto" handleClick={handleOpenFilePicker} />
+        </S.ButtonContainer>
         <input
           ref={fileInputRef}
           onChange={(e) => handleSelectFile(e)}

@@ -6,7 +6,7 @@ import user from '../../mocks/user';
 interface InfoProfileInputs {
   username: string;
   email: string;
-  description?: string;
+  description?: string | null;
 }
 
 class UserController {

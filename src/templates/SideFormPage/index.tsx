@@ -20,7 +20,7 @@ export function SideFormPage({ title, children }: SideFormPageProps) {
         <S.FormContent>
           <S.FormHeader>
             <LogoIcon />
-            <S.Text>Kanban</S.Text>
+            <S.Text>MyKanban</S.Text>
           </S.FormHeader>
 
           <S.Title>{title}</S.Title>
