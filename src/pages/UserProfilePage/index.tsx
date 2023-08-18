@@ -15,7 +15,7 @@ import UserAccountDetails from '../../components/UserAccountDetails';
 interface FormInfosInputs {
   username: string;
   email: string;
-  description: string | undefined;
+  description: string | undefined | null;
 }
 
 const schema = yup.object({
@@ -27,7 +27,8 @@ const schema = yup.object({
   description: yup
     .string()
     .optional()
-    .max(200, 'O campo excedeu o limite de caracteres permitido(200).'),
+    .max(200, 'O campo excedeu o limite de caracteres permitido(200).')
+    .nullable(),
 });
 
 function UserProfilePage() {

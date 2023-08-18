@@ -17,7 +17,7 @@ interface LoginUserInputs {
 interface InfoProfileInputs {
   username: string;
   email: string;
-  description?: string;
+  description?: string | null;
 }
 
 interface ChangePasswordInputs {
@@ -65,7 +65,7 @@ class UserController {
   }
 
   async updateInfo(
-    { username, email, description }: InfoProfileInputs,
+    { username, email, description = '' }: InfoProfileInputs,
     id: string,
   ) {
     return handleAction(async () => {
