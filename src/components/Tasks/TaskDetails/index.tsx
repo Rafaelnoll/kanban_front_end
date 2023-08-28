@@ -4,6 +4,7 @@ import * as S from './styles';
 import CloseIcon from '../../../assets/close-circle.svg';
 import { TaskStatus } from '../../../interfaces/Task';
 import useTaskDetails from './useTaskDetails';
+import showTaskStatusInPtBR from '../../../utils/showTaskStatusInPtBR';
 
 type TypeTaskDetails = {
   title: string;
@@ -15,19 +16,6 @@ type TypeTaskDetails = {
 interface TaskDetailsProps {
   task: TypeTaskDetails;
   onCancel: () => void;
-}
-
-function showTaskStatusInPtBR(status: TaskStatus) {
-  switch (status) {
-    case 'DO':
-      return 'A fazer';
-    case 'DOING':
-      return 'Fazendo';
-    case 'DONE':
-      return 'Feito';
-    default:
-      return 'A Fazer';
-  }
 }
 
 function TaskDetails({ task, onCancel }: TaskDetailsProps) {
