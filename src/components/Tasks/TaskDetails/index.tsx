@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 import * as S from './styles';
 import CloseIcon from '../../../assets/close-circle.svg';
 import { TaskStatus } from '../../../interfaces/Task';
+import useTaskDetails from './useTaskDetails';
 
 type TypeTaskDetails = {
   title: string;
@@ -31,42 +32,11 @@ function showTaskStatusInPtBR(status: TaskStatus) {
 
 function TaskDetails({ task, onCancel }: TaskDetailsProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isOnScreen, setIsOnScreen] = useState(true);
 
-  useEffect(() => {
-    const container = containerRef.current;
-
-    function handleClickOutside(event: MouseEvent) {
-      if (container && !container?.contains(event.target as Node)) {
-        setIsOnScreen(false);
-        console.log('safds');
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  useEffect(() => {
-    const container = containerRef.current;
-
-    function handleAnimationEnd() {
-      if (!isOnScreen) {
-        onCancel();
-      }
-    }
-
-    container?.addEventListener('animationend', handleAnimationEnd);
-
-    return () => {
-      container?.removeEventListener('animationend', handleAnimationEnd);
-    };
-  }, [isOnScreen]);
-
-  const handleCloseTaskDetails = () => setIsOnScreen(false);
+  const { isOnScreen, handleCloseTaskDetails } = useTaskDetails(
+    containerRef,
+    onCancel,
+  );
 
   return (
     <S.Container ref={containerRef} inscreen={isOnScreen ? 'true' : 'false'}>

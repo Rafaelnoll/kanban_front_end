@@ -1,61 +1,25 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React from 'react';
 
 import * as S from './styles';
 import Button from '../Button';
 import { IUser } from '../../interfaces/User';
 import ImageEditor from '../ImageEditor';
-import UserController from '../../controllers/UserController';
-import useAuthentication from '../../hooks/useAuthentication';
 import DefaultProfileImage from '../../assets/profile_image.jpg';
+import useUserAccountDetails from './useUserAccountDetails';
 
 interface UserAccountDetailsProps {
   user: IUser | null;
 }
 
 function UserAccountDetails({ user }: UserAccountDetailsProps) {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const { handleUpdateUser } = useAuthentication();
-
-  const handleOpenFilePicker = () => {
-    const input = fileInputRef.current;
-
-    if (input) {
-      input.click();
-    }
-  };
-
-  const handleSelectFile = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-
-    if (files) {
-      const pictureFile = files[0];
-      setSelectedFile(pictureFile);
-    }
-  };
-
-  const handleCloseImageEditor = () => {
-    setSelectedFile(null);
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  };
-
-  const handleEditProfilePicture = async (image: File) => {
-    const formData = new FormData();
-
-    formData.append('file', image);
-
-    if (user) {
-      const userUpdated = await UserController.updateUserImageProfile(
-        formData,
-        user?.id,
-      );
-      handleUpdateUser(userUpdated);
-      handleCloseImageEditor();
-    }
-  };
+  const {
+    handleOpenFilePicker,
+    fileInputRef,
+    handleSelectFile,
+    selectedFile,
+    handleCloseImageEditor,
+    handleEditProfilePicture,
+  } = useUserAccountDetails(user as IUser);
 
   return (
     <S.AccountDetails>
