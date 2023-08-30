@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import * as S from './styles';
 import { Task as TypeTask } from '../../../interfaces/Task';
@@ -6,6 +6,7 @@ import { FormTasksInputs } from '../../../interfaces/FormInputs';
 import TaskModal from '../TaskModal';
 import TaskActions from '../TaskActions';
 import TaskDetails from '../TaskDetails';
+import useTasks from './useTask';
 
 interface TaskProps extends TypeTask {
   onDelete: (taskId: string) => void;
@@ -22,43 +23,18 @@ function Task({
   onDelete,
   onUpdate,
 }: TaskProps) {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-
-  function handleOpenDeleteModal() {
-    setIsDeleteModalOpen(true);
-  }
-
-  function handleOpenUpdateModal() {
-    setIsUpdateModalOpen(true);
-  }
-
-  function handleCloseDeleteModal() {
-    setIsDeleteModalOpen(false);
-  }
-
-  function handleCloseUpdateModal() {
-    setIsUpdateModalOpen(false);
-  }
-
-  function handleOpenDetailsModal() {
-    setIsDetailsModalOpen(true);
-  }
-
-  function handleCloseDetailsModal() {
-    setIsDetailsModalOpen(false);
-  }
-
-  function handleUpdateTask({
-    title,
-    status,
-    description,
-    category_id,
-  }: FormTasksInputs) {
-    onUpdate({ title, status, description, category_id }, id);
-    handleCloseUpdateModal();
-  }
+  const {
+    handleCloseDeleteModal,
+    handleCloseDetailsModal,
+    handleCloseUpdateModal,
+    handleOpenDeleteModal,
+    handleOpenDetailsModal,
+    handleOpenUpdateModal,
+    handleUpdateTask,
+    isDeleteModalOpen,
+    isDetailsModalOpen,
+    isUpdateModalOpen,
+  } = useTasks({ onUpdate, id });
 
   return (
     <>

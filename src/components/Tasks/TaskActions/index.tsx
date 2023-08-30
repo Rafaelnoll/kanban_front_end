@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 import * as S from './styles';
 import TrashIcon from '../../../assets/trash-icon.svg';
@@ -6,6 +6,7 @@ import EditIcon from '../../../assets/edit-icon.svg';
 import MoreIcon from '../../../assets/more-icon.svg';
 import CloseIcon from '../../../assets/close-icon.svg';
 import InfoIcon from '../../../assets/info-icon.svg';
+import useTaskActions from './useTaskActions';
 
 interface TaskActionsProps {
   onUpdate: () => void;
@@ -18,48 +19,26 @@ export default function TaskActions({
   onDelete,
   onSeeDetails,
 }: TaskActionsProps) {
-  const [isActionsOpen, setIsActionsOpen] = useState(false);
   const actionsMenuRef = useRef<HTMLDivElement | null>(null);
-
-  const closeActionsMenu = useCallback(() => {
-    setIsActionsOpen(false);
-  }, []);
-
-  function handleUpdate() {
-    onUpdate();
-    closeActionsMenu();
-  }
-
-  function handleDelete() {
-    onDelete();
-    closeActionsMenu();
-  }
-
-  function handleSeeDetails() {
-    onSeeDetails();
-    closeActionsMenu();
-  }
-
-  useEffect(() => {
-    const actionsMenu = actionsMenuRef.current;
-
-    function handleClickOutside(event: MouseEvent) {
-      if (!actionsMenu?.contains(event.target as Node)) {
-        setIsActionsOpen(false);
-      }
-    }
-
-    document?.addEventListener('mousedown', handleClickOutside);
-
-    return () => document?.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const {
+    handleDelete,
+    handleSeeDetails,
+    handleUpdate,
+    isActionsOpen,
+    handleChangeActionsIsOpen,
+  } = useTaskActions({
+    onDelete,
+    onSeeDetails,
+    onUpdate,
+    actionsMenuRef,
+  });
 
   return (
     <S.TaskActionsContainer ref={actionsMenuRef}>
       {isActionsOpen ? (
-        <CloseIcon onClick={() => setIsActionsOpen(false)} />
+        <CloseIcon onClick={() => handleChangeActionsIsOpen(false)} />
       ) : (
-        <MoreIcon onClick={() => setIsActionsOpen(true)} />
+        <MoreIcon onClick={() => handleChangeActionsIsOpen(true)} />
       )}
       {isActionsOpen && (
         <S.TaskActions>
