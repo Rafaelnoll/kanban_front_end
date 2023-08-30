@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 
 import * as S from './styles';
 import CloseIcon from '../../assets/close-circle.svg';
-import { toast } from 'react-toastify';
+import useImageEditor from './useImageEditor';
 
 interface ImageEditorProps {
   image: File;
@@ -13,31 +13,11 @@ interface ImageEditorProps {
 
 function ImageEditor({ image, onClose, onEdit }: ImageEditorProps) {
   const editorRef = useRef<AvatarEditor | null>(null);
-  const [zoom, setZoom] = useState(1);
-
-  function handleEditImage() {
-    const dataURL = editorRef.current
-      ?.getImageScaledToCanvas()
-      .toDataURL('image/jpeg', 0.8);
-
-    if (dataURL) {
-      fetch(dataURL)
-        .then((response) => response.blob())
-        .then((blob) => {
-          const file = new File([blob], image.name, { type: 'image/jpeg' });
-          onEdit(file);
-        })
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .catch((error) => {
-          toast.error('Erro ao mudar foto de perfil!');
-        });
-    }
-  }
-
-  function handleChangeZoom(event: ChangeEvent<HTMLInputElement>) {
-    const zoomLevel = event.target.value;
-    setZoom(Number(zoomLevel) / 100);
-  }
+  const { handleChangeZoom, handleEditImage, zoom } = useImageEditor({
+    editorRef,
+    onEdit,
+    image,
+  });
 
   return (
     <S.Container>
