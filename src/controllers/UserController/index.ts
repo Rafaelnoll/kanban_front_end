@@ -108,6 +108,16 @@ class UserController {
       toast.success('Senha alterada!');
     });
   }
+
+  async sendEmailToResetPassword(email: string) {
+    return handleAction(async () => {
+      await api.post('/users/forgot-password', {
+        email,
+      });
+
+      toast.success('E-mail enviado!');
+    });
+  }
 }
 
 export default new UserController();

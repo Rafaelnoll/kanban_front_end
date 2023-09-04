@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import * as S from './styles';
 import Button from '../../Button';
 import Input from '../../Input';
+import UserController from '../../../controllers/UserController';
 
 interface FormForgotPasswordInputs {
   email: string;
@@ -30,7 +31,7 @@ export function FormForgotPassword() {
   const onSubmit: SubmitHandler<FormForgotPasswordInputs> = ({
     email,
   }: FormForgotPasswordInputs) => {
-    console.log(email);
+    UserController.sendEmailToResetPassword(email);
   };
 
   return (
