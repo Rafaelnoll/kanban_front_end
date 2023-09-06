@@ -25,6 +25,12 @@ interface ChangePasswordInputs {
   new_password: string;
 }
 
+interface ResetPasswordInputs {
+  new_password: string;
+  new_password_confirmation: string;
+  token: string;
+}
+
 class UserController {
   async store({
     username,
@@ -116,6 +122,22 @@ class UserController {
       });
 
       toast.success('E-mail enviado!');
+    });
+  }
+
+  async resetUserPassword({
+    new_password,
+    new_password_confirmation,
+    token,
+  }: ResetPasswordInputs) {
+    return handleAction(async () => {
+      await api.put('/users/reset-password', {
+        new_password,
+        new_password_confirmation,
+        token,
+      });
+
+      toast.success('Senha alterada!');
     });
   }
 }

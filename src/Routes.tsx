@@ -10,6 +10,7 @@ import UserProfilePage from './pages/UserProfilePage';
 import KanbanPage from './pages/KanbanPage';
 import useAuthentication from './hooks/useAuthentication';
 import UserSettingsPage from './pages/UserSettingsPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function Routes() {
   const { user } = useAuthentication();
@@ -27,6 +28,7 @@ function Routes() {
         )}
 
         <Route path="/" element={<LoginPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
