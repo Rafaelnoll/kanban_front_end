@@ -1,4 +1,22 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const scaleIn = keyframes`
+  from {
+    transform: scale(0)
+  }
+  to {
+    transform: scale(1)
+  }
+`;
 
 const ButtonTemplate = styled.button`
   ${({ theme }) => css`
@@ -27,6 +45,8 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
+    animation: ${fadeIn} 0.3s;
+
     @media ${theme.media.mobile} {
       padding: 0 ${theme.spacing.small};
     }
@@ -41,6 +61,8 @@ export const ModalContainer = styled.div`
     width: 100%;
     max-width: 500px;
     border-radius: 8px;
+
+    animation: ${scaleIn} 0.3s;
   `}
 `;
 
