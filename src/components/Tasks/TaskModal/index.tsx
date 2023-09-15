@@ -47,14 +47,22 @@ function TaskModal({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormTasksInputs>({
     defaultValues: initialData,
     resolver: yupResolver(schema),
   });
 
   const onSubmit: SubmitHandler<FormTasksInputs> = (data) => {
-    onSubmitEvent(data);
+    if (visible) {
+      onSubmitEvent(data);
+    }
   };
+
+  function handleCancel() {
+    onCancel();
+    reset(initialData);
+  }
 
   const { shouldRender, animatedElementRef } = useAnimatedUnmount({ visible });
 
@@ -76,7 +84,7 @@ function TaskModal({
       <S.ModalContainer $isLeaving={!visible}>
         <S.ModalHeader>
           <S.Title>{title}</S.Title>
-          <CloseIcon onClick={onCancel} />
+          <CloseIcon onClick={handleCancel} />
         </S.ModalHeader>
 
         <S.ModalForm onSubmit={handleSubmit(onSubmit)}>
@@ -110,7 +118,7 @@ function TaskModal({
           <S.ErrorMessage>{errors.category_id?.message}</S.ErrorMessage>
 
           <S.FormFooter>
-            <S.CancelButton onClick={onCancel}>Cancelar</S.CancelButton>
+            <S.CancelButton onClick={handleCancel}>Cancelar</S.CancelButton>
             <S.SaveButton type="submit">Salvar</S.SaveButton>
           </S.FormFooter>
         </S.ModalForm>
