@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import React from 'react';
 
 import * as S from './styles';
 import CloseIcon from '../../../assets/close-circle.svg';
@@ -9,11 +6,10 @@ import CategoryIcon from '../../../assets/category-icon.svg';
 
 import Input from '../../Input';
 import CategorySelector from '../../Categories/CategorySelector';
-import { Category } from '../../../interfaces/Category';
-import CategoryController from '../../../controllers/CategoryController';
 import { FormTasksInputs } from '../../../interfaces/FormInputs';
 import StatusCheckBoxes from '../../StatusCheckBoxes';
 import useAnimatedUnmount from '../../../hooks/useAnimatedUnmount';
+import useTaskModal from './useTaskModal';
 
 interface TaskModalProps {
   title: string;
@@ -22,13 +18,6 @@ interface TaskModalProps {
   onSubmitEvent: (data: FormTasksInputs) => void;
   initialData: Partial<FormTasksInputs>;
 }
-
-const schema = yup.object({
-  title: yup.string().required('Título é obrigatório.'),
-  description: yup.string().max(500, 'O máximo de caracteres é 500.'),
-  category_id: yup.string().nullable(),
-  status: yup.string().required('Status é obrigatório.'),
-});
 
 function TaskModal({
   title,
@@ -42,38 +31,14 @@ function TaskModal({
   },
   visible,
 }: TaskModalProps) {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormTasksInputs>({
-    defaultValues: initialData,
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit: SubmitHandler<FormTasksInputs> = (data) => {
-    if (visible) {
-      onSubmitEvent(data);
-    }
-  };
-
-  function handleCancel() {
-    onCancel();
-    reset(initialData);
-  }
-
   const { shouldRender, animatedElementRef } = useAnimatedUnmount({ visible });
-
-  useEffect(() => {
-    async function loadCategories() {
-      const categories = await CategoryController.index();
-      setCategories(categories);
-    }
-
-    loadCategories();
-  }, []);
+  const { categories, errors, handleCancel, handleSubmit, onSubmit, register } =
+    useTaskModal({
+      visible,
+      initialData,
+      onCancel,
+      onSubmitEvent,
+    });
 
   if (!shouldRender) {
     return null;
