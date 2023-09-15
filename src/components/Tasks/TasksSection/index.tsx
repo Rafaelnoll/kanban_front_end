@@ -38,16 +38,15 @@ function TasksSection() {
         />
       </S.TopContent>
 
-      {isTaskModalOpen && (
-        <TaskModal
-          title="Criar Tarefa"
-          onCancel={handleCancelTaskModal}
-          onSubmitEvent={createTask}
-          initialData={{
-            status: statusSelected,
-          }}
-        />
-      )}
+      <TaskModal
+        title="Criar Tarefa"
+        onCancel={handleCancelTaskModal}
+        onSubmitEvent={createTask}
+        initialData={{
+          status: statusSelected,
+        }}
+        visible={isTaskModalOpen}
+      />
 
       <S.Container>
         <S.TasksContainer>

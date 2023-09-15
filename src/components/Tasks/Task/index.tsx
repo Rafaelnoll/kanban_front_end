@@ -38,19 +38,18 @@ function Task({
 
   return (
     <>
-      {isUpdateModalOpen && (
-        <TaskModal
-          title="Modificar Tarefa"
-          onSubmitEvent={handleUpdateTask}
-          initialData={{
-            title,
-            description,
-            status,
-            category_id,
-          }}
-          onCancel={handleCloseUpdateModal}
-        />
-      )}
+      <TaskModal
+        title="Modificar Tarefa"
+        onSubmitEvent={handleUpdateTask}
+        initialData={{
+          title,
+          description,
+          status,
+          category_id,
+        }}
+        onCancel={handleCloseUpdateModal}
+        visible={isUpdateModalOpen}
+      />
 
       {isDetailsModalOpen && (
         <TaskDetails

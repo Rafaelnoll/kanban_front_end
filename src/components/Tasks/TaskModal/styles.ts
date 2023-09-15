@@ -1,5 +1,9 @@
 import styled, { css, keyframes } from 'styled-components';
 
+interface AnimatedElementProps {
+  $isLeaving: boolean;
+}
+
 const fadeIn = keyframes`
   from {
     opacity: 0
@@ -18,6 +22,24 @@ const scaleIn = keyframes`
   }
 `;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+const scaleOut = keyframes`
+  from {
+    transform: scale(1)
+  }
+  to {
+    transform: scale(0)
+  }
+`;
+
 const ButtonTemplate = styled.button`
   ${({ theme }) => css`
     width: 100%;
@@ -30,8 +52,8 @@ const ButtonTemplate = styled.button`
   `}
 `;
 
-export const Container = styled.div`
-  ${({ theme }) => css`
+export const Container = styled.div<AnimatedElementProps>`
+  ${({ theme, $isLeaving }) => css`
     position: fixed;
     top: 0;
     left: 0;
@@ -46,6 +68,10 @@ export const Container = styled.div`
     justify-content: center;
 
     animation: ${fadeIn} 0.3s;
+    ${$isLeaving &&
+    css`
+      animation: ${fadeOut} 0.3s forwards;
+    `}
 
     @media ${theme.media.mobile} {
       padding: 0 ${theme.spacing.small};
@@ -53,8 +79,8 @@ export const Container = styled.div`
   `}
 `;
 
-export const ModalContainer = styled.div`
-  ${({ theme }) => css`
+export const ModalContainer = styled.div<AnimatedElementProps>`
+  ${({ theme, $isLeaving }) => css`
     background-color: ${theme.color.bg_secondary};
     padding: ${theme.spacing.medium};
 
@@ -63,6 +89,10 @@ export const ModalContainer = styled.div`
     border-radius: 8px;
 
     animation: ${scaleIn} 0.3s;
+    ${$isLeaving &&
+    css`
+      animation: ${scaleOut} 0.3s forwards;
+    `}
   `}
 `;
 
