@@ -13,9 +13,11 @@ import { Category } from '../../../interfaces/Category';
 import CategoryController from '../../../controllers/CategoryController';
 import { FormTasksInputs } from '../../../interfaces/FormInputs';
 import StatusCheckBoxes from '../../StatusCheckBoxes';
+import useAnimatedUnmount from '../../../hooks/useAnimatedUnmount';
 
 interface TaskModalProps {
   title: string;
+  visible: boolean;
   onCancel: () => void;
   onSubmitEvent: (data: FormTasksInputs) => void;
   initialData: Partial<FormTasksInputs>;
@@ -38,6 +40,7 @@ function TaskModal({
     category_id: '',
     status: 'DO',
   },
+  visible,
 }: TaskModalProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const {
@@ -53,6 +56,8 @@ function TaskModal({
     onSubmitEvent(data);
   };
 
+  const { shouldRender, animatedElementRef } = useAnimatedUnmount({ visible });
+
   useEffect(() => {
     async function loadCategories() {
       const categories = await CategoryController.index();
@@ -62,9 +67,13 @@ function TaskModal({
     loadCategories();
   }, []);
 
+  if (!shouldRender) {
+    return null;
+  }
+
   return (
-    <S.Container>
-      <S.ModalContainer>
+    <S.Container $isLeaving={!visible} ref={animatedElementRef}>
+      <S.ModalContainer $isLeaving={!visible}>
         <S.ModalHeader>
           <S.Title>{title}</S.Title>
           <CloseIcon onClick={onCancel} />
