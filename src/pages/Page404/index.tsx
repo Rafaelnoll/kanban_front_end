@@ -9,7 +9,7 @@ function Page404() {
   const navigate = useNavigate();
 
   function goBack() {
-    navigate(-1);
+    navigate('/dashboard');
   }
 
   return (
