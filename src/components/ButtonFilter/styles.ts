@@ -40,9 +40,27 @@ export const List = styled.div`
       rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     z-index: 998;
     left: 0;
-    border-radius: 8px;
+
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+
     margin-top: ${theme.spacing.xsmall};
+
     min-width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 2px; /* Largura da barra de rolagem */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: ${theme.color.primary};
+      border-radius: 8px;
+    }
 
     ${ListItem} {
       border-top: solid 1px ${theme.color.light_gray};
