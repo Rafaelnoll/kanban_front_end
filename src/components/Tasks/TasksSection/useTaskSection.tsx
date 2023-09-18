@@ -97,10 +97,15 @@ export default function useTaskSection() {
     }
   }
 
-  function filterTasksByTitle(tasks: TypeTask[]) {
-    return tasks.filter((task) =>
-      task.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()),
-    );
+  function filterTasksByTitleOrDescription(tasks: TypeTask[]) {
+    return tasks.filter((task) => {
+      return (
+        task.title
+          .toLocaleLowerCase()
+          .includes(searchValue.toLocaleLowerCase()) ||
+        task.description?.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    });
   }
 
   function filterTasksByCategory(tasks: TypeTask[]) {
@@ -119,7 +124,10 @@ export default function useTaskSection() {
       return <TaskSkeleton />;
     }
 
-    if (tasks.length === 0 || filterTasksByTitle(tasks).length === 0) {
+    if (
+      tasks.length === 0 ||
+      filterTasksByTitleOrDescription(tasks).length === 0
+    ) {
       return (
         <S.NoTasksContainer>
           <NoTasksIcon />
@@ -129,19 +137,21 @@ export default function useTaskSection() {
     }
 
     return searchValue.length >= 1
-      ? filterTasksByTitle(filterTasksByCategory(tasks)).map((task) => (
-          <Task
-            title={task.title}
-            category_name={task.category_name}
-            category_id={task.category_id}
-            description={task.description}
-            id={task.id}
-            key={task.id}
-            status={task.status}
-            onDelete={deleteTask}
-            onUpdate={updateTask}
-          />
-        ))
+      ? filterTasksByTitleOrDescription(filterTasksByCategory(tasks)).map(
+          (task) => (
+            <Task
+              title={task.title}
+              category_name={task.category_name}
+              category_id={task.category_id}
+              description={task.description}
+              id={task.id}
+              key={task.id}
+              status={task.status}
+              onDelete={deleteTask}
+              onUpdate={updateTask}
+            />
+          ),
+        )
       : filterTasksByCategory(tasks).map((task) => (
           <Task
             title={task.title}
