@@ -34,7 +34,7 @@ function TasksSection() {
           name="search"
           value={searchValue}
           onChange={handleChangeSearchValue}
-          placeholder="Busque por cards por título ou descrição..."
+          placeholder="Busque Cards por título ou descrição..."
         />
       </S.TopContent>
 
