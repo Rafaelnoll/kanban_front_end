@@ -1,4 +1,47 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+interface AnimatedComponent {
+  $isLoading: boolean;
+}
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
+
+const scaleIn = keyframes`
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+`;
+const scaleOut = keyframes`
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0);
+  }
+`;
 
 const ButtonTemplate = styled.button`
   ${({ theme }) => css`
@@ -12,8 +55,8 @@ const ButtonTemplate = styled.button`
   `}
 `;
 
-export const Container = styled.div`
-  ${({ theme }) => css`
+export const Container = styled.div<AnimatedComponent>`
+  ${({ theme, $isLoading }) => css`
     position: fixed;
     top: 0;
     left: 0;
@@ -27,20 +70,32 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
+    animation: ${fadeIn} 0.3s;
+    ${$isLoading &&
+    css`
+      animation: ${fadeOut} 0.3s forwards;
+    `}
+
     @media ${theme.media.mobile} {
       padding: 0 ${theme.spacing.small};
     }
   `}
 `;
 
-export const ModalContainer = styled.div`
-  ${({ theme }) => css`
+export const ModalContainer = styled.div<AnimatedComponent>`
+  ${({ theme, $isLoading }) => css`
     background-color: ${theme.color.bg_secondary};
     padding: ${theme.spacing.medium};
 
     width: 100%;
     max-width: 500px;
     border-radius: 8px;
+
+    animation: ${scaleIn} 0.3s;
+    ${$isLoading &&
+    css`
+      animation: ${scaleOut} 0.3s forwards;
+    `}
   `}
 `;
 

@@ -20,13 +20,12 @@ function CategoriesSection() {
 
   return (
     <>
-      {isModalOpen && (
-        <CategoryModal
-          title="Criar Categoria"
-          onCancel={handleCancelModal}
-          onSubmitEvent={createCategory}
-        />
-      )}
+      <CategoryModal
+        title="Criar Categoria"
+        onCancel={handleCancelModal}
+        onSubmitEvent={createCategory}
+        visible={isModalOpen}
+      />
 
       <S.TopContent>
         <SearchInput

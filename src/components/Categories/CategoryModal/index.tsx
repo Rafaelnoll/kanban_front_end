@@ -8,12 +8,14 @@ import CloseIcon from '../../../assets/close-circle.svg';
 
 import Input from '../../Input';
 import { FormCategoriesInputs } from '../../../interfaces/FormInputs';
+import useAnimatedUnmount from '../../../hooks/useAnimatedUnmount';
 
 interface TaskModalProps {
   title: string;
   onCancel: () => void;
   onSubmitEvent: (data: FormCategoriesInputs) => void;
   initialData?: Partial<FormCategoriesInputs>;
+  visible: boolean;
 }
 
 const schema = yup.object({
@@ -30,6 +32,7 @@ function CategoryModal({
   initialData = {
     name: '',
   },
+  visible,
 }: TaskModalProps) {
   const {
     register,
@@ -40,13 +43,19 @@ function CategoryModal({
     resolver: yupResolver(schema),
   });
 
+  const { shouldRender, animatedElementRef } = useAnimatedUnmount({ visible });
+
   const onSubmit: SubmitHandler<FormCategoriesInputs> = (data) => {
     onSubmitEvent(data);
   };
 
+  if (!shouldRender) {
+    return null;
+  }
+
   return (
-    <S.Container>
-      <S.ModalContainer>
+    <S.Container $isLoading={!visible} ref={animatedElementRef}>
+      <S.ModalContainer $isLoading={!visible}>
         <S.ModalHeader>
           <S.Title>{title}</S.Title>
           <CloseIcon onClick={onCancel} />
@@ -57,7 +66,9 @@ function CategoryModal({
           <S.ErrorMessage>{errors.name?.message}</S.ErrorMessage>
 
           <S.FormFooter>
-            <S.CancelButton onClick={onCancel}>Cancelar</S.CancelButton>
+            <S.CancelButton type="button" onClick={onCancel}>
+              Cancelar
+            </S.CancelButton>
             <S.SaveButton type="submit">Salvar</S.SaveButton>
           </S.FormFooter>
         </S.ModalForm>

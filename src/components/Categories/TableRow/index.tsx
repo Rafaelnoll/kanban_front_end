@@ -80,18 +80,15 @@ function TableRow({
             )}
           </S.ActionButtonContainer>
         </td>
-        {isModalEditOpen && (
-          <td style={{ width: '0%', padding: '0' }}>
-            <CategoryModal
-              onCancel={handleCloseModalEdit}
-              title="Modificar Categoria"
-              initialData={{
-                name,
-              }}
-              onSubmitEvent={handleUpdateCategory}
-            />
-          </td>
-        )}
+        <CategoryModal
+          onCancel={handleCloseModalEdit}
+          title="Modificar Categoria"
+          initialData={{
+            name,
+          }}
+          visible={isModalEditOpen}
+          onSubmitEvent={handleUpdateCategory}
+        />
       </S.TableRow>
     </>
   );
