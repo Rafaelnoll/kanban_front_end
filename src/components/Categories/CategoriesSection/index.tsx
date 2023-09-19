@@ -8,7 +8,7 @@ import { FormCategoriesInputs } from '../../../interfaces/FormInputs';
 
 import CategoryController from '../../../controllers/CategoryController';
 import AddIcon from '../../../assets/add-icon.svg';
-import TableCategory from '../TableCategory';
+import TableCategory from '../TableRow';
 
 function CategoriesSection() {
   const [searchValue, setSearchValue] = useState('');

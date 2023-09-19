@@ -8,18 +8,18 @@ import { Category } from '../../../interfaces/Category';
 import CategoryModal from '../CategoryModal';
 import { FormCategoriesInputs } from '../../../interfaces/FormInputs';
 
-interface TableCategoryProps extends Category {
+interface TableRowProps extends Category {
   onDelete: (categoryId: string) => void;
   onUpdate: (props: FormCategoriesInputs, id: string) => void;
 }
 
-function TableCategory({
+function TableRow({
   name,
   tasks_count,
   id,
   onDelete,
   onUpdate,
-}: TableCategoryProps) {
+}: TableRowProps) {
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
 
@@ -55,7 +55,7 @@ function TableCategory({
   return (
     <>
       <S.TableRow>
-        <td>{name}</td>
+        <td className="category_name">{name}</td>
         <td>{tasks_count}</td>
         <td>
           <S.ActionButtonContainer>
@@ -97,4 +97,4 @@ function TableCategory({
   );
 }
 
-export default TableCategory;
+export default TableRow;

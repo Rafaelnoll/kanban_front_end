@@ -14,13 +14,18 @@ export const TableRow = styled.tr`
     font-size: ${theme.size.medium};
 
     & > td {
-      padding: ${theme.spacing.small};
+      padding: ${theme.spacing.medium};
       color: ${theme.color.text};
       max-width: 50px;
 
       @media ${theme.media.mobile} {
         text-align: center;
       }
+    }
+
+    & > .category_name {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   `}
 `;
