@@ -12,7 +12,6 @@ export default function useTaskDetails(
     function handleClickOutside(event: MouseEvent) {
       if (container && !container?.contains(event.target as Node)) {
         setIsOnScreen(false);
-        console.log('safds');
       }
     }
 
