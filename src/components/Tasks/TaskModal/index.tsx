@@ -83,7 +83,9 @@ function TaskModal({
           <S.ErrorMessage>{errors.category_id?.message}</S.ErrorMessage>
 
           <S.FormFooter>
-            <S.CancelButton onClick={handleCancel}>Cancelar</S.CancelButton>
+            <S.CancelButton type="button" onClick={handleCancel}>
+              Cancelar
+            </S.CancelButton>
             <S.SaveButton type="submit">Salvar</S.SaveButton>
           </S.FormFooter>
         </S.ModalForm>
