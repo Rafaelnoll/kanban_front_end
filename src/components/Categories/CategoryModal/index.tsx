@@ -17,7 +17,10 @@ interface TaskModalProps {
 }
 
 const schema = yup.object({
-  name: yup.string().required('Nome é obrigatório.'),
+  name: yup
+    .string()
+    .required('Nome é obrigatório.')
+    .max(16, 'O nome deve conter no máximo 16 caracteres.'),
 });
 
 function CategoryModal({
