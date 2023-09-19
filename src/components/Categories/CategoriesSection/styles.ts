@@ -34,14 +34,26 @@ export const MainContent = styled.main`
 
 export const ButtonAdd = styled.button`
   ${({ theme }) => css`
-    background-color: ${theme.color.primary};
-    padding: ${theme.spacing.xsmall};
-    color: ${theme.color.white};
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.small};
+
+    background-color: transparent;
+    padding: ${theme.spacing.small};
+    color: ${theme.color.primary};
 
     display: flex;
-    border: none;
+    border: ${theme.color.primary} 2px solid;
     border-radius: 8px;
     cursor: pointer;
+
+    font-size: ${theme.size.medium};
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: ${theme.color.primary};
+      color: ${theme.color.white};
+    }
   `}
 `;
 
