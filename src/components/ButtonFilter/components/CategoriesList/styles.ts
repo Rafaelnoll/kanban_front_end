@@ -48,6 +48,10 @@ export const ListItemText = styled.span`
     color: ${theme.color.text_dark};
     font-size: ${theme.size.small};
 
+    text-overflow: ellipsis;
+    max-width: 150px;
+    overflow: hidden;
+
     flex: 1;
   `}
 `;
