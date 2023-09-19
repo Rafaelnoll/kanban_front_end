@@ -10,6 +10,18 @@ function useCategoriesSection() {
   const [searchValue, setSearchValue] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [page, setPage] = useState<number>(0);
+
+  const categoriesPerPage = 6;
+
+  const filtredCategories =
+    searchValue.length >= 1
+      ? categories.filter((category) =>
+          category.name.toLowerCase().includes(searchValue.toLowerCase()),
+        )
+      : categories;
+
+  const totalOfPages = Math.ceil(filtredCategories.length / categoriesPerPage);
 
   function handleChangeSearchValue(event: ChangeEvent<HTMLInputElement>) {
     setSearchValue(event.target.value);
@@ -21,6 +33,18 @@ function useCategoriesSection() {
 
   function handleCancelModal() {
     setIsModalOpen(false);
+  }
+
+  function handleNextPage() {
+    if (page + 1 < totalOfPages) {
+      setPage((prevState) => prevState + 1);
+    }
+  }
+
+  function handlePreviousPage() {
+    if (page > 0) {
+      setPage((prevState) => prevState - 1);
+    }
   }
 
   async function createCategory({ name }: FormCategoriesInputs) {
@@ -62,12 +86,9 @@ function useCategoriesSection() {
   }
 
   function renderCategories() {
-    const filtredCategories = categories.filter((category) =>
-      category.name.toLowerCase().includes(searchValue.toLowerCase()),
-    );
-
-    if (searchValue.length >= 1) {
-      return filtredCategories.map((category) => (
+    return filtredCategories
+      .slice(categoriesPerPage * page, categoriesPerPage * (page + 1))
+      .map((category) => (
         <TableRow
           key={category.id}
           name={category.name}
@@ -77,18 +98,6 @@ function useCategoriesSection() {
           onDelete={deleteCategory}
         />
       ));
-    }
-
-    return categories.map((category) => (
-      <TableRow
-        key={category.id}
-        name={category.name}
-        id={category.id}
-        tasks_count={category.tasks_count}
-        onUpdate={uptadeCategory}
-        onDelete={deleteCategory}
-      />
-    ));
   }
 
   useEffect(() => {
@@ -112,6 +121,10 @@ function useCategoriesSection() {
     handleChangeSearchValue,
     handleOpenModal,
     renderCategories,
+    page,
+    handleNextPage,
+    handlePreviousPage,
+    totalOfPages,
   };
 }
 

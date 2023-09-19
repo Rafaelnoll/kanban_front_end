@@ -6,6 +6,7 @@ import CategoryModal from '../CategoryModal';
 
 import AddIcon from '../../../assets/add-icon.svg';
 import useCategoriesSection from './useCategoriesSection';
+import Pagination from './components/Pagination';
 
 function CategoriesSection() {
   const {
@@ -16,6 +17,10 @@ function CategoriesSection() {
     isModalOpen,
     renderCategories,
     searchValue,
+    page,
+    handleNextPage,
+    handlePreviousPage,
+    totalOfPages,
   } = useCategoriesSection();
 
   return (
@@ -39,6 +44,7 @@ function CategoriesSection() {
       <S.MainContent>
         <S.ButtonAdd onClick={handleOpenModal}>
           <AddIcon />
+          <span>Criar Categoria</span>
         </S.ButtonAdd>
         <S.Table cellSpacing="0">
           <thead>
@@ -51,6 +57,15 @@ function CategoriesSection() {
           <S.TableBody>{renderCategories()}</S.TableBody>
         </S.Table>
       </S.MainContent>
+
+      {totalOfPages !== 0 && (
+        <Pagination
+          pageNumber={page}
+          onNextPage={handleNextPage}
+          onPreviousPage={handlePreviousPage}
+          totalOfPages={totalOfPages}
+        />
+      )}
     </>
   );
 }
