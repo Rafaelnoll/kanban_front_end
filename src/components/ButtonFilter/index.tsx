@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import FilterIcon from '../../assets/filter-icon.svg';
 
 import Button from '../Button';
 import * as S from './styles';
 import { Category } from '../../interfaces/Category';
-import CategoryController from '../../controllers/CategoryController';
 import CategoriesList from './components/CategoriesList';
+import useButtonFilter from './useButtonFilter';
 
 interface ButtonFilterProps {
   initialCategories?: Category[];
@@ -19,26 +19,8 @@ function ButtonFilterCategories({
   onSelectCategory,
   selectedCategory,
 }: ButtonFilterProps) {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isListOpen, setIsListOpen] = useState(false);
-
-  useEffect(() => {
-    async function loadCategories() {
-      const allCategories = await CategoryController.index();
-      setCategories(allCategories);
-    }
-
-    if (initialCategories) {
-      setCategories(initialCategories);
-      return;
-    }
-
-    loadCategories();
-  }, []);
-
-  function handleOpenAndCloseList() {
-    setIsListOpen((prevState) => !prevState);
-  }
+  const { categories, isListOpen, handleOpenAndCloseList } =
+    useButtonFilter(initialCategories);
 
   return (
     <S.Container>
