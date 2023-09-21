@@ -113,6 +113,12 @@ function useCategoriesSection() {
     loadCategories();
   }, []);
 
+  useEffect(() => {
+    if (page === totalOfPages && page !== 0) {
+      setPage((prevState) => prevState - 1);
+    }
+  }, [filtredCategories]);
+
   return {
     isModalOpen,
     handleCancelModal,
