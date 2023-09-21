@@ -40,7 +40,7 @@ export const ButtonAdd = styled.button`
 
     background-color: transparent;
     padding: ${theme.spacing.small};
-    color: ${theme.color.primary};
+    color: ${theme.color.text};
 
     display: flex;
     border: ${theme.color.primary} 2px solid;

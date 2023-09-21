@@ -19,10 +19,17 @@ export const Buttom = styled.button`
 
     padding: ${theme.spacing.small};
 
-    color: ${theme.color.text_dark};
+    color: ${theme.color.text};
     border: 2px ${theme.color.text_dark} solid;
     border-radius: 8px;
     background-color: transparent;
+
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: ${theme.color.primary};
+      color: ${theme.color.white};
+    }
   `}
 `;
 
@@ -57,6 +64,14 @@ export const PageNumberContainer = styled.div`
     & ${PageNumber}:first-child {
       background-color: ${theme.color.primary};
       color: ${theme.color.white};
+    }
+
+    & ${PageNumber}:last-child {
+      color: ${theme.color.text};
+    }
+
+    span {
+      color: ${theme.color.text};
     }
   `}
 `;

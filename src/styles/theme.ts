@@ -54,7 +54,7 @@ export default {
       bg_secondary: '#333333',
       bg_tertiary: '#333333',
       shadow_box: 'rgb(100 100 111 / 0.2) 0px 7px 29px 0px;',
-      primary: '#3a0e4a',
+      primary: '#4B0082',
       secondary: '#D7D1F5',
       orange: '#FFA500',
       red: '#FF0000',
