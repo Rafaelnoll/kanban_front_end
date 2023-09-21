@@ -7,6 +7,7 @@ import CategoryModal from '../CategoryModal';
 import AddIcon from '../../../assets/add-icon.svg';
 import useCategoriesSection from './useCategoriesSection';
 import Pagination from './components/Pagination';
+import Table from './components/Table';
 
 function CategoriesSection() {
   const {
@@ -46,16 +47,7 @@ function CategoriesSection() {
           <AddIcon />
           <span>Criar Categoria</span>
         </S.ButtonAdd>
-        <S.Table cellSpacing="0">
-          <thead>
-            <S.TableRow>
-              <th>Nome</th>
-              <th>Tarefas</th>
-              <th>Ações</th>
-            </S.TableRow>
-          </thead>
-          <S.TableBody>{renderCategories()}</S.TableBody>
-        </S.Table>
+        <Table onRenderCategories={renderCategories} />
       </S.MainContent>
 
       {totalOfPages !== 0 && (

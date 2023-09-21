@@ -33,6 +33,7 @@ export const TableRow = styled.tr`
 export const ActionButtonContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
+    justify-content: center;
     gap: ${theme.spacing.small};
   `}
 `;
