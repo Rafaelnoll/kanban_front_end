@@ -57,6 +57,13 @@ export const Button = styled.button<ButtonProps>`
 
     cursor: pointer;
 
+    &:disabled {
+      color: ${theme.color.text_dark};
+      background-color: ${transparent === 'true'
+        ? 'transparent'
+        : theme.color.light_gray};
+    }
+
     @media ${theme.media.mobile} {
       padding: ${theme.spacing.medium}
         ${responsive === 'true' ? theme.spacing.medium : theme.spacing.big};
