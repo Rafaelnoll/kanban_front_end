@@ -17,10 +17,13 @@ const schema = yup.object({
   email: yup.string().required('Email é obrigatório.').email('E-mail inválido'),
 });
 
+const initialTimerDurationInSeconds = 60;
+
 export function FormForgotPassword() {
   const [isButtonEnable, setIsButtonEnable] = useState(true);
-  const [timerDurationInSeconds, setTimerDurationInSeconds] =
-    useState<number>(60);
+  const [timerDurationInSeconds, setTimerDurationInSeconds] = useState<number>(
+    initialTimerDurationInSeconds,
+  );
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   const {
@@ -57,6 +60,7 @@ export function FormForgotPassword() {
       clearInterval(timerInterval);
       setIsTimerRunning(false);
       setIsButtonEnable(true);
+      setTimerDurationInSeconds(initialTimerDurationInSeconds);
     }
 
     return () => clearInterval(timerInterval);
