@@ -10,6 +10,7 @@ interface ButtonProps {
   link?: string;
   type?: 'button' | 'submit' | 'reset';
   handleClick?: () => void;
+  disabled?: boolean;
 }
 
 function Button({
@@ -20,6 +21,7 @@ function Button({
   responsive = 'false',
   type = 'button',
   handleClick,
+  disabled = false,
 }: ButtonProps) {
   if (link) {
     return (
@@ -41,6 +43,7 @@ function Button({
       responsive={responsive}
       transparent={transparent}
       type={type}
+      disabled={disabled}
     >
       {Icon && <Icon />}
       <S.Text>{text}</S.Text>

@@ -88,7 +88,7 @@ export function FormResetPassword() {
         )}
       </S.InputContainer>
 
-      <Button text="Alteral senha" type="submit" />
+      <Button text="Alterar senha" type="submit" />
 
       <S.SmallText>
         Lembra da senha? <S.FormLink to="/login">Login</S.FormLink>

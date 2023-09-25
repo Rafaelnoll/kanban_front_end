@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -7,6 +7,7 @@ import * as S from './styles';
 import Button from '../../Button';
 import Input from '../../Input';
 import UserController from '../../../controllers/UserController';
+import formatSecondsToMinutes from '../../../utils/formatSecondsToMinutes';
 
 interface FormForgotPasswordInputs {
   email: string;
@@ -17,6 +18,11 @@ const schema = yup.object({
 });
 
 export function FormForgotPassword() {
+  const [isButtonEnable, setIsButtonEnable] = useState(true);
+  const [timerDurationInSeconds, setTimerDurationInSeconds] =
+    useState<number>(60);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -28,11 +34,33 @@ export function FormForgotPassword() {
     resolver: yupResolver(schema),
   });
 
+  const handleStartTimer = () => {
+    return setInterval(() => {
+      setTimerDurationInSeconds((prevState) => prevState - 1);
+    }, 1000);
+  };
+
   const onSubmit: SubmitHandler<FormForgotPasswordInputs> = ({
     email,
   }: FormForgotPasswordInputs) => {
+    setIsButtonEnable(false);
+    setIsTimerRunning(true);
     UserController.sendEmailToResetPassword(email);
   };
+
+  useEffect(() => {
+    if (!isTimerRunning) return;
+
+    const timerInterval = handleStartTimer();
+
+    if (timerDurationInSeconds === 0) {
+      clearInterval(timerInterval);
+      setIsTimerRunning(false);
+      setIsButtonEnable(true);
+    }
+
+    return () => clearInterval(timerInterval);
+  }, [timerDurationInSeconds, isTimerRunning]);
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -49,7 +77,15 @@ export function FormForgotPassword() {
         )}
       </S.InputContainer>
 
-      <Button text="Enviar código" type="submit" />
+      <Button
+        disabled={!isButtonEnable}
+        text={
+          isTimerRunning
+            ? `Aguarde ${formatSecondsToMinutes(timerDurationInSeconds)}`
+            : 'Enviar E-mail'
+        }
+        type="submit"
+      />
 
       <S.SmallText>
         Lembra da senha? <S.FormLink to="/login">Login</S.FormLink>
