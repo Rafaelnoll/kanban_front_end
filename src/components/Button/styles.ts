@@ -62,6 +62,7 @@ export const Button = styled.button<ButtonProps>`
       background-color: ${transparent === 'true'
         ? 'transparent'
         : theme.color.light_gray};
+      cursor: not-allowed;
     }
 
     @media ${theme.media.mobile} {
