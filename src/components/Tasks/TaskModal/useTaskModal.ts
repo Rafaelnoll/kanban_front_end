@@ -41,6 +41,12 @@ function useTaskModal({
   const onSubmit: SubmitHandler<FormTasksInputs> = (data) => {
     if (visible) {
       onSubmitEvent(data);
+      reset({
+        category_id: '',
+        description: '',
+        status: initialData.status,
+        title: '',
+      });
     }
   };
 

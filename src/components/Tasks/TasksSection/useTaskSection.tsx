@@ -1,21 +1,13 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-
-import * as S from './styles';
-
-import NoTasksIcon from '../../../assets/no-task.svg';
-import TaskController from '../../../controllers/TaskController';
-import TaskSkeleton from '../TaskSkeleton';
-import Task from '../Task';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { FormTasksInputs } from '../../../interfaces/FormInputs';
-import { TaskStatus, Task as TypeTask } from '../../../interfaces/Task';
+import { Task as TypeTask } from '../../../interfaces/Task';
+import TaskController from '../../../controllers/TaskController';
 
 export default function useTaskSection() {
   const [searchValue, setSearchValue] = useState('');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('');
-  const [statusSelected, setStatusSelected] = useState<TaskStatus>('DO');
   const [tasks, setTasks] = useState<TypeTask[]>([]);
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const tasksSections = {
@@ -34,15 +26,6 @@ export default function useTaskSection() {
     setSearchValue(event.target.value);
   }
 
-  function handleCancelTaskModal() {
-    setIsTaskModalOpen(false);
-  }
-
-  function handleOpenTaskModal(status: TaskStatus) {
-    setStatusSelected(status);
-    setIsTaskModalOpen(true);
-  }
-
   async function createTask({
     title,
     description,
@@ -56,12 +39,7 @@ export default function useTaskSection() {
       category_id,
     });
 
-    setTasks((prevState) => {
-      prevState.push(newTask);
-      return prevState;
-    });
-
-    setIsTaskModalOpen(false);
+    setTasks([...tasks, newTask]);
   }
 
   async function deleteTask(taskId: string) {
@@ -97,76 +75,6 @@ export default function useTaskSection() {
     }
   }
 
-  function filterTasksByTitleOrDescription(tasks: TypeTask[]) {
-    return tasks.filter((task) => {
-      return (
-        task.title
-          .toLocaleLowerCase()
-          .includes(searchValue.toLocaleLowerCase()) ||
-        task.description?.toLowerCase().includes(searchValue.toLowerCase())
-      );
-    });
-  }
-
-  function filterTasksByCategory(tasks: TypeTask[]) {
-    return tasks.filter((task) => {
-      if (!selectedCategoryFilter) return true;
-
-      return (
-        task.category_name?.toLowerCase() ===
-        selectedCategoryFilter.toLowerCase()
-      );
-    });
-  }
-
-  function renderTasks(tasks: TypeTask[]) {
-    if (isLoading) {
-      return <TaskSkeleton />;
-    }
-
-    if (
-      tasks.length === 0 ||
-      filterTasksByTitleOrDescription(tasks).length === 0
-    ) {
-      return (
-        <S.NoTasksContainer>
-          <NoTasksIcon />
-          <span>Sem tarefas</span>
-        </S.NoTasksContainer>
-      );
-    }
-
-    return searchValue.length >= 1
-      ? filterTasksByTitleOrDescription(filterTasksByCategory(tasks)).map(
-          (task) => (
-            <Task
-              title={task.title}
-              category_name={task.category_name}
-              category_id={task.category_id}
-              description={task.description}
-              id={task.id}
-              key={task.id}
-              status={task.status}
-              onDelete={deleteTask}
-              onUpdate={updateTask}
-            />
-          ),
-        )
-      : filterTasksByCategory(tasks).map((task) => (
-          <Task
-            title={task.title}
-            category_name={task.category_name}
-            category_id={task.category_id}
-            description={task.description}
-            id={task.id}
-            key={task.id}
-            status={task.status}
-            onDelete={deleteTask}
-            onUpdate={updateTask}
-          />
-        ));
-  }
-
   useEffect(() => {
     async function loadTasks() {
       setIsLoading(true);
@@ -186,12 +94,10 @@ export default function useTaskSection() {
     handleSelectCategoryFilter,
     searchValue,
     handleChangeSearchValue,
-    isTaskModalOpen,
-    handleCancelTaskModal,
     createTask,
-    statusSelected,
-    handleOpenTaskModal,
-    renderTasks,
+    updateTask,
+    deleteTask,
     tasksSections,
+    isLoading,
   };
 }

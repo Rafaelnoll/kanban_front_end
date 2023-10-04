@@ -2,11 +2,10 @@ import React from 'react';
 
 import * as S from './styles';
 
-import AddIcon from '../../../assets/add-icon.svg';
-import TaskModal from '../TaskModal';
 import SearchInput from '../../SearchInput';
 import ButtonFilterCategories from '../../ButtonFilter';
 import useTaskSection from './useTaskSection';
+import TasksColumn from './components/TasksColumn';
 
 function TasksSection() {
   const {
@@ -14,13 +13,11 @@ function TasksSection() {
     handleSelectCategoryFilter,
     searchValue,
     handleChangeSearchValue,
-    isTaskModalOpen,
-    handleCancelTaskModal,
     createTask,
-    statusSelected,
-    handleOpenTaskModal,
-    renderTasks,
     tasksSections,
+    isLoading,
+    deleteTask,
+    updateTask,
   } = useTaskSection();
 
   return (
@@ -38,42 +35,42 @@ function TasksSection() {
         />
       </S.TopContent>
 
-      <TaskModal
-        title="Criar Tarefa"
-        onCancel={handleCancelTaskModal}
-        onSubmitEvent={createTask}
-        initialData={{
-          status: statusSelected,
-        }}
-        visible={isTaskModalOpen}
-      />
-
       <S.Container>
-        <S.TasksContainer>
-          <S.TasksContainerHeader>
-            <S.Label>A fazer</S.Label>
-            <AddIcon onClick={() => handleOpenTaskModal('DO')} />
-          </S.TasksContainerHeader>
+        <TasksColumn
+          label="A Fazer"
+          defaultStatus="DO"
+          isLoading={isLoading}
+          onCreateTask={createTask}
+          onDeleteTask={deleteTask}
+          onUpdateTask={updateTask}
+          searchValue={searchValue}
+          selectedCategory={selectedCategoryFilter}
+          tasks={tasksSections.DO}
+        />
 
-          <S.TasksList>{renderTasks(tasksSections.DO)}</S.TasksList>
-        </S.TasksContainer>
+        <TasksColumn
+          label="Fazendo"
+          defaultStatus="DOING"
+          isLoading={isLoading}
+          onCreateTask={createTask}
+          onDeleteTask={deleteTask}
+          onUpdateTask={updateTask}
+          searchValue={searchValue}
+          selectedCategory={selectedCategoryFilter}
+          tasks={tasksSections.DOING}
+        />
 
-        <S.TasksContainer>
-          <S.TasksContainerHeader>
-            <S.Label>Fazendo</S.Label>
-            <AddIcon onClick={() => handleOpenTaskModal('DOING')} />
-          </S.TasksContainerHeader>
-          <S.TasksList>{renderTasks(tasksSections.DOING)}</S.TasksList>
-        </S.TasksContainer>
-
-        <S.TasksContainer>
-          <S.TasksContainerHeader>
-            <S.Label>Feito</S.Label>
-            <AddIcon onClick={() => handleOpenTaskModal('DONE')} />
-          </S.TasksContainerHeader>
-
-          <S.TasksList>{renderTasks(tasksSections.DONE)}</S.TasksList>
-        </S.TasksContainer>
+        <TasksColumn
+          label="Concluído"
+          defaultStatus="DONE"
+          isLoading={isLoading}
+          onCreateTask={createTask}
+          onDeleteTask={deleteTask}
+          onUpdateTask={updateTask}
+          searchValue={searchValue}
+          selectedCategory={selectedCategoryFilter}
+          tasks={tasksSections.DONE}
+        />
       </S.Container>
     </>
   );

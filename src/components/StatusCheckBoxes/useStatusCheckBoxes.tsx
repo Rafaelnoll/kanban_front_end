@@ -12,7 +12,7 @@ interface UseStatusCheckBoxes {
 }
 
 export default function useStatusCheckBoxes({
-  defaultStatus = 'DO',
+  defaultStatus,
   register,
   name,
 }: UseStatusCheckBoxes) {
